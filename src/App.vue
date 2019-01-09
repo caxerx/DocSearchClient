@@ -1,6 +1,8 @@
 <template>
-  <v-toolbar>
-    <v-toolbar-title>Title</v-toolbar-title>
+  <v-toolbar  height="80">
+    <img src="./assets/logo.png" height="70"/>
+    
+    <v-toolbar-title> title </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat>Link One</v-btn>
