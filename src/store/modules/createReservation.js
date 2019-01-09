@@ -1,7 +1,7 @@
 
 
 const state = {
-    reservationData: {
+    createReservation: {
         date: new Date().toISOString().substr(0, 10),
         time: "",
         averageMinutes: 10,
@@ -21,7 +21,7 @@ const state = {
 
 
 const getters = {
-    getReservationData: state => state.reservationData,
+    getCreateReservation: state => state.createReservation,
 }
 
 const actions = {
@@ -47,43 +47,43 @@ const actions = {
 // mutations
 const mutations = {
     ["setReservationDate"](state, newDate) {
-        state.reservationData.date = newDate;
+        state.createReservation.date = newDate;
         //reset
-        state.reservationData.time = "";
-        state.reservationData.timeList = [];
+        state.createReservation.time = "";
+        state.createReservation.timeList = [];
         
-        setTestReservationData(state);
+        setTestcreateReservation(state);
 
     },
     ["setTime"](state, time) {
-        state.reservationData.time = time;
-        console.log("state ", state.reservationData.time);
+        state.createReservation.time = time;
+        console.log("state ", state.createReservation.time);
 
     },
     ["reset"](state) {
-        state.reservationData.time = "";
-        state.reservationData.date = new Date().toISOString().substr(0, 10);
-        state.reservationData.timeList = [];
+        state.createReservation.time = "";
+        state.createReservation.date = new Date().toISOString().substr(0, 10);
+        state.createReservation.timeList = [];
     },
     ["setDefaultReservation"](state) {
         //reset
-        state.reservationData.time = "";
-        state.reservationData.timeList = [];
+        state.createReservation.time = "";
+        state.createReservation.timeList = [];
 
-        setTestReservationData(state);
+        setTestcreateReservation(state);
 
     },
 
 
 }
 
-function setTestReservationData(state) {
-    var value = state.reservationData.startHour;
+function setTestcreateReservation(state) {
+    var value = state.createReservation.startHour;
     var minutes = [];
-    for (var i = 0; i < state.reservationData.maxMinutes; i += state.reservationData.averageMinutes) {
+    for (var i = 0; i < state.createReservation.maxMinutes; i += state.createReservation.averageMinutes) {
         minutes.push(i);
     }
-    for (var i = 0; i < state.reservationData.workingHour; i++) {
+    for (var i = 0; i < state.createReservation.workingHour; i++) {
         for (var j = 0; j < minutes.length; j++) {
             //for xx:05 min
             if (minutes[j] < 10) {
@@ -105,14 +105,14 @@ function setTestReservationData(state) {
 
 
             if (startTime == "9:00" && endTime == "9:10") {
-                state.reservationData.timeList.push({
+                state.createReservation.timeList.push({
 
                     startTime: startTime,
                     endTime: endTime,
                     status: false
                 });
             } else {
-                state.reservationData.timeList.push({
+                state.createReservation.timeList.push({
 
                     startTime: startTime,
                     endTime: endTime,

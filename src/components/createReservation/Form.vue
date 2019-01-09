@@ -1,29 +1,16 @@
 <template>
-  <small-container>
-    <div slot="title">FeedBack</div>
-    <v-form slot="content" ref="form" v-model="valid" lazy-validation>
-      <!-- <h1>FeedBack</h1> -->
-   
-      <br>
-      <v-text-field v-model="name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
-      <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-
-      <v-textarea name="input-7-1" label="Comment" value></v-textarea>
-
-
-      <v-btn @click="submit" color="primary">submit</v-btn>
-      <v-btn @click="clear" color="primary">clear</v-btn>
-            <br>
-      <br>
-      
-    </v-form>
-  </small-container>
+  <v-form ref="form" v-model="valid" lazy-validation>
+    <date-picker/>
+    <v-text-field prepend-icon="access_time" v-model="time" label="Time" :checked="time" disabled></v-text-field>
+    <v-btn :disabled="!valid" @click="submit" style="float:left">submit</v-btn>
+    <v-btn @click="clear" style="float:left">clear</v-btn>
+  </v-form>
 </template>
-
 
 <script>
 import axios from "axios";
-import SmallContainer from "@/components/SmallContainer.vue";
+import DatePicker from "./DatePicker";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   data: () => ({
@@ -39,15 +26,27 @@ export default {
       v => /.+@.+/.test(v) || "E-mail must be valid"
     ],
     select: null,
-
+    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
     checkbox: false
   }),
 
+  computed: {
+    ...mapGetters({
+     getter : "getCreateReservation"
+    }),
+
+    time(){
+      return this.getter.time;
+    },
+  },
+
   components: {
-    SmallContainer
+    DatePicker
   },
 
   methods: {
+    ...mapActions(["actionReset"]),
+
     submit() {
       if (this.$refs.form.validate()) {
         // Native form submission is not yet supported
@@ -60,7 +59,8 @@ export default {
       }
     },
     clear() {
-      this.$refs.form.reset();
+      
+      this.actionReset();
     }
   }
 };
