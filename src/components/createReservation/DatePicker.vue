@@ -47,15 +47,16 @@ export default {
 
   computed: {
     $state() {
-      return this.$store.state;
+      return this.$store.state.createReservation.createReservation;
     },
 
     reservationDate: {
       get() {
-          console.log(this.$state.createReservation.date)
-        return this.$state.createReservation.date;
+          console.log(this.$state.date)
+        return this.$state.date;
       },
       set(date) {
+        console.log(date);
         this.$store.commit("setReservationDate", date);
       }
     },

@@ -61,7 +61,7 @@ export default {
         { icon: "warning", title: "Link C" }
       ],
       clinc: [
-        { title: "Link A", link: "" },
+        { title: "Create Reservation", link: "createReservation" },
         { title: "View Reservation", link: "viewReservation" },
         { title: "FeedBack", link: "feedBack" }
       ]

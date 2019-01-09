@@ -71,6 +71,7 @@ const mutations = {
         state.createReservation.timeList = [];
 
         setTestcreateReservation(state);
+        console.log(state.createReservation.date);
 
     },
 
