@@ -1,5 +1,7 @@
 <template>
-  <v-toolbar>
+<div>
+  <v-toolbar prominent=true>
+   
     <v-toolbar-title>Title</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -8,6 +10,8 @@
       <v-btn flat>Link Three</v-btn>
     </v-toolbar-items>
   </v-toolbar>
+  <router-view/>
+</div>
 </template>
 
 
@@ -23,6 +27,12 @@ export default {
     return {
       //
     }
+  },
+
+  methods:{
+     feedBack() {
+      this.$router.push("/feedBack");
+    },
   }
 }
 </script>
