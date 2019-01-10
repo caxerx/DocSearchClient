@@ -3,12 +3,12 @@
     <div slot="title">Login</div>
     <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
       <v-text-field
-        prepend-icon="person"
-        name="name"
-        label="name"
+        prepend-icon="email"
+        name="email"
+        label="email"
         type="text"
-        :rules="nameRules"
-        v-model="name"
+        :rules="emailRules"
+        v-model="email"
         required
       ></v-text-field>
       <v-text-field
@@ -46,8 +46,8 @@ import SmallContainer from "@/components/SmallContainer.vue";
 export default {
   data: () => ({
     valid: true,
-    name: "",
-    nameRules: [v => !!v || "Name is required"],
+    email: "",
+    emailRules: [v => !!v || "Email is required"],
     pwd: "",
     pwdRules: [v => !!v || "Password is required"],
     errMsg: ""
@@ -67,7 +67,7 @@ export default {
     check() {
       if (this.$refs.form.validate()) {
         var obj = {
-          name: this.name,
+          email: this.email,
           pwd: this.pwd
         };
         this.actionLogin(obj);

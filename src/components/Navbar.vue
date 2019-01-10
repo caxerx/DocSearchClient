@@ -24,7 +24,7 @@
         </v-list>
       </v-menu>
 
-      <v-btn flat>Sign-in</v-btn>
+      <v-btn flat @click="router(signInOrSignOut.link)">{{signInOrSignOut.title}}</v-btn>
     </v-toolbar-items>
 
     <!-- it is hidden menu -->
@@ -41,9 +41,9 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-    <v-btn flat @click="router(loginOrLogout.link)">
-      <v-icon>{{loginOrLogout.icon}}</v-icon>
-      {{loginOrLogout.title}}
+    <v-btn flat @click="router(personal.link)">
+      <v-icon>{{personal.icon}}</v-icon>
+      {{personal.title}}
     </v-btn>
 
     <!-- it is hidden menu -->
@@ -73,7 +73,8 @@ export default {
         { icon: "warning", title: "Link C" }
       ],
       feedBack: { title: "FeedBack", link: "feedBack" },
-      loginOrLogout: { icon: "person", title: "Login", link: "login" },
+      personal: { icon: "person", title: "", link: "" },
+      signInOrSignOut:{title:"sign-in",link:"login"},
 
       reservation: [
         { title: "Create Reservation", link: "createReservation" },

@@ -3,7 +3,7 @@
 const state = {
   login: {
     userInfo: {
-      name: "test",
+      email: "test",
       pwd: "test",
     },
     isSuccess: false,
@@ -21,7 +21,7 @@ const getters = {
 const actions = {
 
   actionLogin({ commit }, obj) {
-    if (obj.name == state.login.userInfo.name && obj.pwd == state.login.userInfo.pwd) {
+    if (obj.email == state.login.userInfo.email && obj.pwd == state.login.userInfo.pwd) {
       commit("success");
     } else {
      
