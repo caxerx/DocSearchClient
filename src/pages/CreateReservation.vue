@@ -1,7 +1,7 @@
 <template>
   <container>
     <div slot="content">
-      <h1>Create Reservation</h1>
+      <h1 class="font-weight-regular">Create Reservation</h1>
     <v-layout row wrap justify-space-between>
       <v-flex xs5>
         <reservation-form/>

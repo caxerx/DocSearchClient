@@ -9,6 +9,7 @@ import { state, mutations } from './mutations.js';
 // modules
 import viewReservation from './modules/viewReservation.js';
 import createReservation from './modules/createReservation.js';
+import login from './modules/login.js';
 
 
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
 
   modules: {
     viewReservation,
-    createReservation
+    createReservation,
+    login
 
   },
 

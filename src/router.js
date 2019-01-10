@@ -5,6 +5,7 @@ import FeedBack from './pages/FeedBack'
 import ViewReservation from './pages/ViewReservation.vue'
 import CreateReservation from './pages/CreateReservation.vue'
 import Test from './pages/Test.vue'
+import Login from './pages/Login.vue'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/createReservation',
       name: 'createReservation',
       component: CreateReservation
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/test',
