@@ -1,20 +1,19 @@
 <template>
   <small-container>
     <div slot="title">FeedBack</div>
-    <v-form slot="content" ref="form" v-model="valid" lazy-validation>
+    <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
       <!-- <h1>FeedBack</h1> -->
    
       <br>
       <v-text-field v-model="name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
       <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
 
-      <v-textarea name="input-7-1" label="Comment" value></v-textarea>
+      <v-textarea name="input-7-1" label="Comment" rows="10" value></v-textarea>
 
-
+    <div id="btnGroupInFeedBack">
       <v-btn @click="submit" color="primary">submit</v-btn>
       <v-btn @click="clear" color="primary">clear</v-btn>
-            <br>
-      <br>
+    </div>
       
     </v-form>
   </small-container>
@@ -65,3 +64,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#btnGroupInFeedBack{
+
+}
+</style>

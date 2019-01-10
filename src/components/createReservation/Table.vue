@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h2>{{date}}</h2>
+     <v-toolbar dark color="primary">
+   <v-icon>date_range</v-icon>
+
+    <v-toolbar-title class="white--text">{{date}}</v-toolbar-title>
+     </v-toolbar>
     <v-data-table
       :items="timeList"
       id="createResTable"
@@ -72,7 +76,7 @@ export default {
 
 <style>
 #createResTable {
-  max-height: 530px;
+  max-height: 450px;
   overflow-y: auto;
 }
 </style>

@@ -2,8 +2,8 @@
   <container>
     <div slot="content">
       <h1>Create Reservation</h1>
-    <v-layout row wrap justify-space-around>
-      <v-flex xs6>
+    <v-layout row wrap justify-space-between>
+      <v-flex xs5>
         <reservation-form/>
       </v-flex>
       <v-flex xs6>
