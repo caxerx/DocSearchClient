@@ -6,6 +6,7 @@ import ViewReservation from './pages/ViewReservation.vue'
 import CreateReservation from './pages/CreateReservation.vue'
 import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
+import ViewDoctorInfo from './pages/ViewDoctorInfo.vue'
 
 Vue.use(Router)
 
@@ -43,6 +44,12 @@ export default new Router({
       name: 'test',
       component: Test
     },
+    {
+      path: '/viewDoctorInfo',
+      name: 'viewDoctorInfo',
+      component: ViewDoctorInfo
+    },
+    
  
   ]
 })
