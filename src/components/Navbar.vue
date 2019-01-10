@@ -23,9 +23,28 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-
-      <v-btn flat @click="router(signInOrSignOut.link)">{{signInOrSignOut.title}}</v-btn>
     </v-toolbar-items>
+
+    <span v-if="this.getter.isSuccess">
+      <v-menu offset-y open-on-hover>
+        <v-btn slot="activator" flat>
+          <v-icon>{{personal.icon}}</v-icon>
+          {{personal.title}}
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="(pInf, index) in profile" :key="index" @click="router(pInf.link)">
+            <v-list-tile-title>{{pInf.title}}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+      <!-- <v-btn flat @click="router(personal.link)">
+        <v-icon>{{personal.icon}}</v-icon>
+        {{personal.title}}
+      </v-btn>-->
+    </span>
+    <span v-else>
+      <v-btn flat @click="router(signIn.link)">{{signIn.title}}</v-btn>
+    </span>
 
     <!-- it is hidden menu -->
     <v-menu class="hidden-md-and-up">
@@ -41,10 +60,6 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-    <v-btn flat @click="router(personal.link)">
-      <v-icon>{{personal.icon}}</v-icon>
-      {{personal.title}}
-    </v-btn>
 
     <!-- it is hidden menu -->
     <v-menu class="hidden-md-and-up">
@@ -61,9 +76,25 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   name: "App",
   components: {},
+  computed: {
+    ...mapGetters({
+      getter: "getLogin"
+    }),
+
+    personal() {
+      return { icon: "person", title: this.getter.userInfo.name, link: "" };
+    },
+    profile() {
+      return [
+        { title: "Edit Profile", link: "" },
+        { title: "Logout", link: "actionLogout" }
+      ];
+    }
+  },
   data() {
     return {
       //
@@ -73,8 +104,7 @@ export default {
         { icon: "warning", title: "Link C" }
       ],
       feedBack: { title: "FeedBack", link: "feedBack" },
-      personal: { icon: "person", title: "", link: "" },
-      signInOrSignOut:{title:"sign-in",link:"login"},
+      signIn: { title: "sign-in", link: "login" },
 
       reservation: [
         { title: "Create Reservation", link: "createReservation" },
@@ -84,8 +114,13 @@ export default {
   },
 
   methods: {
+    ...mapActions(["actionLogout"]),
     router(linkStr) {
-      this.$router.push("/" + linkStr);
+      if (linkStr === "actionLogout") {
+        this.actionLogout();
+      } else {
+        this.$router.push("/" + linkStr);
+      }
     },
     menuItems() {
       return this.menu;

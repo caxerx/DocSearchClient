@@ -3,18 +3,17 @@
     <div slot="title">FeedBack</div>
     <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
       <!-- <h1>FeedBack</h1> -->
-   
       <br>
-      <v-text-field v-model="name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
+      <v-text-field v-model="name" :rules="nameRules" label="Name" required></v-text-field>
       <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
 
       <v-textarea name="input-7-1" label="Comment" rows="10" value></v-textarea>
 
-    <div id="btnGroupInFeedBack">
-      <v-btn @click="submit" color="primary" >submit</v-btn>
-      <v-btn @click="clear" color="primary">clear</v-btn>
-    </div>
-      
+      <div id="btnGroupInFeedBack">
+        <v-btn @click="submit" color="primary">submit</v-btn>
+        <v-btn @click="clear" color="primary">clear</v-btn>
+      </div>
+      <br>
     </v-form>
   </small-container>
 </template>
@@ -28,10 +27,7 @@ export default {
   data: () => ({
     valid: true,
     name: "",
-    nameRules: [
-      v => !!v || "Name is required",
-      v => (v && v.length <= 10) || "Name must be less than 10 characters"
-    ],
+    nameRules: [v => !!v || "Name is required"],
     email: "",
     emailRules: [
       v => !!v || "E-mail is required",
@@ -66,7 +62,6 @@ export default {
 </script>
 
 <style>
-#btnGroupInFeedBack{
-
+#btnGroupInFeedBack {
 }
 </style>

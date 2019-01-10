@@ -3,7 +3,7 @@
       <v-container fluid fill-height >
         <v-layout row justify-center fill-height >
           <v-flex xs4 >
-            <v-card height="100%" >
+            <v-card >
 
                   <v-toolbar dark color="primary" class="tableToolBar">
                     <v-toolbar-title class="white--text"><slot name="title"></slot></v-toolbar-title>

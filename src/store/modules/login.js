@@ -5,6 +5,7 @@ const state = {
     userInfo: {
       email: "test",
       pwd: "test",
+      name:"test",
     },
     isSuccess: false,
 
