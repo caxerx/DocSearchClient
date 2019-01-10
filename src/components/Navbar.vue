@@ -1,6 +1,6 @@
 <template>
-        <v-toolbar height="80">
-      <img src="../assets/logo.png" height="70">
+        <v-toolbar height="60" class="blue lighten-1" dark>
+      <img src="../assets/logo.png" height="50">
 
       <v-toolbar-title>title</v-toolbar-title>
 
@@ -19,9 +19,11 @@
             </v-list-tile>
           </v-list>
         </v-menu>
+      
         <v-btn flat>
-          <v-icon>person</v-icon>Login
+         Sign-in
         </v-btn>
+      
       </v-toolbar-items>
 
       <!-- it is hidden menu -->

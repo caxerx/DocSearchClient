@@ -1,6 +1,6 @@
-<template>
-  <div>
-      <v-app >
+<template >
+  <div >
+      <v-app class="blue lighten-5">
        <navbar/>
     <v-content>
     <router-view/>
