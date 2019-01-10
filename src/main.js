@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
 import DaySpanVuetify from 'dayspan-vuetify'
+import Vuex from 'vuex'
 
 
 import 'vuetify/dist/vuetify.min.css'
@@ -12,9 +13,11 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css'
 
 
+
 // Helpers
 import colors from 'vuetify/es5/util/colors'
 
+Vue.use(Vuex)
 
 
 

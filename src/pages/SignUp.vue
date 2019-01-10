@@ -2,6 +2,7 @@
   <small-container>
     <div slot="title">Sign Up</div>
     <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
+      <!-- email -->
       <v-text-field
         prepend-icon="email"
         name="email"
@@ -11,6 +12,7 @@
         v-model="email"
         required
       ></v-text-field>
+      <!-- pwd -->
       <v-text-field
         id="password"
         prepend-icon="lock"
@@ -20,6 +22,7 @@
         :rules="pwdRules"
         v-model="pwd"
       ></v-text-field>
+      <!-- cPwd -->
       <v-text-field
         id="cPassword"
         prepend-icon="lock"
@@ -29,6 +32,7 @@
         :rules="confirmPwdRules"
         v-model="cpwd"
       ></v-text-field>
+      <!-- name -->
       <v-text-field
         prepend-icon="person"
         name="name"
@@ -38,6 +42,45 @@
         v-model="name"
         required
       ></v-text-field>
+      <!-- gender -->
+     
+       <!-- <v-radio-group v-model="row" row>
+          <v-icon>face</v-icon>
+      <v-radio label="Male" value="male"></v-radio>
+      <v-radio label="Female" value="female"></v-radio>
+    </v-radio-group> -->
+
+      <!-- birthDayPicker -->
+      <v-menu
+        ref="menu"
+        :close-on-content-click="false"
+        v-model="menu"
+        :nudge-right="40"
+        lazy
+        transition="scale-transition"
+        offset-y
+        full-width
+        min-width="290px"
+      >
+        <v-text-field
+          slot="activator"
+          name="dob"
+          type="text"
+          v-model="dob"
+          label="Birthday date"
+          :rules="dobRules"
+          prepend-icon="event"
+          readonly
+        ></v-text-field>
+        <v-date-picker
+          ref="picker"
+          v-model="dob"
+          :max="new Date().toISOString().substr(0, 10)"
+          min="1950-01-01"
+          @change="save"
+        ></v-date-picker>
+      </v-menu>
+      <!-- phone -->
       <v-text-field
         prepend-icon="phone"
         name="phone"
@@ -47,31 +90,7 @@
         v-model="phone"
         required
       ></v-text-field>
-      <v-text-field
-        id="address"
-        prepend-icon="place"
-        name="address"
-        label="Address Line 1"
-        type="text"
-        :rules="addressRules"
-        v-model="address1"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="place"
-        name="address"
-        label="Address Line 2"
-        type="text"
-        :rules="addressRules"
-        v-model="address2"
-      ></v-text-field>
-      <v-text-field
-        prepend-icon="place"
-        name="address"
-        label="Districts"
-        type="text"
-        :rules="addressRules"
-        v-model="district"
-      ></v-text-field>
+
 
       <span style="color:red">{{errMsg}}</span>
       <br>
@@ -92,6 +111,7 @@
 import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
 import SmallContainer from "@/components/SmallContainer.vue";
+
 export default {
   data: () => ({
     valid: true,
@@ -99,23 +119,31 @@ export default {
     phone: "",
     pwd: "",
     cpwd: "",
-    address1: "",
-    address2: "",
-    district: "",
+    name: "",
+    dob: "",
+    dobRules: [v => !!v || "Birthday is required"],
     pwdRules: [v => !!v || "Password is required"],
-    addressRules: [v => !!v || "Address is required"],
     nameRules: [v => !!v || "Name is required"],
-    phoneRules: [v => !!v || "Name is required"],
-    errMsg: ""
+    phoneRules: [v => !!v || "Phone is required"],
+    errMsg: "",
+    menu: false
   }),
   components: {
-    SmallContainer
+    SmallContainer,
+
+  },
+
+  watch: {
+    menu(val) {
+      val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
+    }
   },
 
   computed: {
     ...mapGetters({
-      getter: "getLogin"
+      getter: "getSignUp"
     }),
+
     emailRules() {
       var returnFunction = [];
       returnFunction.push(function(v) {
@@ -153,6 +181,9 @@ export default {
     },
     login() {
       this.$router.push("/login");
+    },
+    save(dob) {
+      this.$refs.menu.save(dob);
     }
   }
 };
