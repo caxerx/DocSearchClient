@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar height="60" class="blue lighten-1" dark>
+  <v-toolbar height="60" color="secondary" dark>
     <img src="../assets/logo.png" height="50">
 
     <v-toolbar-title>title</v-toolbar-title>
