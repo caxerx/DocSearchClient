@@ -1,6 +1,6 @@
 <template>
   <small-container>
-    <div slot="title">Login</div>
+    <div slot="title">Sign Up</div>
     <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
       <v-text-field
         prepend-icon="person"
@@ -25,14 +25,14 @@
       <br/>
       <!-- <h1>FeedBack</h1> -->
       <div id="btnGroupInFeedBack">
-        <v-btn @click="check" style="width:100%" color="primary">Login</v-btn>
+        <v-btn @click="check" style="width:100%" color="primary">Sign Up</v-btn>
       </div>
         <p>
          <v-btn small flat color="secondary">Forgot Password?</v-btn>
         </p>
         <v-card-text>
-       <span class="font-weight-regular"> New to DocSearch? </span>
-        <v-btn small flat color="secondary" @click="signUp">Create an Account</v-btn>
+       <span class="font-weight-regular"> Have an account? </span>
+        <v-btn small flat color="secondary" @click="login">Login Account</v-btn>
         </v-card-text>
     </v-form>
   </small-container>
@@ -79,8 +79,8 @@ export default {
         }
       }
     },
-    signUp(){
-           this.$router.push("/signup");
+    login(){
+           this.$router.push("/login");
     }
   }
 };

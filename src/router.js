@@ -6,6 +6,7 @@ import ViewReservation from './pages/ViewReservation.vue'
 import CreateReservation from './pages/CreateReservation.vue'
 import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
+import SignUp from './pages/SignUp.vue'
 
 Vue.use(Router)
 
@@ -37,6 +38,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignUp
     },
     {
       path: '/test',

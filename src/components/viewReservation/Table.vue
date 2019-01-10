@@ -38,8 +38,8 @@
         <td
           class="text-xs-left"
           v-if="props.item.status==='Waiting'"
-          style="color:red"
-        >{{ props.item.status }}</td>
+          
+        ><span class="error--text">{{ props.item.status }}</span></td>
 
         <td class="text-xs-left" v-if="props.item.status==='Waiting'">
           <v-btn flat icon color="red" @click="deleteItem(props.item)">
@@ -50,8 +50,7 @@
         <td
           class="text-xs-left"
           v-else-if="props.item.status==='Approval'"
-          style="color:blue"
-        >{{ props.item.status }}</td>
+        ><span class="secondary--text">{{ props.item.status }}</span></td>
 
         <td class="text-xs-left" v-if="props.item.status==='Approval'">
           <v-btn flat color=red icon @click="deleteItem(props.item)">
@@ -62,8 +61,8 @@
         <td
           class="text-xs-left"
           v-else-if="props.item.status==='Finish'"
-          style="color:green"
-        >{{ props.item.status }}</td>
+
+        ><span class="success--text">{{ props.item.status }}</span></td>
         <td class="text-xs-left" v-if="props.item.status==='Finish'">
 
           <v-btn flat icon disabled>
