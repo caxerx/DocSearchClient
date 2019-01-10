@@ -1,6 +1,6 @@
 <template>
-  <v-toolbar height="80">
-    <img src="../assets/logo.png" height="70">
+  <v-toolbar height="60" class="blue lighten-1" dark>
+    <img src="../assets/logo.png" height="50">
 
     <v-toolbar-title>title</v-toolbar-title>
 
@@ -23,11 +23,28 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-btn flat @click="router(loginOrLogout.link)">
-        <v-icon>{{loginOrLogout.icon}}</v-icon>
-        {{loginOrLogout.title}}
-      </v-btn>
+
+      <v-btn flat>Sign-in</v-btn>
     </v-toolbar-items>
+
+    <!-- it is hidden menu -->
+    <v-menu class="hidden-md-and-up">
+      <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+
+      <v-list>
+        <v-list-tile
+          v-for="(reservation, index) in reservation"
+          :key="index"
+          @click="router(reservation.link)"
+        >
+          <v-list-tile-title>{{reservation.title}}</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+    <v-btn flat @click="router(loginOrLogout.link)">
+      <v-icon>{{loginOrLogout.icon}}</v-icon>
+      {{loginOrLogout.title}}
+    </v-btn>
 
     <!-- it is hidden menu -->
     <v-menu class="hidden-md-and-up">

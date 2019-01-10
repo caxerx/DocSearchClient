@@ -1,8 +1,10 @@
 <template>
-      <v-container  fill-height>
-        <v-layout  justify-center >
-          <v-flex xs5>
-            <v-card height="100%">
+
+      <v-container fluid fill-height >
+        <v-layout row justify-center fill-height >
+          <v-flex xs12 md5 >
+            <v-card height="100%" class="light-green lighten-5">
+
                   <v-toolbar dark color="primary" class="tableToolBar">
                     <v-toolbar-title class="white--text"><slot name="title"></slot></v-toolbar-title>
 

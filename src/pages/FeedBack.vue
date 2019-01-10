@@ -11,7 +11,7 @@
       <v-textarea name="input-7-1" label="Comment" rows="10" value></v-textarea>
 
     <div id="btnGroupInFeedBack">
-      <v-btn @click="submit" color="primary">submit</v-btn>
+      <v-btn @click="submit" color="primary" >submit</v-btn>
       <v-btn @click="clear" color="primary">clear</v-btn>
     </div>
       
