@@ -1,9 +1,13 @@
 <template>
   <v-toolbar height="60" color="secondary" dark>
-    <img src="../assets/logo.png" height="50">
-
-    <v-toolbar-title>title</v-toolbar-title>
-
+    <v-toolbar-items>
+      <v-btn flat large @click="router(app.link)" style="font-size: 25px">
+      <img  src="../assets/logo.png" height="50px"/>
+      title 
+      </v-btn>
+    </v-toolbar-items>
+   
+   
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat>Link One</v-btn>
