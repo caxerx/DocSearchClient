@@ -1,7 +1,7 @@
 <template>
   <v-toolbar height="60" color="secondary" dark>
     <v-toolbar-items>
-      <v-btn flat large @click="router(app.link)" style="font-size: 25px">
+      <v-btn flat large @click="router(app.link)" class="text-capitalize display-1">
       <img  src="../assets/logo.png" height="50px"/>
       title 
       </v-btn>
