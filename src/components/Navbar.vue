@@ -1,9 +1,9 @@
 <template>
   <v-toolbar height="60" color="secondary" dark>
     <v-toolbar-items>
-      <v-btn flat large @click="router(app.link)" class="text-capitalize display-1">
+      <v-btn flat large @click="router(docSearch.link)" class="text-capitalize display-1">
       <img  src="../assets/logo.png" height="50px"/>
-      title 
+      {{docSearch.title}} 
       </v-btn>
     </v-toolbar-items>
    
@@ -109,6 +109,7 @@ export default {
       ],
       feedBack: { title: "FeedBack", link: "feedBack" },
       signIn: { title: "sign-in", link: "login" },
+      docSearch:{title:"DocSearch",link:"main"},
 
       reservation: [
         { title: "Create Reservation", link: "createReservation" },
@@ -122,6 +123,7 @@ export default {
     router(linkStr) {
       if (linkStr === "actionLogout") {
         this.actionLogout();
+             this.$router.push("/main");
       } else {
         this.$router.push("/" + linkStr);
       }

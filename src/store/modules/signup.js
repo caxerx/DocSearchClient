@@ -26,7 +26,7 @@ const state = {
   const mutations = {
     setDOBSignup(state,dob){
         state.signup.dob=dob;
-        console.log(state.signup.dob)
+        console.log(state.signup.dob);
     }
   }
   

@@ -25,7 +25,6 @@ import Container from "@/components/Container";
 import SmallContainer from "@/components/SmallContainer.vue";
 
 export default {
-  el: "#app",
   data: () => ({
     password: "Password",
     show: false,

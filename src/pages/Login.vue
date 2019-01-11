@@ -73,6 +73,7 @@ export default {
         this.actionLogin(obj);
 
         if (this.getter.isSuccess) {
+          this.$router.push("/main");
           this.errMsg = "";
         } else {
           this.errMsg = "Login Fail";
