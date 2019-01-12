@@ -2,7 +2,7 @@
   <v-card height="100%">
     <img src="@/assets/doctor.jpeg" id="opponent_videoChat">
     <div id="smallVedio">
-      <v-card width="100%" height="100%"></v-card>
+           <img src="@/assets/person.jpeg" id="self_videoChat">
     </div>
   </v-card>
 </template>
@@ -31,8 +31,6 @@ export default {
 
 <style >
 #smallVedio {
-  width: 150px;
-  height: 150px;
   position: absolute;
   right: 0px;
   top: 0px;
@@ -43,6 +41,10 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+#self_videoChat{
+    max-width:150px;
 }
 </style>
 

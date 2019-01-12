@@ -1,7 +1,7 @@
 <template>
     <container>
       <div slot="content">
-      <h1 >Your Reservation</h1><br/>
+     <h1 class="font-weight-regular ">Your Reservation</h1>
 
         <c-table/>
       </div>
