@@ -1,9 +1,13 @@
 
 
 <template>
-  <container>
-    <v-form slot="content">
-      <v-text-field 
+  
+    <v-form>
+      <div id="title" class="display-3" style="text-align: center ">        
+        Search a Doctor        
+      </div>
+      <v-text-field
+        name="keywords"
         v-model="message"
         :append-outer-icon="'search'"
         box
@@ -14,11 +18,31 @@
         @click:append="toggleMarker"
         @click:append-outer="sendMessage"
         @click:clear="clearMessage"
+        style="padding-top: 50px"
       ></v-text-field>
+      <v-layout wrap align-center>
+      <v-flex xs12 sm3 d-flex class="selectbox">
+      <v-select :items="specialty" label="specialty" outline name="specialty"></v-select>
+      </v-flex>
+      <v-flex xs12 sm3 d-flex class="selectbox">
+      <v-select :items="specialty" label="locations" outline name="specialty"></v-select>
+      </v-flex>
+      <v-flex xs12 sm3 d-flex class="selectbox">
+      <v-select :items="specialty" label="language" outline name="specialty"></v-select>
+      </v-flex>
+      <v-flex xs12 sm3 d-flex class="selectbox">
+      <v-select :items="specialty" label="gender" outline name="specialty"></v-select>
+      </v-flex>
+      </v-layout>
     </v-form>
-  </container>
+  
 </template>
 
+<style scoped>
+.selectbox{
+  padding-right: 10px;
+}
+</style>
 
 <script>
 import Container from "@/components/Container";
@@ -28,8 +52,9 @@ export default {
   data: () => ({
     password: "Password",
     show: false,
-    message: "Hey!",
-    marker: true
+    message: "",
+    marker: true,
+    specialty: ["General Pratice", "Cardiology", "Dentisry", "Dietetics"]
   }),
 
   components: {
