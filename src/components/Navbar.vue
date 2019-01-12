@@ -2,12 +2,11 @@
   <v-toolbar height="60" color="secondary" dark>
     <v-toolbar-items>
       <v-btn flat large @click="router(docSearch.link)" class="text-capitalize display-1">
-      <img  src="@/assets/logo.png" height="50px"/>
-      {{docSearch.title}} 
+        <img src="@/assets/logo.png" height="50px">
+        {{docSearch.title}}
       </v-btn>
     </v-toolbar-items>
-   
-   
+
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat @click="router(onlineConsultant.link)">{{onlineConsultant.title}}</v-btn>
@@ -32,8 +31,8 @@
     <span v-if="this.getter.isSuccess">
       <v-menu offset-y open-on-hover>
         <v-btn slot="activator" flat>
-          <v-icon>{{personal.icon}}</v-icon>
-          {{personal.title}}
+          <v-icon>{{personalName.icon}}</v-icon>
+          {{personalName.title}}
         </v-btn>
         <v-list>
           <v-list-tile v-for="(pInf, index) in profile" :key="index" @click="router(pInf.link)">
@@ -89,11 +88,12 @@ export default {
       getter: "getLogin"
     }),
 
-    personal() {
+    personalName() {
       return { icon: "person", title: this.getter.userInfo.name, link: "" };
     },
     profile() {
       return [
+        { title: "Medicine Record", link: "medicineRecord" },
         { title: "Edit Profile", link: "" },
         { title: "Logout", link: "actionLogout" }
       ];
@@ -109,8 +109,8 @@ export default {
       ],
       feedBack: { title: "FeedBack", link: "feedBack" },
       signIn: { title: "sign-in", link: "login" },
-      docSearch:{title:"DocSearch",link:"main"},
-      onlineConsultant:{title:"Online Doctor",link:"onlineConsultant"},
+      docSearch: { title: "DocSearch", link: "main" },
+      onlineConsultant: { title: "Online Doctor", link: "onlineConsultant" },
       reservation: [
         { title: "Create Reservation", link: "createReservation" },
         { title: "View Reservation", link: "viewReservation" }
@@ -123,7 +123,7 @@ export default {
     router(linkStr) {
       if (linkStr === "actionLogout") {
         this.actionLogout();
-             this.$router.push("/main");
+        this.$router.push("/main");
       } else {
         this.$router.push("/" + linkStr);
       }

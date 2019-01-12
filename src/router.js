@@ -5,6 +5,7 @@ import FeedBack from './pages/FeedBack'
 import ViewReservation from './pages/ViewReservation.vue'
 import CreateReservation from './pages/CreateReservation.vue'
 import OnlineConsultant from './pages/OnlineConsultant.vue'
+import MedicineRecord from './pages/MedicineRecord.vue'
 import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
 import SignUp from './pages/SignUp.vue'
@@ -26,6 +27,11 @@ export default new Router({
       path: '/feedBack',
       name: 'feedBack',
       component: FeedBack
+    },
+    {
+      path: '/medicineRecord',
+      name: 'medicineRecord',
+      component: MedicineRecord
     },
     {
       path: '/viewReservation',

@@ -8,25 +8,24 @@
       <edit-item-form/>
     </div>
 
-
-
-
-  <template>
-  <v-toolbar dark color="primary" class="tableToolBar">
-      <v-flex xs2> 
-    <v-toolbar-title class="white--text">Reservation List</v-toolbar-title>
+    <v-toolbar dark color="primary" class="tableToolBar">
+      <v-flex xs2>
+        <v-toolbar-title class="white--text">Reservation List</v-toolbar-title>
       </v-flex>
-      <v-flex xs4 > 
-       <v-text-field  color="white" v-model="search" append-icon="search" label="Search" single-line hide-details ></v-text-field>
+      <v-flex xs4>
+        <v-text-field
+          color="white"
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
       </v-flex>
 
-    <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+    </v-toolbar>
 
-  </v-toolbar>
-
-  
-</template>
-  
     <v-data-table :headers="headers" :search="search" :items="contents" class="elevation-1">
       <template slot="items" slot-scope="props">
         <td>{{ props.item.no }}</td>
@@ -35,11 +34,9 @@
         <td class="text-xs-left">{{ props.item.endTime }}</td>
 
         <!-- waiting -->
-        <td
-          class="text-xs-left"
-          v-if="props.item.status==='Waiting'"
-          
-        ><span class="error--text">{{ props.item.status }}</span></td>
+        <td class="text-xs-left" v-if="props.item.status==='Waiting'">
+          <span class="error--text">{{ props.item.status }}</span>
+        </td>
 
         <td class="text-xs-left" v-if="props.item.status==='Waiting'">
           <v-btn flat icon color="red" @click="deleteItem(props.item)">
@@ -47,24 +44,20 @@
           </v-btn>
         </td>
         <!-- Approval -->
-        <td
-          class="text-xs-left"
-          v-else-if="props.item.status==='Approval'"
-        ><span class="secondary--text">{{ props.item.status }}</span></td>
+        <td class="text-xs-left" v-else-if="props.item.status==='Approval'">
+          <span class="secondary--text">{{ props.item.status }}</span>
+        </td>
 
         <td class="text-xs-left" v-if="props.item.status==='Approval'">
-          <v-btn flat color=red icon @click="deleteItem(props.item)">
+          <v-btn flat color="red" icon @click="deleteItem(props.item)">
             <v-icon>clear</v-icon>
           </v-btn>
         </td>
         <!-- Finish -->
-        <td
-          class="text-xs-left"
-          v-else-if="props.item.status==='Finish'"
-
-        ><span class="success--text">{{ props.item.status }}</span></td>
+        <td class="text-xs-left" v-else-if="props.item.status==='Finish'">
+          <span class="success--text">{{ props.item.status }}</span>
+        </td>
         <td class="text-xs-left" v-if="props.item.status==='Finish'">
-
           <v-btn flat icon disabled>
             <v-icon>clear</v-icon>
           </v-btn>
@@ -106,21 +99,18 @@ export default {
     //   return this.editedIndex === -1 ? "New Item" : "Edit Item";
     // }
     ...mapGetters({
-        getter:"getViewReservation",
+      getter: "getViewReservation"
     }),
 
-    headers(){
-        return this.getter.headers;
+    headers() {
+      return this.getter.headers;
     },
-     contents(){
-        return this.getter.contents;
+    contents() {
+      return this.getter.contents;
     }
-   
   },
 
-  components: {
-
-  },
+  components: {},
 
   //   watch: {
   //     dialog(val) {
@@ -129,9 +119,7 @@ export default {
   //   },
 
   methods: {
-    ...mapActions([
-     
-    ]),
+    ...mapActions([]),
 
     approvalItem(item) {
       this.dialogType = "approval";
@@ -148,8 +136,6 @@ export default {
       this.actionOpenDialog("normal");
       this.actionSetDatePickerTypeFromReservationList("addItemDialog");
     },
-
-
 
     close() {
       this.actionCloseDialog("normal");
