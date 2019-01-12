@@ -9,6 +9,7 @@ import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
 import SignUp from './pages/SignUp.vue'
 import Main from './pages/Main.vue'
+import ViewDoctorInfo from './pages/ViewDoctorInfo.vue'
 
 Vue.use(Router)
 
@@ -60,6 +61,11 @@ export default new Router({
       path: '/main',
       name: 'main',
       component: Main
+    },
+    {
+      path: '/viewDoctorInfo',
+      name: 'viewDoctorInfo',
+      component: ViewDoctorInfo
     },
   ]
 })
