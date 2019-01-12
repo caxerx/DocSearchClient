@@ -4,6 +4,7 @@ import App from './App.vue'
 import FeedBack from './pages/FeedBack'
 import ViewReservation from './pages/ViewReservation.vue'
 import CreateReservation from './pages/CreateReservation.vue'
+import OnlineConsultant from './pages/OnlineConsultant.vue'
 import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
 import SignUp from './pages/SignUp.vue'
@@ -34,6 +35,11 @@ export default new Router({
       path: '/createReservation',
       name: 'createReservation',
       component: CreateReservation
+    },
+    {
+      path: '/onlineConsultant',
+      name: 'onlineConsultant',
+      component: OnlineConsultant
     },
     {
       path: '/login',

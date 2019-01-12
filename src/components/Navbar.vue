@@ -2,7 +2,7 @@
   <v-toolbar height="60" color="secondary" dark>
     <v-toolbar-items>
       <v-btn flat large @click="router(docSearch.link)" class="text-capitalize display-1">
-      <img  src="../assets/logo.png" height="50px"/>
+      <img  src="@/assets/logo.png" height="50px"/>
       {{docSearch.title}} 
       </v-btn>
     </v-toolbar-items>
@@ -10,7 +10,7 @@
    
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>Link One</v-btn>
+      <v-btn flat @click="router(onlineConsultant.link)">{{onlineConsultant.title}}</v-btn>
       <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
 
       <v-menu offset-y open-on-hover>
@@ -110,7 +110,7 @@ export default {
       feedBack: { title: "FeedBack", link: "feedBack" },
       signIn: { title: "sign-in", link: "login" },
       docSearch:{title:"DocSearch",link:"main"},
-
+      onlineConsultant:{title:"Online Doctor",link:"onlineConsultant"},
       reservation: [
         { title: "Create Reservation", link: "createReservation" },
         { title: "View Reservation", link: "viewReservation" }
