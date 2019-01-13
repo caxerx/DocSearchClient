@@ -109,7 +109,7 @@ export default {
       ],
       feedBack: { title: "FeedBack", link: "feedBack" },
       signIn: { title: "sign-in", link: "login" },
-      docSearch: { title: "DocSearch", link: "main" },
+      docSearch: { title: "DocSearch", link: "" },
       onlineConsultant: { title: "Online Doctor", link: "onlineConsultant" },
       reservation: [
         { title: "Create Reservation", link: "createReservation" },
@@ -123,7 +123,7 @@ export default {
     router(linkStr) {
       if (linkStr === "actionLogout") {
         this.actionLogout();
-        this.$router.push("/main");
+        this.$router.push("/");
       } else {
         this.$router.push("/" + linkStr);
       }

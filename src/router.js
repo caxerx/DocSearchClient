@@ -64,8 +64,8 @@ export default new Router({
       component: Test
     },
     {
-      path: '/main',
-      name: 'main',
+      path: '/',
+      name:'',
       component: Main
     },
     {
