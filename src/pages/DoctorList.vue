@@ -12,7 +12,7 @@
       <v-list slot="content">
         <v-list-tile v-for="item in items" :key="item.title" @click>
           <v-list-tile-action>
-            <v-icon v-if="item.icon" color="pink">star</v-icon>
+            <v-icon>account_circle</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
