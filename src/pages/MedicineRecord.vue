@@ -27,14 +27,14 @@
           <td class="text-xs-left">{{ props.item.date }}</td>
           <td class="text-xs-left">{{ props.item.startTime }}</td>
           <td class="text-xs-left">{{ props.item.endTime }}</td>
-          <td class="text-xs-left">{{ props.item.symptom }}</td>
+          <td class="text-xs-left" >{{ props.item.symptom }}</td>
 
-          <td class="text-xs-left">
-            <div v-for="(medicine,index) in props.item.medicine " :key="index">
+          <td class="text-xs-left" >
+            <span v-for="(medicine,index) in props.item.medicine " :key="index">
               {{ medicine }}
-              <!-- <span v-if="index == props.item.medicine.length-1"></span>
-              <span v-else>,</span> -->
-            </div>
+              <span v-if="index == props.item.medicine.length-1"></span>
+              <span v-else>,</span>
+            </span>
           </td>
           <td class="text-xs-left">{{ props.item.amount }}</td>
         </template>
@@ -80,11 +80,12 @@ export default {
 };
 </script>
 
-<style>
-   td{
-       word-wrap:break-word;word-break:break-all;
-       width:100px;
-       top:0px;
+<style scoped>
+td {
+  word-wrap: break-word;
+  word-break: break-all;
+  width: 100px;
 
-   }
+
+}
 </style>

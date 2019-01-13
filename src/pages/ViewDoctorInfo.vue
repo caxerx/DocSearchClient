@@ -59,7 +59,7 @@
     </v-layout>
     <div v-bind:style="layoutStyle">
       <h1>Clinic/Hospital Information</h1>
-      <v-layout v-for="clinic in clinics" :key="clinic" style="padding-top: 25px;">
+      <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding-top: 25px;">
         <br>
         <v-flex style="padding-right: 25px;">
           <h2>{{clinic.name}}</h2>
@@ -67,7 +67,7 @@
 
           <h2 style="padding-top: 25px;">opening hour</h2>
           <table>
-            <tr v-for="time in clinic.times" :key="time">
+            <tr v-for="(time,index) in clinic.times" :key="index">
               <th>{{time.date}}</th>
               <td>{{time.am}}</td>
               <td>{{time.pm}}</td>
