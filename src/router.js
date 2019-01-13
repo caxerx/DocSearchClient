@@ -11,6 +11,7 @@ import Login from './pages/Login.vue'
 import SignUp from './pages/SignUp.vue'
 import Main from './pages/Main.vue'
 import ViewDoctorInfo from './pages/ViewDoctorInfo.vue'
+import DoctorList from './pages/DoctorList.vue'
 
 Vue.use(Router)
 
@@ -72,6 +73,11 @@ export default new Router({
       path: '/viewDoctorInfo',
       name: 'viewDoctorInfo',
       component: ViewDoctorInfo
+    },
+    {
+      path: '/doctorList',
+      name: 'doctorList',
+      component: DoctorList
     },
   ]
 })
