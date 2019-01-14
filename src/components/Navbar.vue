@@ -2,7 +2,7 @@
   <v-toolbar height="60" color="secondary" dark>
     <v-toolbar-items>
       <v-btn flat large @click="router(docSearch.link)" class="text-capitalize display-1">
-        <img src="@/assets/logo.png" height="50px">
+        <img src="@/assets/docSearchIcon.png" height="50px">
         {{docSearch.title}}
       </v-btn>
     </v-toolbar-items>
