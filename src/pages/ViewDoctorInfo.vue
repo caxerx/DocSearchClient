@@ -119,7 +119,7 @@ export default {
         },
         {
           name: "Gender",
-          details: ["hideyoshi"]
+          details: ["Male"]
         },
         {
           name: "Professional",
