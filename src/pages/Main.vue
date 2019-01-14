@@ -10,7 +10,7 @@
       <container>
         <v-flex slot="content" id="medicalInfoTitle" class="display-3">Medical Information</v-flex>
         <v-flex slot="content">
-          <div name="articleTitle">aaaawd</div>
+          <div name="articleTitle"></div>
         </v-flex>
       </container>
     </v-card>
