@@ -10,7 +10,7 @@
     <v-card style="margin-top: 50px">
       <container>
       <v-list slot="content">
-        <v-list-tile v-for="item in items" :key="item.title" @click>
+        <v-list-tile v-for="item in items" :key="item.title" >
           <v-list-tile-action>
             <v-icon>account_circle</v-icon>
           </v-list-tile-action>
