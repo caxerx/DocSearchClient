@@ -95,9 +95,9 @@
       <span style="color:red">{{errMsg}}</span>
       <br>
       <!-- <h1>FeedBack</h1> -->
-      <div id="btnGroupInFeedBack">
+      <v-card-actions>
         <v-btn @click="check" style="width:100%" color="primary">Sign Up</v-btn>
-      </div>
+      </v-card-actions>
       <v-card-text>
         <span class="font-weight-regular">Have an account?</span>
         <v-btn small flat color="secondary" @click="login">Login Account</v-btn>

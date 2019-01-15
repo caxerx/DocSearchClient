@@ -49,20 +49,7 @@
       <v-btn flat @click="router(signIn.link)">{{signIn.title}}</v-btn>
     </span>
 
-    <!-- it is hidden menu -->
-    <v-menu class="hidden-md-and-up">
-      <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
 
-      <v-list>
-        <v-list-tile
-          v-for="(reservation, index) in reservation"
-          :key="index"
-          @click="router(reservation.link)"
-        >
-          <v-list-tile-title>{{reservation.title}}</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
 
     <!-- it is hidden menu -->
     <v-menu class="hidden-md-and-up">

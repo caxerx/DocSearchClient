@@ -24,9 +24,9 @@
       <span style="color:red">{{errMsg}}</span>
       <br/>
       <!-- <h1>FeedBack</h1> -->
-      <div id="btnGroupInFeedBack">
+     <v-card-actions>
         <v-btn @click="check" style="width:100%" color="primary">Login</v-btn>
-      </div>
+     </v-card-actions>
         <p>
          <v-btn small flat color="secondary">Forgot Password?</v-btn>
         </p>

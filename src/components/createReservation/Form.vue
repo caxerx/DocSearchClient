@@ -10,8 +10,8 @@
   <v-form ref="form" v-model="valid" lazy-validation id="createReservationForm">
     <date-picker/>
     <v-text-field prepend-icon="access_time"  v-model="time" label="Time" :checked="time" disabled></v-text-field>
-    <v-btn :disabled="!valid" @click="submit" >submit</v-btn>
-    <v-btn @click="clear" >clear</v-btn>
+    <v-btn color="primary" :disabled="!valid" @click="submit" >submit</v-btn>
+    <v-btn color="primary" @click="clear" >clear</v-btn>
     
   </v-form>
   <br>
