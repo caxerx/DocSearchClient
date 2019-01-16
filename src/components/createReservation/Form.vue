@@ -48,6 +48,10 @@ export default {
     checkbox: false
   }),
 
+  created:function(){
+    this.actionSetDefaultReservationForCreateReservation();
+  },
+
   computed: {
     ...mapGetters({
       getter: "getCreateReservation"
@@ -63,7 +67,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionReset"]),
+    ...mapActions(["actionReset","actionSetDefaultReservationForCreateReservation"]),
 
     submit() {
       if (this.$refs.form.validate()) {

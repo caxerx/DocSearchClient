@@ -20,6 +20,7 @@ const state = {
             {
 
                 no: 1,
+                clinc: "c1",
                 doctor:"doctor 1",
                 date: "2018-10-15",
                 startTime: "10:00",
@@ -31,6 +32,7 @@ const state = {
             },
             {
                 no: 2,
+                clinc: "c2",
                 doctor:"d2",
                 date: "2018-10-16",
                 startTime: "10:10",
@@ -42,6 +44,7 @@ const state = {
             },
             {
                 no: 3,
+                clinc: "c3",
                 doctor:"d3",
                 date: "2018-10-17",
                 startTime: "10:20",
@@ -53,6 +56,7 @@ const state = {
             },
             {
                 no: 4,
+                clinc: "c4",
                 doctor:"d4",
                 date: "2018-10-18",
                 startTime: "10:30",
@@ -62,6 +66,7 @@ const state = {
             },
             {
                 no: 5,
+                clinc: "c5",
                 doctor:"d5",
                 date: "2018-10-19",
                 startTime: "10:40",

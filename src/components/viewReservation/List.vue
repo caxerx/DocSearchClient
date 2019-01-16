@@ -1,22 +1,24 @@
 <template>
-  <v-container fluid grid-list-lg>
     <v-layout row wrap>
       <v-flex>
         <v-card v-for="(content, index) in contents" :key="index" style="margin-bottom:0.1%">
             
           <v-card-title primary-title>
             <div>
-              <div class="headline">{{content.doctor}}</div>
-              <span class="grey--text">{{content.date}}</span>
+              <div class="headline">No.{{content.no}}</div>
+              <div class="grey--text">Clinc: {{content.clinc}}</div>
+               <div class="grey--text">Doctor: {{content.doctor}}</div>
+              <div class="grey--text">Date: {{content.date}}</div>
+              <div class="grey--text">Time: {{content.startTime}} to {{content.endTime}}</div>
             </div>
+
+              <v-spacer></v-spacer>
+            <v-btn icon @click="changeShow(content)">
+              <v-icon>keyboard_arrow_right</v-icon>
+            </v-btn>
           </v-card-title>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="changeShow(content)">
-              <v-icon>{{ content.show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-            </v-btn>
-          </v-card-actions>
+          
 
           <v-slide-y-transition>
             <v-card-text
@@ -26,7 +28,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-  </v-container>
 </template>
 
 <script>

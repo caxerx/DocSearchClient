@@ -40,16 +40,15 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <!-- <v-btn flat @click="router(personal.link)">
-        <v-icon>{{personal.icon}}</v-icon>
-        {{personal.title}}
-      </v-btn>-->
     </span>
     <span v-else>
-      <v-btn flat @click="router(signIn.link)">{{signIn.title}}</v-btn>
+      <div class="text-xs-center">
+        <v-dialog v-model="dialog" width="500">
+          <v-btn flat  slot="activator">{{signIn.title}}</v-btn>
+          <login-dialog/>
+        </v-dialog>
+      </div>
     </span>
-
-
 
     <!-- it is hidden menu -->
     <v-menu class="hidden-md-and-up">
@@ -67,9 +66,12 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+import LoginDialog from "@/components/dialog/login";
 export default {
   name: "App",
-  components: {},
+  components: {
+    LoginDialog
+  },
   computed: {
     ...mapGetters({
       getter: "getLogin"
@@ -89,6 +91,7 @@ export default {
   data() {
     return {
       //
+      dialog:false,
       menu: [
         { icon: "home", title: "Link A" },
         { icon: "info", title: "Link B" },
@@ -106,10 +109,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionLogout"]),
+    ...mapActions(["actionLogout", "actionOpenDialogLogin"]),
+
     router(linkStr) {
       if (linkStr === "actionLogout") {
         this.actionLogout();
+        this.dialog=false;
         this.$router.push("/");
       } else {
         this.$router.push("/" + linkStr);

@@ -1,7 +1,6 @@
 <template>
-  <small-container>
-    <div slot="title">Login</div>
-    <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
+<div>
+    <v-form  ref="form" height="100%" v-model="valid" lazy-validation>
       <v-text-field
         prepend-icon="email"
         name="email"
@@ -30,12 +29,8 @@
         <p>
          <v-btn small flat color="secondary">Forgot Password?</v-btn>
         </p>
-        <v-card-text>
-       <span class="font-weight-regular"> New to DocSearch? </span>
-        <v-btn small flat color="secondary" @click="signUp">Create an Account</v-btn>
-        </v-card-text>
     </v-form>
-  </small-container>
+</div>
 </template>
 
 

@@ -69,6 +69,7 @@ export default new Router({
       name:'',
       component: Main
     },
+    
     {
       path: '/viewDoctorInfo',
       name: 'viewDoctorInfo',

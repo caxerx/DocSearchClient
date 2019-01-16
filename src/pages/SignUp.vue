@@ -1,6 +1,4 @@
 <template>
-  <small-container>
-    <div slot="title">Sign Up</div>
     <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
       <!-- email -->
       <v-text-field
@@ -98,12 +96,7 @@
       <v-card-actions>
         <v-btn @click="check" style="width:100%" color="primary">Sign Up</v-btn>
       </v-card-actions>
-      <v-card-text>
-        <span class="font-weight-regular">Have an account?</span>
-        <v-btn small flat color="secondary" @click="login">Login Account</v-btn>
-      </v-card-text>
     </v-form>
-  </small-container>
 </template>
 
 

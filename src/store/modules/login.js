@@ -8,6 +8,7 @@ const state = {
       name:"test",
     },
     isSuccess: false,
+    dialog:false,
 
   }
 
@@ -32,10 +33,23 @@ const actions = {
   actionLogout({ commit }) {
     commit("logout");
   },
+  actionOpenDialogLogin({ commit }) {
+    commit("openDialogLogin");
+  },
+  actionCloseDialogLogin({ commit }) {
+    commit("closeDialogLogin");
+  },
 
 }
 // mutations
 const mutations = {
+  ["openDialogLogin"](state){
+    state.login.dialog=true;
+    console.log(state.login.dialog)
+  },
+  ["closeDialogLogin"](state){
+    state.login.dialog=false;
+  },
   ["success"](state) {
     state.login.isSuccess = true;
     console.log("state ", state.login.isSuccess);
