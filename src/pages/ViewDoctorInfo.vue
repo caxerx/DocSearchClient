@@ -2,8 +2,8 @@
   <v-container>
     <v-layout v-bind:style="layoutStyle" justify-space-between>
       <v-flex xs4>
-        <div id="DocInfo_div" slot="content">
-          <h1>Doctor Information</h1>
+        <div id="DocInfo_div" slot="content" class="title font-weight-regular">
+          <v-layout align-center wrap><v-flex flat class="display-1 font-weight-regular"> Information</v-flex><v-btn>Booking</v-btn></v-layout>
           <v-data-table
             id="DocInfo_v_data_table"
             :items="infos"
@@ -25,7 +25,7 @@
 
       <v-flex xs3>
         <div id="DocQuali_div" slot="content" style>
-          <h1>Qualification</h1>
+          <div class="display-1 font-weight-regular">Qualification</div>
           <v-data-table
             id="DocQuali_v_data_table"
             :items="quali"
@@ -42,7 +42,7 @@
 
       <v-flex xs3>
         <div id="Service_div" slot="content">
-          <h1>Services</h1>
+          <div>Services</div>
           <v-data-table
             id="Service_v_data_table"
             :items="Services"
@@ -107,6 +107,7 @@ td {
 tr:hover {
   background-color: #f5f5f5;
 }
+
 </style>
 <script>
 export default {
