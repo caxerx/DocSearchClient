@@ -28,21 +28,12 @@ const state = {
   
   
   const actions = {
-    actionSetDOBSignup({commit},dob){
-        commit("setDOBSignup",dob);
-    },
-    // actionSetDocClientHeight({commit},height){
-    //     commit("setDocClientHeight",height);
-    // }
-   
+
   
   }
   // mutations
   const mutations = {
-    ["setDOBSignup"](state,dob){
-        state.signup.dob=dob;
-        console.log(state.signup.dob);
-    },
+
 
     
   }

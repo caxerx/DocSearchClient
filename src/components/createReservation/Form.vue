@@ -1,22 +1,27 @@
 <template>
-<div >
-  
- <v-toolbar dark color="primary">
-
-    <v-toolbar-title class="white--text">Select Form</v-toolbar-title>
- </v-toolbar>
- <v-card>
-   
-  <v-form ref="form" v-model="valid" lazy-validation id="createReservationForm">
-    <date-picker/>
-    <v-text-field prepend-icon="access_time"  v-model="time" label="Time" :checked="time" disabled></v-text-field>
-    <v-btn color="primary" :disabled="!valid" @click="submit" >submit</v-btn>
-    <v-btn color="primary" @click="clear" >clear</v-btn>
-    
-  </v-form>
-  <br>
- </v-card>
-</div>
+  <div>
+    <v-toolbar dark color="primary">
+      <v-toolbar-title class="white--text">Select Form</v-toolbar-title>
+    </v-toolbar>
+    <v-card>
+      <v-card-text>
+      <v-form ref="form" v-model="valid" lazy-validation id="createReservationForm">
+        <v-text-field prepend-icon="person" v-model="doctorName" label="Doctor" disabled></v-text-field>
+        <date-picker/>
+        <v-text-field
+          prepend-icon="access_time"
+          v-model="time"
+          label="Time"
+          :checked="time"
+          disabled
+        ></v-text-field>
+        <v-btn color="primary" :disabled="!valid" @click="submit">submit</v-btn>
+        <v-btn color="primary" @click="clear">clear</v-btn>
+      </v-form>
+      </v-card-text>
+      <br>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -26,6 +31,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   data: () => ({
+    doctorName: "michael",
     valid: true,
     name: "",
     nameRules: [
@@ -44,12 +50,12 @@ export default {
 
   computed: {
     ...mapGetters({
-     getter : "getCreateReservation"
+      getter: "getCreateReservation"
     }),
 
-    time(){
+    time() {
       return this.getter.time;
-    },
+    }
   },
 
   components: {
@@ -71,7 +77,6 @@ export default {
       }
     },
     clear() {
-      
       this.actionReset();
     }
   }
@@ -79,8 +84,8 @@ export default {
 </script>
 
 <style>
-#createReservationForm{
-  margin-right:3%;
-   margin-left:1%;
+#createReservationForm {
+  margin-right: 3%;
+  margin-left: 1%;
 }
 </style>

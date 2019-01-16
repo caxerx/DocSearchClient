@@ -27,18 +27,18 @@ const getters = {
 const actions = {
 
 
-    actionSetDate({ commit }, newDate) {
-        commit("setDate", newDate);
+    actionSetDateForCreateReservation({ commit }, newDate) {
+        commit("setDateForCreateReservation", newDate);
     },
 
-    actionSetDefaultReservation({ commit }) {
-        commit("setDefaultReservation");
+    actionSetDefaultReservationForCreateReservation({ commit }) {
+        commit("setDefaultForCreateReservation");
     },
-    actionSetTime({ commit }, time) {
-        commit("setTime", time);
+    actionSetTimeForCreateReservation({ commit }, time) {
+        commit("setTimeForCreateReservation", time);
     },
-    actionReset({ commit }) {
-        commit("reset");
+    actionResetForCreateReservation({ commit }) {
+        commit("resetForCreateReservation");
     }
 
 
@@ -46,7 +46,7 @@ const actions = {
 }
 // mutations
 const mutations = {
-    ["setReservationDate"](state, newDate) {
+    ["setDateForCreateReservation"](state, newDate) {
         state.createReservation.date = newDate;
         //reset
         state.createReservation.time = "";
@@ -55,17 +55,17 @@ const mutations = {
         setTestcreateReservation(state);
 
     },
-    ["setTime"](state, time) {
+    ["setTimeForCreateReservation"](state, time) {
         state.createReservation.time = time;
         console.log("state ", state.createReservation.time);
 
     },
-    ["reset"](state) {
+    ["resetForCreateReservation"](state) {
         state.createReservation.time = "";
         state.createReservation.date = new Date().toISOString().substr(0, 10);
         state.createReservation.timeList = [];
     },
-    ["setDefaultReservation"](state) {
+    ["setDefaultForCreateReservation"](state) {
         //reset
         state.createReservation.time = "";
         state.createReservation.timeList = [];

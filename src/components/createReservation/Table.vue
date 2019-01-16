@@ -64,9 +64,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionSetTime","actionSetDefaultReservation"]),
+    ...mapActions(["actionSetTimeForCreateReservation","actionSetDefaultReservation"]),
     selectTime(startTime, endTime) {
-      this.actionSetTime(startTime + " - " + endTime);
+      this.actionSetTimeForCreateReservation(startTime + " - " + endTime);
     },
 
 

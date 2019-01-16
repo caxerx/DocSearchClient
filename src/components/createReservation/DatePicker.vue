@@ -57,7 +57,7 @@ export default {
       },
       set(date) {
         console.log(date);
-        this.$store.commit("setReservationDate", date);
+        this.$store.commit("setDateForCreateReservation", date);
       }
     },
 
@@ -75,7 +75,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["actionSetDate", "actionSetStartDate", "actionSetEndDate"]),
+    
 
     close() {
       this.menu1 = false;

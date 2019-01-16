@@ -3,7 +3,7 @@
       <div slot="content">
      <h1 class="font-weight-regular ">Your Reservation</h1>
 
-        <c-table/>
+        <c-list/>
       </div>
     </container>
 
@@ -12,6 +12,7 @@
 <script>
 import Container from '@/components/Container.vue'
 import cTable from '@/components/viewReservation/Table.vue'
+import cList from '@/components/viewReservation/List.vue'
 
 export default {
   data() {
@@ -22,7 +23,7 @@ export default {
   
   components:{
     Container,
-    cTable
+    cList
   }
 };
 </script>
