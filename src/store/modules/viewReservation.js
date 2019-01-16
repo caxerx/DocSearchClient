@@ -15,16 +15,17 @@ const state = {
         //     { text: "status", value: "status" },
         //     { text: "Actions", sortable: false }
         // ],
+
         contents: [
             {
 
                 no: 1,
-                doctor:"d1",
+                doctor:"doctor 1",
                 date: "2018-10-15",
                 startTime: "10:00",
                 endTime: "10:10",
                 status: "Waiting",
-                show:false,
+                show:true,
 
 
             },
@@ -79,13 +80,18 @@ const state = {
   
   
   const actions = {
-  
+    actionSetShowForViewReservation({commit},content){
+        commit("setShowForViewReservation",content);
+    }
    
   
   }
   // mutations
   const mutations = {
-  
+    ["setShowForViewReservation"](state,content){
+        let editedIndex = state.viewReservation.contents.indexOf(content);
+        state.viewReservation.contents[editedIndex].show=!state.viewReservation.contents[editedIndex].show;
+    }
   }
   
   export default {
