@@ -1,58 +1,50 @@
 <template>
-    <div id="app">
-  <v-app id="inspire">
-      <container>
-        <search slot="content"/>
-      </container>
-  <container>      
-          <v-list slot="content">
-            <v-list-tile
-              v-for="item in items"
-              :key="item.title"
-              
-              
-            >
-              <v-list-tile-action>
-                <v-icon
-                  v-if="item.icon"
-                  color="pink"
-                >
-                  star
-                </v-icon>
-              </v-list-tile-action>
-  
-              <v-list-tile-content>
-                <v-list-tile-title v-text="item.title"></v-list-tile-title>
-              </v-list-tile-content>
-  
-             
-            </v-list-tile>
-          </v-list>
-  </container>
-  </v-app>
-</div>
+  <div>
+    <container>
+      <div slot="content">
+        <div class="grey--text">79 matches found for:General Physician In Indiranagar, Bangalore</div><br/>
+        <c-list slot="content"/>
+      </div>
+    </container>
+  </div>
 </template>
 
 
 <script>
 import Container from "@/components/Container";
 import Search from "@/components/Search.vue";
+import cList from "@/components/doctorList/List.vue";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
-     el: '#app',
-  data () {
+  name: "App",
+    data() {
     return {
-      items: [
-        { title: 'Dr. Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
-        { title: 'Dr. Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
-        { title: 'Dr. Ali Connors', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
-        { title: 'Dr. Cindy Baker', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' }
-      ]
-    }
+       search: "",
+   
+    };
   },
   components: {
+    cList,
     Container,
-    Search
   },
-}
+  computed: {
+  
+
+  },
+
+
+  methods: {
+  
+  }
+};
 </script>
+
+
+<style scoped>
+img {
+  width: 100px;
+  height: 100px;
+}
+</style>
+
