@@ -9,7 +9,7 @@
         </v-flex>
         <v-flex xs6 sm7>
           <v-card-text>
-            <h3 class="headline mb">{{doctor.name}}</h3>
+            <h3 class="headline mb primary--text">{{doctor.name}}</h3>
           </v-card-text>
           <v-card-text>
             <div>{{doctor.academic}}</div>
@@ -46,20 +46,62 @@
               <v-icon small>place</v-icon>
               {{doctor.location}}
             </div>
-             <div>
+            <div>
               <v-icon small>access_time</v-icon>
               {{doctor.available}}
             </div>
+            {{showList}}
           </v-card-text>
         </v-flex>
 
         <v-card-actions style="width:100%">
           <v-spacer></v-spacer>
-          
-          <v-btn color="primary"><v-icon>person</v-icon> Profile</v-btn>
-            <v-btn color="primary"><v-icon>local_phone</v-icon>Contact Clinc</v-btn>
-            <v-btn color="primary"><v-icon>add</v-icon>Create Reservation</v-btn>
+
+          <v-btn color="primary" @click="router('viewDoctorInfo')">
+            <v-icon>person</v-icon>Profile
+          </v-btn>
+          <v-btn color="primary" @click="setContactShow(index)">
+            <v-icon>local_phone</v-icon>Contact Clinc
+          </v-btn>
+          <v-btn color="primary" @click="setReservationShow(index)">
+            <v-icon>add</v-icon>Create Reservation
+          </v-btn>
         </v-card-actions>
+
+        <!-- hidden contact -->
+        <v-slide-y-transition>
+          <v-card-text v-if="contactShowList[index].show">
+            <hr>
+            <div>
+              <v-icon>local_phone</v-icon>
+              {{doctor.phone}}
+            </div>
+            <div>
+              <v-icon>email</v-icon>
+              {{doctor.email}}
+            </div>
+            <v-btn block color="primary">
+              <v-icon left dark>chat</v-icon>Online Chat Now
+            </v-btn>
+          </v-card-text>
+        </v-slide-y-transition>
+        <v-slide-y-transition>
+          <!-- hidden reservation -->
+          <v-card-text v-if="reservationShowList[index].show">
+            <hr>
+            <div>
+              <v-icon>local_phone</v-icon>
+              {{doctor.phone}} fk u pk la
+            </div>
+            <div>
+              <v-icon>email</v-icon>
+              {{doctor.email}}
+            </div>
+            <v-btn block color="primary">
+              <v-icon left dark>chat</v-icon>Online Chat Now
+            </v-btn>
+          </v-card-text>
+        </v-slide-y-transition>
       </v-layout>
     </v-card>
   </div>
@@ -73,7 +115,11 @@ export default {
   name: "App",
   data() {
     return {
-      search: ""
+      search: "",
+      show: false,
+      showList: [],
+      contactShowList: [],
+      reservationShowList: []
     };
   },
   components: {},
@@ -83,14 +129,36 @@ export default {
     }),
 
     doctorList() {
+      //also set showList
+      for (let i = 0; i < this.getter.details.length; i++) {
+        this.contactShowList.push({ index: i, show: false });
+        this.reservationShowList.push({ index: i, show: false });
+      }
       return this.getter.details;
     }
   },
 
+  //   created: function() {
+  //     this.actionInitForDoctorList();
+  //   },
+
   methods: {
+    ...mapActions([]),
     getImgPath(imgName) {
       let url = "@/assets/" + imgName;
       return url;
+    },
+    router(linkStr) {
+      this.$router.push("/" + linkStr);
+    },
+
+    setContactShow(index) {
+      this.contactShowList[index].show = !this.contactShowList[index].show;
+      console.log(this.showList);
+    },
+    setReservationShow(index) {
+      this.reservationShowList[index].show = !this.reservationShowList[index].show;
+      console.log(this.showList);
     }
   }
 };
