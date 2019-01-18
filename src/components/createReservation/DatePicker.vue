@@ -1,34 +1,34 @@
 <template>
   <div>
-  <v-menu
-        :close-on-content-click="false"
-        v-model="menu1"
-        :nudge-right="40"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        max-width="290px"
-        min-width="290px"
-      >
-        <v-text-field
-          slot="activator"
-          v-model="reservationDate"
-          label="Date (read only text field)"
-          hint="YYYY-MM-DD format"
-          persistent-hint
-          prepend-icon="event"
-          readonly
-        ></v-text-field>
-        <v-date-picker
-          v-model="reservationDate"
-          no-title
-          @input="close"
-          :event-color="eventColor"
-          :events="functionEvents"
-        ></v-date-picker>
-      </v-menu>
-    </div>
+    <v-menu
+      :close-on-content-click="false"
+      v-model="menu1"
+      :nudge-right="40"
+      lazy
+      transition="scale-transition"
+      offset-y
+      full-width
+      max-width="290px"
+      min-width="290px"
+    >
+      <v-text-field
+        slot="activator"
+        v-model="reservationDate"
+        label="Date (read only text field)"
+        hint="YYYY-MM-DD format"
+        persistent-hint
+        prepend-icon="event"
+        readonly
+      ></v-text-field>
+      <v-date-picker
+        v-model="reservationDate"
+        no-title
+        @input="close"
+        :event-color="eventColor"
+        :events="functionEvents"
+      ></v-date-picker>
+    </v-menu>
+  </div>
 </template>
 
 
@@ -41,8 +41,7 @@ export default {
     menu1: false,
     menu2: false,
     arrayEvents: null,
-    test:"2018-9-15"
-
+    test: "2018-9-15"
   }),
 
   computed: {
@@ -52,7 +51,7 @@ export default {
 
     reservationDate: {
       get() {
-          console.log(this.$state.date)
+        console.log(this.$state.date);
         return this.$state.date;
       },
       set(date) {
@@ -61,9 +60,7 @@ export default {
       }
     },
 
-    ...mapGetters({
-     
-    }),
+    ...mapGetters({}),
 
     eventColor() {
       return function(date) {
@@ -75,8 +72,6 @@ export default {
     }
   },
   methods: {
-    
-
     close() {
       this.menu1 = false;
       this.menu2 = false;

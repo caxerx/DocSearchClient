@@ -4,7 +4,7 @@ const state = {
     doctorList: {
         // showIndex:-1,
         // showList:[],
-        details: [
+        list: [
             {
                 
                 name:"Dr. Nirmala Rajgopalan",
@@ -80,7 +80,11 @@ const state = {
 
             },
 
-        ]
+        ],
+
+        doctor:{
+
+        }
 
 
     }
@@ -89,7 +93,8 @@ const state = {
 
 
 const getters = {
-    getDoctorList: state => state.doctorList
+    getDoctorList: state => state.doctorList,
+    getDoctor:state => state.doctorList.doctor,
 }
 
 
@@ -101,6 +106,9 @@ const actions = {
     // actionSetShowListForDoctorList({commit},index){
     //     commit("setShowListForDoctorList",index);
     // }
+    actionSetDoctorForDoctorList({commit},doctor){
+        commit("setSetDoctorForDoctorList",doctor);
+    }
     
 
 
@@ -121,6 +129,11 @@ const mutations = {
 //     state.doctorList.showList[index] = ! state.doctorList.showList[index];
 //     console.log(state.doctorList.showList)
 //    }
+        ["setSetDoctorForDoctorList"](state,doctor){
+            state.doctorList.doctor = doctor;
+            console.log(state.doctorList.doctor);
+
+        }
 }
 
 export default {
