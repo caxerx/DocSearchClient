@@ -1,8 +1,5 @@
 <template>
-  <div>
-      
-    <v-layout row wrap>
-      <v-flex>
+    <div id="layout">
         <v-card v-for="(content, index) in contents" :key="index" style="margin-bottom:0.1%">
           <v-card-title primary-title>
             <div style="width:50%">
@@ -34,9 +31,8 @@
             </v-btn>
           </v-card-title>
         </v-card>
-      </v-flex>
-    </v-layout>
-  </div>
+    </div>
+
 </template>
 
 <script>
@@ -75,6 +71,11 @@ export default {
  }
   .column2{
      width:70%;
-     display: inline-table;
+     display: inline-table;'
  } */
+
+ #layout{
+     /* height:32em; */
+     /* overflow-y:scroll; */
+ }
 </style>

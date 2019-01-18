@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+<v-content>
     <v-card>
       <container>
         <search slot="content"/>
@@ -14,7 +14,7 @@
         </v-flex>
       </container>
     </v-card>
-  </v-container>
+</v-content>
 </template>
 
 

@@ -1,14 +1,16 @@
 <template>
-  <v-layout style="height:100%">
+<v-content>
+  <v-layout fill-height>
     <v-flex xs12>
       <!-- <v-flex xs12 sm10 offset-sm1> -->
-        <v-flex xs12 sm10 offset-sm1 style="mar">
+        <v-flex xs12 sm10 offset-sm1 style="mar" fill-height>
           <div id="content">
           <slot name="content"></slot>
           </div>
         </v-flex>
     </v-flex>
   </v-layout>
+</v-content>
 </template>
 
 
@@ -19,6 +21,8 @@
 }
 
 #content{
-  padding-top:3%;
+  padding-top:20px;
+  height:100%;
+ 
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app class="blue lighten-5">
     <v-navigation-drawer v-model="drawer" temporary app>
       <v-list dense>
         <v-list-tile @click>
@@ -24,10 +24,13 @@
       <v-toolbar-side-icon slot="hiddenIcon" class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     </nav-bar>
 
-    <v-content>
-      <slot name="content"></slot>
-    </v-content>
-  </div>
+        <!-- <v-content> -->
+    
+      <!-- <slot name="content"></slot> -->
+      <router-view/>
+        <!-- </v-content> -->
+   
+  </v-app>
 </template>
 <script>
 import NavBar from "@/components/Navbar";

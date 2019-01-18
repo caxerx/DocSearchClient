@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%">
+  <v-card >
     <v-layout row justify-center fill-height>
            <v-flex xs12 sm6 >
       <img src="@/assets/doctor.jpeg" id="opponent_videoChat">
