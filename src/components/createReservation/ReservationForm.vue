@@ -66,7 +66,7 @@
           <v-flex sm12>
             <v-layout row wrap justify-space-between>
               <span v-for="(time,index) in timeList" :key="index">
-                <v-btn color="primary">{{time.startTime}}</v-btn>
+                <v-btn color="primary" @click="setTime(time.startTime)">{{time.startTime}}</v-btn>
               </span>
             </v-layout>
           </v-flex>
@@ -105,7 +105,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionSetDefaultReservationForCreateReservation"])
+    ...mapActions(["actionSetDefaultReservationForCreateReservation","actionSetTimeForCreateReservation"]),
+    setTime(time){
+      this.actionSetTimeForCreateReservation(time);
+    }
   }
 };
 </script>

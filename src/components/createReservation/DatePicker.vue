@@ -41,7 +41,6 @@ export default {
     menu1: false,
     menu2: false,
     arrayEvents: null,
-    test: "2018-9-15"
   }),
 
   computed: {
