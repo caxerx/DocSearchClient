@@ -1,10 +1,14 @@
 <template>
-  <v-container>
-    <v-card>
-      <container>
-        <search slot="content"/>
-      </container>
-    </v-card>
+  <div>
+    
+     
+        <v-card flat style="background-color:red">
+         <v-container>
+        <search/>
+         </v-container>
+        </v-card>
+    
+   
 
     <v-card style="margin-top: 50px">
       <container>
@@ -14,7 +18,7 @@
         </v-flex>
       </container>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 
