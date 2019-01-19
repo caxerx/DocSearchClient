@@ -1,7 +1,13 @@
 <template>
   <v-container>
-    <v-layout v-bind:style="layoutStyle" justify-space-between>
-      <v-flex xs4>
+    <v-card>
+    <v-card-title class="headline primary" primary-title>
+      <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
+        <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}} </v-tab>
+        </v-tabs>
+    </v-card-title>
+    <v-card-text>
+         <v-flex v-if="active==0">
         <div id="DocInfo_div" slot="content" class="title font-weight-regular">
           <v-layout align-center wrap><v-flex flat class="display-1 font-weight-regular"> Information</v-flex><v-btn>Booking</v-btn></v-layout>
           <v-data-table
@@ -22,8 +28,7 @@
           </v-data-table>
         </div>
       </v-flex>
-
-      <v-flex xs3>
+       <v-flex v-if="active==1">
         <div id="DocQuali_div" slot="content" style>
           <div class="display-1 font-weight-regular">Qualification</div>
           <v-data-table
@@ -40,7 +45,7 @@
         </div>
       </v-flex>
 
-      <v-flex xs3>
+      <v-flex v-if="active==2">
         <div id="Service_div" slot="content">
           <div>Services</div>
           <v-data-table
@@ -56,7 +61,9 @@
           </v-data-table>
         </div>
       </v-flex>
-    </v-layout>
+    </v-card-text>
+              
+    </v-card>
     <div v-bind:style="layoutStyle">
       <h1>Clinic/Hospital Information</h1>
       <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding-top: 25px;">
@@ -107,7 +114,6 @@ td {
 tr:hover {
   background-color: #f5f5f5;
 }
-
 </style>
 <script>
 export default {
@@ -237,8 +243,17 @@ export default {
           map:
             "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.3280691625514!2d114.16985791495483!3d22.303429085322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE4JzEyLjMiTiAxMTTCsDEwJzE5LjQiRQ!5e0!3m2!1szh-TW!2shk!4v1546153405835"
         }
-      ]
+      ],
+
+      DocInfoTypes: ["Information", "Qualification", "Services"],
+      active: 0,
+      
     };
+  },
+  focus: {
+    active: function(val) {
+      console.log(val);
+    }
   }
 };
 </script>

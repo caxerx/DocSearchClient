@@ -7,7 +7,7 @@
         Search a Doctor        
       </div>
       <v-text-field
-      background-color="white"
+        color="white"
         name="keywords"
         v-model="message"
         :append-outer-icon="'search'"
@@ -23,16 +23,16 @@
       ></v-text-field>
       <v-layout wrap align-center>
       <v-flex xs12 sm3 d-flex class="selectbox">
-      <v-select :items="specialty" label="specialty" outline name="specialty" ></v-select>
+      <v-select :items="specialty" label="specialty" outline name="specialty" color="white"></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-      <v-select :items="specialty" label="locations" outline name="specialty"></v-select>
+      <v-select :items="specialty" label="locations" outline name="specialty" color="white"></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-      <v-select :items="specialty" label="language" outline name="specialty"></v-select>
+      <v-select :items="specialty" label="language" outline name="specialty" color="white"></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-      <v-select :items="specialty" label="gender" outline name="specialty"></v-select>
+      <v-select :items="specialty" label="gender" outline name="specialty" color="white"></v-select>
       </v-flex>
       </v-layout>     
     </v-form>

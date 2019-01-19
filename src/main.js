@@ -23,7 +23,7 @@ Vue.use(Vuex)
 
 Vue.use(Vuetify, {
   theme: {
-    primary: colors.lightBlue.darken2,
+    primary: colors.lightBlue.darken4,
     secondary: colors.blue.darken1,
     accent: colors.indigo.base, 
   }
