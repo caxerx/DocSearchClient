@@ -13,6 +13,7 @@ import Main from './pages/Main.vue'
 import ViewDoctorInfo from './pages/ViewDoctorInfo.vue'
 import DoctorList from './pages/DoctorList.vue'
 import YourDriver from './pages/YourDriver.vue'
+import EditProfile from './pages/EditProfile.vue'
 
 Vue.use(Router)
 
@@ -83,6 +84,11 @@ export default new Router({
         {
           path: 'medicineRecord', // url= shop/cart
           component: MedicineRecord,
+    
+        },
+        {
+          path: 'editProfile', // url= shop/cart
+          component: EditProfile,
     
         },
         

@@ -1,38 +1,32 @@
 <template>
-    <div id="layout">
-        <v-card v-for="(content, index) in contents" :key="index" style="margin-bottom:0.1%">
-          <v-card-title primary-title>
-            <div style="width:50%">
-              <div class="headline">No.{{content.no}}</div>
-
-              <table>
-                <tr class="grey--text">
-                  <td>Clinc:</td>
-                  <td>{{content.clinc}}</td>
-                </tr>
-                <tr class="grey--text">
-                  <td>Doctor:</td>
-                  <td>{{content.doctor}}</td>
-                </tr>
-                <tr class="grey--text">
-                  <td>Date:</td>
-                  <td>{{content.date}}</td>
-                </tr>
-                <tr class="grey--text">
-                  <td>Time:</td>
-                  <td>{{content.startTime}} to {{content.endTime}}</td>
-                </tr>
-              </table>
-            </div>
-
-            <v-spacer></v-spacer>
-            <v-btn icon @click="changeShow(content)">
-              <v-icon>keyboard_arrow_right</v-icon>
+  <div id="layout">
+    <v-card-text class="grey--text">Reservation List</v-card-text>
+    <v-card v-for="(content, index) in contents" :key="index" style="margin-bottom:2%">
+      <v-card-title primary-title>
+        <v-layout row wrap>
+          <v-flex sm1></v-flex>
+          <v-flex sm8 >
+            <div class="headline">{{content.doctor}}</div>
+            <div class="grey--text">{{content.date}}, {{content.startTime}}</div>
+            <div v-if="content.status==='Waiting'" class="error--text">{{content.status}}</div>
+            <div v-if="content.status==='Approval'" class="info--text">{{content.status}}</div>
+            <div v-if="content.status==='Finish'" class="success--text">{{content.status}}</div>
+            <div v-if="content.status==='Cancel'" class="error--text">{{content.status}}</div>
+          </v-flex>
+          <v-flex sm1 offset-sm1>
+            <v-spacer/>
+             <v-btn  v-if="content.status==='Cancel'" disabled>
+               Cancel 
             </v-btn>
-          </v-card-title>
-        </v-card>
-    </div>
-
+            <v-btn v-else color="error" @click="changeShow(content)">
+               Cancel 
+            </v-btn>
+            
+          </v-flex>
+        </v-layout>
+      </v-card-title>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -74,8 +68,8 @@ export default {
      display: inline-table;'
  } */
 
- #layout{
-     /* height:32em; */
-     /* overflow-y:scroll; */
- }
+#layout {
+  /* height:32em; */
+  /* overflow-y:scroll; */
+}
 </style>

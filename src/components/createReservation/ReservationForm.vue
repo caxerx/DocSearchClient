@@ -1,58 +1,7 @@
 <template>
   <div>
     <v-card>
-      <v-layout row wrap>
-        <v-flex xs4 sm2>
-          <v-card-title>
-            <img src="@/assets/icon-person.png" class="icon">
-          </v-card-title>
-        </v-flex>
-        <v-flex xs2 sm7>
-          <v-card-text>
-            <h3 class="headline mb primary--text">{{doctor.name}}</h3>
-          </v-card-text>
-          <v-card-text>
-            <div>{{doctor.academic}}</div>
-            <div>{{doctor.experience}}</div>
-            <div>{{doctor.position}}</div>
-          </v-card-text>
-          <v-card-text>
-            <h3 class="font-weight-bold">{{doctor.clinc}}</h3>
-            <v-layout row wrap>
-              <v-flex xs3 sm1>
-                <img src="@/assets/image-icon.png" class="icon">
-              </v-flex>
-              <v-flex xs3 sm1>
-                <img src="@/assets/image-icon.png" class="icon">
-              </v-flex>
-              <v-flex xs3 sm1>
-                <img src="@/assets/image-icon.png" class="icon">
-              </v-flex>
-            </v-layout>
-          </v-card-text>
-        </v-flex>
-
-        <v-flex sm3>
-          <v-card-text>
-            <div>
-              <v-icon small>thumb_up</v-icon>
-              {{doctor.like}}
-            </div>
-            <div>
-              <v-icon small>comment</v-icon>
-              {{doctor.feedback}} Feedback
-            </div>
-            <div>
-              <v-icon small>place</v-icon>
-              {{doctor.location}}
-            </div>
-            <div>
-              <v-icon small>access_time</v-icon>
-              {{doctor.available}}
-            </div>
-          </v-card-text>
-        </v-flex>
-      </v-layout>
+      <doctor-info-card/>
       <v-layout row wrap>
         <v-card-text>
           <hr>
@@ -79,6 +28,7 @@
 <script>
 import axios from "axios";
 import DatePicker from "./DatePicker";
+import DoctorInfoCard from "@/components/DoctorInfoCard";
 import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
@@ -101,7 +51,8 @@ export default {
   },
 
   components: {
-    DatePicker
+    DatePicker,
+    DoctorInfoCard
   },
 
   methods: {

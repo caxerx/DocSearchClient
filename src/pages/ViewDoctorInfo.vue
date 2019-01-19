@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <doctor-info-card/>
     <v-layout v-bind:style="layoutStyle" justify-space-between>
       <v-flex xs4>
         <div id="DocInfo_div" slot="content" class="title font-weight-regular">
@@ -110,7 +111,11 @@ tr:hover {
 
 </style>
 <script>
+import DoctorInfoCard from "@/components/DoctorInfoCard";
 export default {
+  components:{
+    DoctorInfoCard
+  },
   data() {
     return {
       infos: [

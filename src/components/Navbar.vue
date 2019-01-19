@@ -17,7 +17,7 @@
         <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
         <v-btn flat @click="router(doctorList.link)">{{doctorList.title}}</v-btn>
 
-        <v-menu offset-y open-on-hover>
+        <!-- <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>reservation
             <v-icon>arrow_drop_down</v-icon>
           </v-btn>
@@ -30,7 +30,7 @@
               <v-list-tile-title>{{reservation.title}}</v-list-tile-title>
             </v-list-tile>
           </v-list>
-        </v-menu>
+        </v-menu> -->
       </v-toolbar-items>
 
       <span v-if="this.getter.isSuccess">

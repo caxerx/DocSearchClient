@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar  flat dark id="searchBar">
+  <v-toolbar   dark color="secondary" id="searchBar">
      
 
       <v-select :items="specialty"  class="select white-text" label="specialty" ></v-select>
