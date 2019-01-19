@@ -14,6 +14,7 @@ import ViewDoctorInfo from './pages/ViewDoctorInfo.vue'
 import DoctorList from './pages/DoctorList.vue'
 import YourDriver from './pages/YourDriver.vue'
 import EditProfile from './pages/EditProfile.vue'
+import ReservationDetail from './pages/ReservationDetail.vue'
 
 Vue.use(Router)
 
@@ -89,6 +90,11 @@ export default new Router({
         {
           path: 'editProfile', // url= shop/cart
           component: EditProfile,
+    
+        },
+        {
+          path: 'reservationDetail', // url= shop/cart
+          component: ReservationDetail,
     
         },
         

@@ -1,7 +1,7 @@
 <template>
   <div id="layout">
     <v-card-text class="grey--text">Reservation List</v-card-text>
-    <v-card v-for="(content, index) in contents" :key="index" style="margin-bottom:2%">
+    <v-card v-for="(content, index) in contents" :key="index" style="margin-bottom:2%" class="clickable"  @click.native="router('reservationDetail')">
       <v-card-title primary-title>
         <v-layout row wrap>
           <v-flex sm1>
@@ -24,12 +24,47 @@
           </v-flex>
           <v-flex sm1 offset-sm1>
             <v-spacer/>
-            <v-btn v-if="content.status==='Cancel'" disabled>Cancel</v-btn>
-            <v-btn v-else color="error" @click="changeShow(content)">Cancel</v-btn>
+            <v-btn v-if="content.status==='Cancel'" @click.stop="nothing()" outline color="grey">Cancel</v-btn>
+            <v-btn v-else color="error" outline @click.stop="showCancelDialog()" >Cancel</v-btn>
           </v-flex>
         </v-layout>
       </v-card-title>
     </v-card>
+
+    <template>
+  <div class="text-xs-center">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Privacy Policy
+        </v-card-title>
+
+        <v-card-text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            flat
+            @click="dialog = false"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
   </div>
 </template>
 
@@ -40,7 +75,9 @@ export default {
   data() {
     return {
       search: "",
-      date: null
+      date: null,
+      dialog:false,
+      
     };
   },
   components: {},
@@ -70,7 +107,19 @@ export default {
         let d = new Date(date);
         let month = d.toLocaleString('en-us', { month: 'short' });
         return month;
-    }
+    },
+
+      router(linkStr) {
+      this.$router.push(linkStr);
+    },
+
+   showCancelDialog(){
+       this.dialog=true;
+       console.log(this.dialog)
+   },
+   nothing(){
+
+   }
   }
 };
 </script>
@@ -93,5 +142,8 @@ export default {
 #dateDiv{
     padding-left:5px;
     padding-right:5px;
+}
+.clickable {
+  cursor: pointer;
 }
 </style>
