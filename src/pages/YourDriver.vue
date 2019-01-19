@@ -43,11 +43,8 @@ export default {
 
   mounted: function() {
     let clientHeight = this.$refs.content.clientHeight;
-    if (clientHeight >= 900) {
-      this.height = 481.6;
-    } else {
       this.height = this.$refs.content.clientHeight * 0.8;
-    }
+    
     console.log(this.$refs.content.offsetHeight*0.8);
     console.log(this.$el.clientHeight);
   },
