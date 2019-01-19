@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <drawer/> -->
-    <v-toolbar color="secondary" dark>
+    <v-toolbar  >
       <slot name="hiddenIcon"></slot>
 
       <v-toolbar-items>
