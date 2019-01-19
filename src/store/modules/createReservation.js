@@ -4,7 +4,7 @@ const state = {
     createReservation: {
         date: new Date().toISOString().substr(0, 10),
         time: "",
-        averageMinutes: 10,
+        averageMinutes: 30,
         maxMinutes: 60,
         workingHour: 9,
         startHour: 9,

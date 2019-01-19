@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     
      
@@ -9,6 +10,14 @@
         </v-card>
     
    
+=======
+<v-content>
+    <v-card>
+      <container>
+        <search slot="content"/>
+      </container>
+    </v-card>
+>>>>>>> 7d74c3e42e125d27a8fe56bdaf936cbc186e764a
 
     <v-card style="margin-top: 50px">
       <container>
@@ -18,7 +27,11 @@
         </v-flex>
       </container>
     </v-card>
+<<<<<<< HEAD
   </div>
+=======
+</v-content>
+>>>>>>> 7d74c3e42e125d27a8fe56bdaf936cbc186e764a
 </template>
 
 

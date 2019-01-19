@@ -1,5 +1,4 @@
 <template>
-  <v-content>
     <v-container fluid fill-height>
       <v-layout row justify-center fill-height>
         <v-flex xs12 sm8 md4>
@@ -20,7 +19,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-content>
 </template>
 
 <style>

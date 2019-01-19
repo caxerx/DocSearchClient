@@ -63,7 +63,7 @@
           <v-btn color="primary" @click="setContactShow(index)">
             <v-icon>local_phone</v-icon>Contact Clinc
           </v-btn>
-          <v-btn color="primary" @click="setReservationShow(index)">
+          <v-btn color="primary" @click="setReservation(doctor)">
             <v-icon>add</v-icon>Create Reservation
           </v-btn>
         </v-card-actions>
@@ -75,23 +75,6 @@
             <div>
               <v-icon>local_phone</v-icon>
               {{doctor.phone}}
-            </div>
-            <div>
-              <v-icon>email</v-icon>
-              {{doctor.email}}
-            </div>
-            <v-btn block color="primary">
-              <v-icon left dark>chat</v-icon>Online Chat Now
-            </v-btn>
-          </v-card-text>
-        </v-slide-y-transition>
-        <v-slide-y-transition>
-          <!-- hidden reservation -->
-          <v-card-text v-if="reservationShowList[index].show">
-            <hr>
-            <div>
-              <v-icon>local_phone</v-icon>
-              {{doctor.phone}} fk u pk la
             </div>
             <div>
               <v-icon>email</v-icon>
@@ -118,8 +101,7 @@ export default {
       search: "",
       show: false,
       showList: [],
-      contactShowList: [],
-      reservationShowList: []
+      contactShowList: []
     };
   },
   components: {},
@@ -130,11 +112,10 @@ export default {
 
     doctorList() {
       //also set showList
-      for (let i = 0; i < this.getter.details.length; i++) {
+      for (let i = 0; i < this.getter.list.length; i++) {
         this.contactShowList.push({ index: i, show: false });
-        this.reservationShowList.push({ index: i, show: false });
       }
-      return this.getter.details;
+      return this.getter.list;
     }
   },
 
@@ -143,7 +124,7 @@ export default {
   //   },
 
   methods: {
-    ...mapActions([]),
+    ...mapActions(["actionSetDoctorForDoctorList"]),
     getImgPath(imgName) {
       let url = "@/assets/" + imgName;
       return url;
@@ -154,11 +135,10 @@ export default {
 
     setContactShow(index) {
       this.contactShowList[index].show = !this.contactShowList[index].show;
-      console.log(this.showList);
     },
-    setReservationShow(index) {
-      this.reservationShowList[index].show = !this.reservationShowList[index].show;
-      console.log(this.showList);
+    setReservation(doctor) {
+      this.actionSetDoctorForDoctorList(doctor);
+      this.$router.push("/createReservation");
     }
   }
 };

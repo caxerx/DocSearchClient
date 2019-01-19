@@ -77,7 +77,8 @@ export default {
     },
     profile() {
       return [
-        { title: "Medicine Record", link: "medicineRecord" },
+        { title: "Medicine Record", link: "yourDriver/medicineRecord" },
+         { title: "View Reservation", link: "yourDriver/viewReservation" },
         { title: "Edit Profile", link: "" },
         { title: "Logout", link: "actionLogout" }
       ];

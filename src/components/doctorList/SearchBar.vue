@@ -36,8 +36,8 @@ export default {
 #searchBar {
   position: sticky;
   top: 0px;
-  z-index: 100;
-  height:50px;
+  z-index: 1;
+ 
 
 }
 

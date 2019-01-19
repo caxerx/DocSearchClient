@@ -1,13 +1,12 @@
 <template>
   <container>
     <div slot="content">
-      <div class="display-1 font-weight-regular">Create Reservation</div>
-    <v-layout row wrap justify-space-between>
-      <v-flex xs5>
+    <v-layout row wrap justify-space-around>
+      <v-flex sm8>
         <reservation-form/>
       </v-flex>
-      <v-flex xs6>
-          <reservation-table/>
+      <v-flex sm4 >
+          <confirm-form/>
       </v-flex>
     </v-layout>
     </div>
@@ -17,8 +16,8 @@
 
 
 <script>
-import ReservationForm from "@/components/createReservation/Form.vue";
-import ReservationTable from "@/components/createReservation/Table.vue";
+import ReservationForm from "@/components/createReservation/ReservationForm.vue";
+import ConfirmForm from "@/components/createReservation/ConfirmForm.vue";
 import Container from "@/components/Container";
 
 
@@ -27,7 +26,7 @@ export default {
   name: "App",
   components: {
     ReservationForm,
-    ReservationTable,
+    ConfirmForm,
     Container,
   },
 

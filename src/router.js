@@ -12,6 +12,7 @@ import SignUp from './pages/SignUp.vue'
 import Main from './pages/Main.vue'
 import ViewDoctorInfo from './pages/ViewDoctorInfo.vue'
 import DoctorList from './pages/DoctorList.vue'
+import YourDriver from './pages/YourDriver.vue'
 
 Vue.use(Router)
 
@@ -68,6 +69,24 @@ export default new Router({
       path: '/',
       name:'',
       component: Main
+    },
+    {
+      path: '/yourDriver',
+      name:'yourDriver',
+      component: YourDriver,
+      children:[
+        {
+          path: 'viewReservation', // url= shop/cart
+          component: ViewReservation,
+      
+        },
+        {
+          path: 'medicineRecord', // url= shop/cart
+          component: MedicineRecord,
+    
+        },
+        
+      ]
     },
     
     {

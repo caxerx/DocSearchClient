@@ -1,13 +1,9 @@
 <template >
-  <div>
-    <v-app class="blue lighten-5">
-      <drawer>
-        <v-content slot="content">
-          <router-view/>
-        </v-content>
-      </drawer>
-    </v-app>
-  </div>
+
+    <drawer>
+
+    </drawer>
+  
 </template>
 
 
