@@ -1,66 +1,86 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title class="headline primary" primary-title>
-      <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
-        <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}} </v-tab>
-        </v-tabs>
-    </v-card-title>
-     <v-card-text>
-        <v-flex v-if="active==0">
       <DoctorInfoCard/>
-        </v-flex>
-        <v-flex v-if="active==1">
-       
-          <v-data-table
-          
-            id="Service_v_data_table"
-            :items="Services"
-            hide-actions
-            hide-headers
-            class="elevation-1"
-          >
-            <template slot="items" slot-scope="props">
-              <td class="text-xs-left">{{props.item.details}}</td>
-            </template>
-          </v-data-table>
-     
-      </v-flex>
-     </v-card-text>
     </v-card>
     <v-card style="margin-top: 25px">
-       <v-toolbar dark color="primary" class="tableToolBar">
-        <v-toolbar-title class="white--text">Clinic/Hospital Information </v-toolbar-title>
+      <v-card-title class="headline primary" primary-title>
+        <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
+          <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}}</v-tab>
+        </v-tabs>
+      </v-card-title>
+      <v-flex v-if="active==0">
+        <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
+          <br>
+          <v-card style="margin-right: 25px; width:100%" flat>
+            <h2>{{clinic.name}}</h2>
+            <h3>{{clinic.Address}}</h3>
 
-        <v-spacer></v-spacer>
-      </v-toolbar>
-      <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
-        <br>
-        <v-card style="margin-right: 25px; width:100%" flat>
-          <h2>{{clinic.name}}</h2>
-          <h3>{{clinic.Address}}</h3>
+            <h2 style="padding-top: 25px;">opening hour</h2>
+            <table>
+              <tr v-for="(time,index) in clinic.times" :key="index">
+                <th>{{time.date}}</th>
+                <td>{{time.am}}</td>
+                <td>{{time.pm}}</td>
+              </tr>
+            </table>
+          </v-card>
+          <v-flex id="ClinicMap_div">
+            <h2>Map</h2>
+            <iframe
+              v-bind:src="clinic.map"
+              width="600"
+              height="450"
+              frameborder="0"
+              style="border:0"
+              allowfullscreen
+            ></iframe>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex v-if="active==1">
+        <v-data-table
+          id="Service_v_data_table"
+          :items="Services"
+          hide-actions
+          hide-headers
+          class="elevation-1"
+        >
+          <template slot="items" slot-scope="props">
+            <td class="text-xs-left">{{props.item.details}}</td>
+          </template>
+        </v-data-table>
+      </v-flex>
 
-          <h2 style="padding-top: 25px;">opening hour</h2>
-          <table>
-            <tr v-for="(time,index) in clinic.times" :key="index">
-              <th>{{time.date}}</th>
-              <td>{{time.am}}</td>
-              <td>{{time.pm}}</td>
-            </tr>
-          </table>
-        </v-card> 
-        <v-flex id="ClinicMap_div">
-          <h2>Map</h2>
-          <iframe
-            v-bind:src="clinic.map"
-            width="600"
-            height="450"
-            frameborder="0"
-            style="border:0"
-            allowfullscreen
-          ></iframe>
-        </v-flex>
-      </v-layout>
+      <v-flex v-if="active==2" >
+       
+        <div class="display-1">
+        Feedback for Doctor
+        </div>
+        <v-divider/>
+        <v-card flat>
+          <v-card-title class="title font-weight-medium">user a</v-card-title>
+          <v-card-text class="body-2">
+            He was down to earth in behaviour and attitude
+            Explained every aspect if our doubt
+            Appropriate advice for each point of query
+          </v-card-text>
+          <v-divider/>
+        </v-card>
+
+        
+       
+        <v-card flat>
+          <v-card-title class="title font-weight-medium">user a</v-card-title>
+          <v-card-text class="body-2">
+            He was down to earth in behaviour and attitude
+            Explained every aspect if our doubt
+            Appropriate advice for each point of query
+          </v-card-text>
+          <v-divider/>
+        </v-card>
+    
+      </v-flex>
     </v-card>
   </v-container>
 </template>
@@ -86,9 +106,8 @@ tr:hover {
 <script>
 import DoctorInfoCard from "@/components/DoctorInfoCard";
 export default {
-  components:{
-    DoctorInfoCard,
-   
+  components: {
+    DoctorInfoCard
   },
   data() {
     return {
@@ -99,9 +118,9 @@ export default {
 
         professional: ["General Pratice", "Paediatrics"],
 
-        email:"123456@gmail.com",
+        email: "123456@gmail.com",
 
-        phone:"12345678"
+        phone: "12345678"
       },
       quali: [
         {
@@ -215,7 +234,7 @@ export default {
         }
       ],
 
-      DocInfoTypes: ["Information", "Services"],
+      DocInfoTypes: ["Information", "Services", "Feedback"],
       active: 0
     };
   },

@@ -31,7 +31,7 @@
               style=""
             ></v-text-field>
           </v-flex>
-          <v-flex xs12 sm1  >
+         <v-flex xs12 sm1  >
             <v-layout justify-center>
             <v-btn color="primary" fab   dark>
                 <v-icon>description</v-icon>
