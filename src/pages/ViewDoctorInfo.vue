@@ -1,68 +1,117 @@
 <template>
   <v-container>
     <v-card>
-    <v-card-title class="headline primary" primary-title>
-      <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
-        <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}} </v-tab>
+      <v-card-title class="headline primary" primary-title>
+        <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
+          <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}}</v-tab>
         </v-tabs>
-    </v-card-title>
-    <v-card-text>
-         <v-flex v-if="active==0">
-        <div id="DocInfo_div" slot="content" class="title font-weight-regular">
-          <v-layout align-center wrap><v-flex flat class="display-1 font-weight-regular"> Information</v-flex><v-btn>Booking</v-btn></v-layout>
-          <v-data-table
-            id="DocInfo_v_data_table"
-            :items="infos"
-            hide-actions
-            hide-headers
-            class="elevation-1"
-          >
-            <template slot="items" slot-scope="props">
-              <td class="text-xs-left">
-                <b>{{props.item.name}}</b>
-              </td>
-              <td class="text-xs-left">
-                <span v-for="detail in props.item.details" :key="detail">{{detail }}</span>
-              </td>
-            </template>
-          </v-data-table>
-        </div>
-      </v-flex>
-       <v-flex v-if="active==1">
-        <div id="DocQuali_div" slot="content" style>
-          <div class="display-1 font-weight-regular">Qualification</div>
-          <v-data-table
-            id="DocQuali_v_data_table"
-            :items="quali"
-            hide-actions
-            hide-headers
-            class="elevation-1"
-          >
-            <template slot="items" slot-scope="props">
-              <td class="text-xs-left">{{props.item.details}}</td>
-            </template>
-          </v-data-table>
-        </div>
-      </v-flex>
+      </v-card-title>
+      <v-card-text>
+        <v-flex v-if="active==0">
+         <v-layout row wrap>
+        <v-flex xs4 sm2>
+          <v-card-title>
+            <img src="@/assets/icon-person.png" class="icon">
+          </v-card-title>
+        </v-flex>
+        <v-flex xs6 sm7>
+          <v-card-text>
+            <h3 class="headline mb primary--text">{{infos.name}}</h3>
+          </v-card-text>
+  
+         
+        </v-flex>
 
-      <v-flex v-if="active==2">
-        <div id="Service_div" slot="content">
-          <div>Services</div>
-          <v-data-table
-            id="Service_v_data_table"
-            :items="Services"
-            hide-actions
-            hide-headers
-            class="elevation-1"
-          >
-            <template slot="items" slot-scope="props">
-              <td class="text-xs-left">{{props.item.details}}</td>
-            </template>
-          </v-data-table>
-        </div>
-      </v-flex>
-    </v-card-text>
-              
+        <v-flex sm3>
+          <v-card-text>
+            <div>
+              <v-icon small>thumb_up</v-icon>
+              {{doctor.like}}
+            </div>
+            <div>
+              <v-icon small>comment</v-icon>
+              {{doctor.feedback}} Feedback
+            </div>
+            <div>
+              <v-icon small>place</v-icon>
+              {{doctor.location}}
+            </div>
+            <div>
+              <v-icon small>access_time</v-icon>
+              {{doctor.available}}
+            </div>
+            {{showList}}
+          </v-card-text>
+        </v-flex>
+
+        <v-card-actions style="width:100%">
+          <v-spacer></v-spacer>
+
+          <v-btn color="primary" @click="router('viewDoctorInfo')">
+            <v-icon>person</v-icon>Profile
+          </v-btn>
+          <v-btn color="primary" @click="setContactShow(index)">
+            <v-icon>local_phone</v-icon>Contact Clinc
+          </v-btn>
+          <v-btn color="primary" @click="setReservation(doctor)">
+            <v-icon>add</v-icon>Create Reservation
+          </v-btn>
+        </v-card-actions>
+
+        <!-- hidden contact -->
+        <v-slide-y-transition>
+          <v-card-text v-if="contactShowList[index].show">
+            <hr>
+            <div>
+              <v-icon>local_phone</v-icon>
+              {{doctor.phone}}
+            </div>
+            <div>
+              <v-icon>email</v-icon>
+              {{doctor.email}}
+            </div>
+            <v-btn block color="primary">
+              <v-icon left dark>chat</v-icon>Online Chat Now
+            </v-btn>
+          </v-card-text>
+        </v-slide-y-transition>
+      </v-layout>
+          
+        </v-flex>
+        <v-flex v-if="active==1">
+          <div id="DocQuali_div" slot="content" style>
+            <div class="display-1 font-weight-regular">Qualification</div>
+            <v-data-table
+              id="DocQuali_v_data_table"
+              :items="quali"
+              hide-actions
+              hide-headers
+              class="elevation-1"
+            >
+              <template slot="items" slot-scope="props">
+                <td class="text-xs-left">{{props.item.details}}</td>
+              </template>
+            </v-data-table>
+          </div>
+        </v-flex>
+
+        <v-flex v-if="active==2">
+          <div id="Service_div" slot="content">
+            <div>Services</div>
+            <v-data-table
+              id="Service_v_data_table"
+              :items="Services"
+              hide-actions
+              hide-headers
+              class="elevation-1"
+            >
+              <template slot="items" slot-scope="props">
+                <td class="text-xs-left">{{props.item.details}}</td>
+              </template>
+            </v-data-table>
+          </div>
+        </v-flex>
+      </v-card-text>
     </v-card>
     <div v-bind:style="layoutStyle">
       <h1>Clinic/Hospital Information</h1>
@@ -119,20 +168,17 @@ tr:hover {
 export default {
   data() {
     return {
-      infos: [
-        {
-          name: "Doctor Name",
-          details: ["Yellow Green"]
-        },
-        {
-          name: "Gender",
-          details: ["Male"]
-        },
-        {
-          name: "Professional",
-          details: ["General Pratice", "Paediatrics"]
-        }
-      ],
+      infos: {
+        name: "YellowGreen",
+
+        gender: "Male",
+
+        professional: ["General Pratice", "Paediatrics"],
+
+        email:"123456@gmail.com",
+
+        phone:"12345678"
+      },
       quali: [
         {
           details: "MBBS (HK) 1975"
@@ -246,8 +292,7 @@ export default {
       ],
 
       DocInfoTypes: ["Information", "Qualification", "Services"],
-      active: 0,
-      
+      active: 0
     };
   },
   focus: {
