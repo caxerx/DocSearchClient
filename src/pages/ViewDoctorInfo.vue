@@ -2,122 +2,41 @@
   <v-container>
     <v-card>
       <v-card-title class="headline primary" primary-title>
-        <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
-          <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}}</v-tab>
+      <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
+        <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}} </v-tab>
         </v-tabs>
-      </v-card-title>
-      <v-card-text>
+    </v-card-title>
+     <v-card-text>
         <v-flex v-if="active==0">
-         <v-layout row wrap>
-        <v-flex xs4 sm2>
-          <v-card-title>
-            <img src="@/assets/icon-person.png" class="icon">
-          </v-card-title>
-        </v-flex>
-        <v-flex xs6 sm7>
-          <v-card-text>
-            <h3 class="headline mb primary--text">{{infos.name}}</h3>
-          </v-card-text>
-  
-         
-        </v-flex>
-
-        <v-flex sm3>
-          <v-card-text>
-            <div>
-              <v-icon small>thumb_up</v-icon>
-              {{doctor.like}}
-            </div>
-            <div>
-              <v-icon small>comment</v-icon>
-              {{doctor.feedback}} Feedback
-            </div>
-            <div>
-              <v-icon small>place</v-icon>
-              {{doctor.location}}
-            </div>
-            <div>
-              <v-icon small>access_time</v-icon>
-              {{doctor.available}}
-            </div>
-            {{showList}}
-          </v-card-text>
-        </v-flex>
-
-        <v-card-actions style="width:100%">
-          <v-spacer></v-spacer>
-
-          <v-btn color="primary" @click="router('viewDoctorInfo')">
-            <v-icon>person</v-icon>Profile
-          </v-btn>
-          <v-btn color="primary" @click="setContactShow(index)">
-            <v-icon>local_phone</v-icon>Contact Clinc
-          </v-btn>
-          <v-btn color="primary" @click="setReservation(doctor)">
-            <v-icon>add</v-icon>Create Reservation
-          </v-btn>
-        </v-card-actions>
-
-        <!-- hidden contact -->
-        <v-slide-y-transition>
-          <v-card-text v-if="contactShowList[index].show">
-            <hr>
-            <div>
-              <v-icon>local_phone</v-icon>
-              {{doctor.phone}}
-            </div>
-            <div>
-              <v-icon>email</v-icon>
-              {{doctor.email}}
-            </div>
-            <v-btn block color="primary">
-              <v-icon left dark>chat</v-icon>Online Chat Now
-            </v-btn>
-          </v-card-text>
-        </v-slide-y-transition>
-      </v-layout>
-          
+      <DoctorInfoCard/>
         </v-flex>
         <v-flex v-if="active==1">
-          <div id="DocQuali_div" slot="content" style>
-            <div class="display-1 font-weight-regular">Qualification</div>
-            <v-data-table
-              id="DocQuali_v_data_table"
-              :items="quali"
-              hide-actions
-              hide-headers
-              class="elevation-1"
-            >
-              <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{props.item.details}}</td>
-              </template>
-            </v-data-table>
-          </div>
-        </v-flex>
-
-        <v-flex v-if="active==2">
-          <div id="Service_div" slot="content">
-            <div>Services</div>
-            <v-data-table
-              id="Service_v_data_table"
-              :items="Services"
-              hide-actions
-              hide-headers
-              class="elevation-1"
-            >
-              <template slot="items" slot-scope="props">
-                <td class="text-xs-left">{{props.item.details}}</td>
-              </template>
-            </v-data-table>
-          </div>
-        </v-flex>
-      </v-card-text>
+       
+          <v-data-table
+          
+            id="Service_v_data_table"
+            :items="Services"
+            hide-actions
+            hide-headers
+            class="elevation-1"
+          >
+            <template slot="items" slot-scope="props">
+              <td class="text-xs-left">{{props.item.details}}</td>
+            </template>
+          </v-data-table>
+     
+      </v-flex>
+     </v-card-text>
     </v-card>
-    <div v-bind:style="layoutStyle">
-      <h1>Clinic/Hospital Information</h1>
-      <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding-top: 25px;">
+    <v-card style="margin-top: 25px">
+       <v-toolbar dark color="primary" class="tableToolBar">
+        <v-toolbar-title class="white--text">Clinic/Hospital Information </v-toolbar-title>
+
+        <v-spacer></v-spacer>
+      </v-toolbar>
+      <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
         <br>
-        <v-flex style="padding-right: 25px;">
+        <v-card style="margin-right: 25px; width:100%" flat>
           <h2>{{clinic.name}}</h2>
           <h3>{{clinic.Address}}</h3>
 
@@ -129,7 +48,7 @@
               <td>{{time.pm}}</td>
             </tr>
           </table>
-        </v-flex>
+        </v-card> 
         <v-flex id="ClinicMap_div">
           <h2>Map</h2>
           <iframe
@@ -142,7 +61,7 @@
           ></iframe>
         </v-flex>
       </v-layout>
-    </div>
+    </v-card>
   </v-container>
 </template>
 <style scoped>
@@ -168,7 +87,8 @@ tr:hover {
 import DoctorInfoCard from "@/components/DoctorInfoCard";
 export default {
   components:{
-    DoctorInfoCard
+    DoctorInfoCard,
+   
   },
   data() {
     return {
@@ -295,7 +215,7 @@ export default {
         }
       ],
 
-      DocInfoTypes: ["Information", "Qualification", "Services"],
+      DocInfoTypes: ["Information", "Services"],
       active: 0
     };
   },
