@@ -6,12 +6,16 @@
           <v-card flat>
             <video-chat style="height: 500px"/>
           </v-card>
-          <v-card>
-            <v-toolbar color="primary" dark>
-              <v-toolbar-title>chat</v-toolbar-title>
-            </v-toolbar>
-            <div style="height: 100px"></div>
-            <v-flex xs12 sm11>
+        </v-flex>
+      </v-layout>
+      <v-card>
+        <v-toolbar color="primary" dark>
+          <v-toolbar-title>chat</v-toolbar-title>
+        </v-toolbar>
+        <div style="height: 100px"></div>
+
+        <v-layout row wrap>
+          <v-flex xs11 sm11>
             <v-text-field
               name="keywords"
               v-model="message"
@@ -24,17 +28,18 @@
               @click:append="toggleMarker"
               @click:append-outer="sendMessage"
               @click:clear="clearMessage"
-              style="padding-top: 50px"
+              style=""
             ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm1>
-                <v-btn>
-
-                </v-btn>
-            </v-flex>
-          </v-card>
-        </v-flex>
-      </v-layout>
+          </v-flex>
+         <v-flex xs12 sm1  >
+            <v-layout justify-center>
+            <v-btn color="primary" fab   dark>
+                <v-icon>description</v-icon>
+              </v-btn>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-card>
     </div>
   </container>
 </template>
