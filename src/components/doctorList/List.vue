@@ -50,7 +50,6 @@
               <v-icon small>access_time</v-icon>
               {{doctor.available}}
             </div>
-            {{showList}}
           </v-card-text>
         </v-flex>
 
@@ -104,7 +103,9 @@ export default {
       contactShowList: []
     };
   },
-  components: {},
+  components: {
+      
+  },
   computed: {
     ...mapGetters({
       getter: "getDoctorList"

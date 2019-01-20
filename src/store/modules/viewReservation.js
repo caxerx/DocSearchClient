@@ -113,7 +113,8 @@ const state = {
   const actions = {
     actionSetShowForViewReservation({commit},content){
         commit("setShowForViewReservation",content);
-    }
+    },
+
    
   
   }
@@ -122,7 +123,8 @@ const state = {
     ["setShowForViewReservation"](state,content){
         let editedIndex = state.viewReservation.contents.indexOf(content);
         state.viewReservation.contents[editedIndex].show=!state.viewReservation.contents[editedIndex].show;
-    }
+    },
+    // ["setReservationDetailForViewReservation"]()
   }
   
   export default {
