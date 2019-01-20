@@ -3,9 +3,10 @@
 const state = {
   login: {
     userInfo: {
-      email: "test",
+      email: "test@gmail.com",
       pwd: "test",
       name:"test",
+      phone:"12345678",
     },
     isSuccess: false,
     dialog:false,

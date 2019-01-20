@@ -57,7 +57,7 @@
         <v-card-actions style="width:100%">
           <v-spacer></v-spacer>
 
-          <v-btn color="primary" @click="router('viewDoctorInfo')">
+          <v-btn color="primary" @click="setProfile(doctor)">
             <v-icon>person</v-icon>Profile
           </v-btn>
           <v-btn color="primary" @click="setContactShow(index)">
@@ -139,6 +139,10 @@ export default {
     setReservation(doctor) {
       this.actionSetDoctorForDoctorList(doctor);
       this.$router.push("/createReservation");
+    },
+    setProfile(doctor){
+         this.actionSetDoctorForDoctorList(doctor);
+          this.$router.push("/viewDoctorInfo");
     }
   }
 };

@@ -165,7 +165,11 @@ tr:hover {
 }
 </style>
 <script>
+import DoctorInfoCard from "@/components/DoctorInfoCard";
 export default {
+  components:{
+    DoctorInfoCard
+  },
   data() {
     return {
       infos: {
