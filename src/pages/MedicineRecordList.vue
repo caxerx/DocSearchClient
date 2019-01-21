@@ -2,7 +2,7 @@
   <!-- table -->
   <container>
     <div slot="content">
-     
+        <list/>
     </div>
   </container>
 </template>
@@ -10,6 +10,7 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import Container from "@/components/Container";
+import List from "@/components/medicineRecordList/List";
 export default {
   name: "App",
   data() {
@@ -18,11 +19,12 @@ export default {
     };
   },
   components: {
-    Container
+    Container,
+    List
   },
   computed: {
     ...mapGetters({
-      getter: "getMedicineRecord"
+      getter: "getMedicineRecordList"
     }),
 
   },

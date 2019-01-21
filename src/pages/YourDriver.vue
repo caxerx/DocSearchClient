@@ -1,6 +1,6 @@
 <template>
   <container>
-    <div slot="content" id="content" ref="content">
+    <div slot="content" id="contentasdasd" ref="content">
       <v-toolbar color="white" flat id="toolbar">
         <!-- <v-layout row fill-height> -->
           <v-flex sm2>
@@ -49,11 +49,9 @@ export default {
   },
 
   mounted: function() {
-    // let clientHeight = this.$refs.content.clientHeight;
-    // this.height = this.$refs.content.clientHeight * 0.8;
+    let windowHeight = window.innerHeight;
+    this.height = windowHeight * 0.75;
 
-    // console.log(this.$refs.content.offsetHeight * 0.8);
-    // console.log(this.$el.clientHeight);
   },
 
   computed: {

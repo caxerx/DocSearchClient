@@ -26,6 +26,7 @@ const state = {
                 startTime: "10:00",
                 endTime: "10:10",
                 status: "Waiting",
+                id:"123123",
 
 
             },
@@ -37,6 +38,7 @@ const state = {
                 startTime: "10:10",
                 endTime: "10:20",
                 status: "Waiting",
+                id:"123123",
 
 
             },
@@ -45,9 +47,10 @@ const state = {
                 clinc:"Niramai Clinic and Counselling Center",
                 doctor:"Dr. Nirmala Rajgopalan",
                 date: "2018-10-17",
-                startTime: "10:20",
+                startTime: "13:20",
                 endTime: "10:30",
                 status: "Approval",
+                id:"123123",
 
 
             },
@@ -59,6 +62,7 @@ const state = {
                 startTime: "10:30",
                 endTime: "10:40",
                 status: "Finish",
+                id:"123123",
             },
             {
                 no: 5,
@@ -68,6 +72,7 @@ const state = {
                 startTime: "10:40",
                 endTime: "10:50",
                 status: "Cancel",
+                id:"123123",
 
             },
             {

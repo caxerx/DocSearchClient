@@ -23,9 +23,7 @@ const state = {
         },
 
         detail:{
-            id:"123123",
-            date:"",
-            startTime:"",
+         
         }
         
 

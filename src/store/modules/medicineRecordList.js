@@ -1,7 +1,7 @@
 
 
 const state = {
-    medicineRecord: {
+    medicineRecordList: {
       
         headers: [
             {
@@ -51,7 +51,7 @@ const state = {
   
   
   const getters = {
-    getMedicineRecord: state => state.medicineRecord
+    getMedicineRecordList: state => state.medicineRecordList
   }
   
   

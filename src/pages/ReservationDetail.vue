@@ -8,7 +8,7 @@
     <v-card flat class="card">
       <v-container>
         <v-card-text class="text-sm-center">
-          <img src="@/assets/icon-person.png">
+          <img src="@/assets/icon-person.png" id="icon">
             <div class="grey--text ">{{doctor.position}}</div>
         <div class="font-weight-black">{{doctor.name}}</div>
         <div class="grey--text">Clinc</div>
@@ -37,6 +37,7 @@
            <span class="font-weight-black"> {{detail.id}}</span>
             
         </v-card-text>
+             <img src="@/assets/qr-code.png" id="qrCode">
         
     </v-card>
        <v-card flat class="card">
@@ -99,8 +100,12 @@ export default {
 .card {
   margin-top: 3px;
 }
-img {
+#icon {
   width: 40px;
+}
+
+#qrCode{
+    width:200px;
 }
 </style>
 

@@ -10,7 +10,7 @@ import { state, mutations } from './mutations.js';
 import viewReservation from './modules/viewReservation.js';
 import createReservation from './modules/createReservation.js';
 import onlineConsultant from './modules/onlineConsultant.js';
-import medicineRecord from './modules/medicineRecord.js';
+import medicineRecordList from './modules/medicineRecordList.js';
 import login from './modules/login.js';
 import signup from './modules/signup.js';
 import doctorList from './modules/doctorList.js';
@@ -34,7 +34,7 @@ export default new Vuex.Store({
     login,
     signup,
     onlineConsultant,
-    medicineRecord,
+    medicineRecordList,
     doctorList,
     reservationDetail
 
