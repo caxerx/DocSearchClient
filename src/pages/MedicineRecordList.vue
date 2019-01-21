@@ -1,10 +1,13 @@
 <template>
-  <!-- table -->
-  <container>
-    <div slot="content">
-        <list/>
-    </div>
-  </container>
+  <div>
+    <v-card-text>
+      
+      <span class="grey--text">Medicine Record List</span>
+      <!-- <v-text-field id="search" label="Append" append-icon="place"></v-text-field> -->
+    </v-card-text>
+
+    <list/>
+  </div>
 </template>
 
 <script>
@@ -25,8 +28,7 @@ export default {
   computed: {
     ...mapGetters({
       getter: "getMedicineRecordList"
-    }),
-
+    })
   },
 
   methods: {}
@@ -38,7 +40,6 @@ td {
   word-wrap: break-word;
   word-break: break-all;
   width: 100px;
-
-
 }
+
 </style>

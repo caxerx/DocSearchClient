@@ -77,6 +77,7 @@ export default {
 }
 .nested-routes {
   margin-left: 3px;
+    margin-right: 3px;
 }
 
 /* .left {

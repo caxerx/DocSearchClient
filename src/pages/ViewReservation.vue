@@ -1,20 +1,6 @@
 <template>
   <div>
-    <!-- <v-toolbar  dark color="white" class="tableToolBar">
-      <v-toolbar-title class="white--text">Reservation List</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-      <v-flex xs5>
-        <v-text-field
-          color="white"
-          v-model="search"
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-flex>
-    </v-toolbar> -->
+     <v-card-text class="grey--text">Reservation List</v-card-text>
     <c-list/>
   </div>
 </template>
