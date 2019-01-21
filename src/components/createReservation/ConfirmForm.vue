@@ -7,6 +7,12 @@
       <v-text-field solo disabled v-model="date"></v-text-field>
       <div class="body-2">Time:</div>
       <v-text-field solo disabled v-model="time"></v-text-field>
+      <div class="body-2">Type:</div>
+     <v-radio-group v-model="radios" :mandatory="false">
+      <v-radio label="Clinc Reservation" value="clincReservation"></v-radio>
+      <v-radio label="Online Consultation" value="onlineConsultation"></v-radio>
+    </v-radio-group>
+    
       <v-btn block color="primary">Confirm</v-btn>
     </v-form>
   </div>
@@ -18,7 +24,8 @@ export default {
   name: "App",
   data() {
     return {
-      search: ""
+      search: "",
+      radios:""
     };
   },
   components: {},
@@ -31,7 +38,6 @@ export default {
       return this.getter.date;
     },
     time() {
-        
       return this.getter.time;
     }
   },

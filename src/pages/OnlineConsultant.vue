@@ -42,11 +42,10 @@
       </v-card>
     </div>
   </container>
-</template
+</template>
 
 
 <script>
-import axios from "axios";
 import DoctorInfo from "@/components/onlineConsultant/DoctorInfo.vue";
 import VideoChat from "@/components/onlineConsultant/VideoChat.vue";
 import { mapGetters, mapActions, mapState } from "vuex";
