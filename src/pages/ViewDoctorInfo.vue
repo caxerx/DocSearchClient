@@ -54,7 +54,7 @@
 
       <v-flex v-if="active==2" >
        
-        <div class="display-1">
+        <div class="display-1" style="padding: 20px">
         Feedback for Doctor
         </div>
         <v-divider/>

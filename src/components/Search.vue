@@ -26,13 +26,13 @@
       <v-select :items="specialty" label="specialty" outline name="specialty" color="white"></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-      <v-select :items="specialty" label="locations" outline name="specialty" color="white"></v-select>
+      <v-select :items="location" label="location" outline name="location" color="white"></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-      <v-select :items="specialty" label="language" outline name="specialty" color="white"></v-select>
+      <v-select :items="language" label="language" outline name="Language" color="white"></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-      <v-select :items="specialty" label="gender" outline name="specialty" color="white"></v-select>
+      <v-select :items="gender" label="gender" outline name="Gender" color="white"></v-select>
       </v-flex>
       </v-layout>     
     </v-form>
@@ -58,7 +58,10 @@ export default {
     show: false,
     message: "",
     marker: true,
-    specialty: ["General Pratice", "Cardiology", "Dentisry", "Dietetics"]
+    specialty: ["General Pratice", "Cardiology", "Dentisry", "Dietetics"],
+    location: ["Kowloon", "Hong Kong", "New Territories"],
+    language: ["Chinese","English"],
+    gender:["Male", "Female"]
   }),
 
   components: {
@@ -73,6 +76,7 @@ export default {
     sendMessage() {
       this.resetIcon();
       this.clearMessage();
+      this.$router.push("/doctorList");
     },
     clearMessage() {
       this.message = "";
