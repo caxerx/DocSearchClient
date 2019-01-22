@@ -63,8 +63,6 @@
     </template>
   </div>
 </template>
-  </div>
-</template>
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";

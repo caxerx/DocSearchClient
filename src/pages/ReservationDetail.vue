@@ -9,15 +9,32 @@
       <v-container>
         <v-card-text class="text-sm-center">
           <img src="@/assets/icon-person.png" id="icon">
-            <div class="grey--text ">{{doctor.position}}</div>
-        <div class="font-weight-black">{{doctor.name}}</div>
-        <div class="grey--text">Clinc</div>
-        <div class="font-weight-black">{{doctor.clinc}}</div>
+          <div class="grey--text">{{doctor.position}}</div>
+          <div class="font-weight-black">{{doctor.name}}</div>
+          <div class="grey--text">Clinc</div>
+          <div class="font-weight-black">{{doctor.clinc}}</div>
         </v-card-text>
-      
+
         <hr>
         <br>
-        <v-card-actions>
+        <v-card-actions v-if="detail.status==='Approval'">
+          <v-flex sm4>
+            <v-layout justify-center>
+              <v-btn outline color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
+            </v-layout>
+          </v-flex>
+          <v-flex sm4>
+            <v-layout justify-center>
+              <v-btn outline color="primary">Call Clinc</v-btn>
+            </v-layout>
+          </v-flex>
+          <v-flex sm4>
+            <v-layout justify-center>
+              <v-btn outline color="primary">Get Directions</v-btn>
+            </v-layout>
+          </v-flex>
+        </v-card-actions>
+        <v-card-actions v-else>
           <v-flex sm6>
             <v-layout justify-center>
               <v-btn outline color="primary">Call Clinc</v-btn>
@@ -33,21 +50,19 @@
     </v-card>
 
     <v-card flat class="card">
-        <v-card-text ><span class="grey--text">Reservation ID:</span><br>
-           <span class="font-weight-black"> {{detail.id}}</span>
-            
-        </v-card-text>
-             <img src="@/assets/qr-code.png" id="qrCode">
-        
+      <v-card-text>
+        <span class="grey--text">Reservation ID:</span>
+        <br>
+        <span class="font-weight-black">{{detail.id}}</span>
+      </v-card-text>
+      <img src="@/assets/qr-code.png" id="qrCode">
     </v-card>
-       <v-card flat class="card">
-        <v-card-actions>
-            <v-btn outline color="error">Cancel Reservation</v-btn>
-        </v-card-actions>
-        
+    <v-card flat class="card">
+      <v-card-actions>
+        <v-btn outline color="error">Cancel Reservation</v-btn>
+      </v-card-actions>
     </v-card>
   </div>
-
 </template>
 
 
@@ -92,7 +107,11 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    router(linkStr) {
+      this.$router.push("/" + linkStr);
+    }
+  }
 };
 </script>
 
@@ -104,8 +123,8 @@ export default {
   width: 40px;
 }
 
-#qrCode{
-    width:200px;
+#qrCode {
+  width: 200px;
 }
 </style>
 
