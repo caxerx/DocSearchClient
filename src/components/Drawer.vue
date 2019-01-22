@@ -1,5 +1,5 @@
 <template>
-  <v-app class="blue-grey lighten-5">
+  <v-app class="indigo lighten-5">
     <v-navigation-drawer v-model="drawer" temporary app>
       <v-list dense>
         <v-list-tile @click>
