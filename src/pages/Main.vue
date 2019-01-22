@@ -15,9 +15,7 @@
         <v-flex slot="content" id="medicalInfoTitle" class="display-3">Medical Information</v-flex>
         <v-flex slot="content">
           <div name="articleTitle"></div>
-          <button>
-          <img src="@/assets/medicalInfo.png" style="height: 1000px"/>
-          </button>
+          <img src="@/assets/medicalInfo.png" id="fakePost"/>
         </v-flex>
       </container>
     </v-card>
@@ -36,5 +34,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+#fakePost{
+  cursor: pointer;
+  width:100%
+}
+</style>
 
 
