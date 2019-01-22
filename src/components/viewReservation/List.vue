@@ -1,14 +1,13 @@
 <template>
   <div id="layout">
-    <v-card-text class="grey--text">Reservation List</v-card-text>
+   
     <v-card
       v-for="(content, index) in contents"
       :key="index"
-      style="margin-bottom:2%"
+      style="margin-bottom:2%;padding-left:2%"
       class="clickable"
       @click="router('reservationDetail',content)"
     >
-      <v-card-title primary-title>
         <v-layout row wrap>
           <v-flex sm1>
             <v-layout align-center justify-center row fill-height>
@@ -21,15 +20,17 @@
             </v-layout>
           </v-flex>
           <v-flex sm8>
+              <v-card-text>
             <div class="headline">{{content.doctor}}</div>
             <div class="grey--text">{{content.date}}, {{content.startTime}}</div>
             <div v-if="content.status==='Waiting'" class="error--text">{{content.status}}</div>
             <div v-if="content.status==='Approval'" class="info--text">{{content.status}}</div>
             <div v-if="content.status==='Finish'" class="success--text">{{content.status}}</div>
             <div v-if="content.status==='Cancel'" class="error--text">{{content.status}}</div>
+              </v-card-text>
           </v-flex>
-          <v-flex sm1 offset-sm1>
-            <v-spacer/>
+          <v-flex sm2 offset-sm1>
+           <v-layout align-center justify-center row fill-height>
             <v-btn
               v-if="content.status==='Cancel'"
               @click.stop="nothing()"
@@ -37,9 +38,9 @@
               color="grey"
             >Cancel</v-btn>
             <v-btn v-else color="error" outline @click.stop="showCancelDialog()">Cancel</v-btn>
+           </v-layout>
           </v-flex>
         </v-layout>
-      </v-card-title>
     </v-card>
 
     <template>
