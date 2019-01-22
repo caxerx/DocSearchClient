@@ -26,7 +26,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn icon @click="setShow(index)">
-              <v-icon>{{ showList[index].show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+              <v-icon>{{ showList[index].show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
             </v-btn>
           </v-card-actions>
 

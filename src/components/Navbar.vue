@@ -13,10 +13,10 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat @click="router(onlineConsultant.link)">{{onlineConsultant.title}}</v-btn>
+        <v-btn flat >About us</v-btn>
         <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
-        <v-btn flat @click="router(doctorList.link)">{{doctorList.title}}</v-btn>
-
+        <v-btn flat >download our app</v-btn>
+        
         <!-- <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>reservation
             <v-icon>arrow_drop_down</v-icon>

@@ -15,6 +15,9 @@
         <v-flex slot="content" id="medicalInfoTitle" class="display-3">Medical Information</v-flex>
         <v-flex slot="content">
           <div name="articleTitle"></div>
+          <button>
+          <img src="@/assets/medicalInfo.png" style="height: 1000px"/>
+          </button>
         </v-flex>
       </container>
     </v-card>

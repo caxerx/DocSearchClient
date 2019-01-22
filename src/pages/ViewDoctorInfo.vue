@@ -71,7 +71,7 @@
         
        
         <v-card flat>
-          <v-card-title class="title font-weight-medium">user a</v-card-title>
+          <v-card-title class="title font-weight-medium">user b</v-card-title>
           <v-card-text class="body-2">
             He was down to earth in behaviour and attitude
             Explained every aspect if our doubt
