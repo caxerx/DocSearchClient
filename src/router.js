@@ -5,7 +5,7 @@ import FeedBack from './pages/FeedBack'
 import ViewReservation from './pages/ViewReservation.vue'
 import CreateReservation from './pages/CreateReservation.vue'
 import OnlineConsultant from './pages/OnlineConsultant.vue'
-import MedicineRecordList from './pages/MedicineRecordList.vue'
+import MedicalRecordList from './pages/MedicalRecordList.vue'
 import Test from './pages/Test.vue'
 import Login from './pages/Login.vue'
 import SignUp from './pages/SignUp.vue'
@@ -31,11 +31,6 @@ export default new Router({
       path: '/feedBack',
       name: 'feedBack',
       component: FeedBack
-    },
-    {
-      path: '/medicineRecordList',
-      name: 'medicineRecordList',
-      component: MedicineRecordList
     },
     {
       path: '/viewReservation',
@@ -83,8 +78,8 @@ export default new Router({
       
         },
         {
-          path: 'medicineRecordList', // url= shop/cart
-          component: MedicineRecordList,
+          path: 'medicalRecordList', // url= shop/cart
+          component: MedicalRecordList,
     
         },
         {

@@ -18,7 +18,7 @@ export default {
     data(){
         return{
             drivers:[
-                {title:"Medicine Record",link:"medicineRecordList"},
+                {title:"Medicine Record",link:"medicalRecordList"},
                 {title:"Your Reservation",link:"viewReservation"},
                 {title:"Edit Profile",link:"editProfile"},
             ]

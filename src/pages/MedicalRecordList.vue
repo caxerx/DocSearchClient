@@ -2,7 +2,7 @@
   <div>
     <v-card-text>
       
-      <span class="grey--text">Medicine Record List</span>
+      <span class="grey--text">Medical Record List</span>
       <!-- <v-text-field id="search" label="Append" append-icon="place"></v-text-field> -->
     </v-card-text>
 
@@ -13,7 +13,7 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import Container from "@/components/Container";
-import List from "@/components/medicineRecordList/List";
+import List from "@/components/medicalRecordList/List";
 export default {
   name: "App",
   data() {
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getter: "getMedicineRecordList"
+      getter: "getMedicalRecordList"
     })
   },
 

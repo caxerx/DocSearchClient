@@ -24,12 +24,13 @@ const getters = {
 const actions = {
 
   actionLogin({ commit }, obj) {
-    if (obj.email == state.login.userInfo.email && obj.pwd == state.login.userInfo.pwd) {
-      commit("success");
-    } else {
+    // if (obj.email == state.login.userInfo.email && obj.pwd == state.login.userInfo.pwd) {
+    //   commit("success");
+    // } else {
      
-      commit("fail");
-    }
+    //   commit("fail");
+    // }
+    commit("success",obj);
   },
   actionLogout({ commit }) {
     commit("logout");
@@ -51,7 +52,7 @@ const mutations = {
   ["closeDialogLogin"](state){
     state.login.dialog=false;
   },
-  ["success"](state) {
+  ["success"](state,obj) {
     state.login.isSuccess = true;
     console.log("state ", state.login.isSuccess);
 

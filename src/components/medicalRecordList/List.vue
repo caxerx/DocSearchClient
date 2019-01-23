@@ -74,7 +74,7 @@ export default {
   components: {},
   computed: {
     ...mapGetters({
-      getter: "getMedicineRecordList"
+      getter: "getMedicalRecordList"
     }),
 
     contents() {

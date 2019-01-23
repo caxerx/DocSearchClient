@@ -1,24 +1,8 @@
 
 
 const state = {
-    medicineRecordList: {
+    medicalRecordList: {
 
-        headers: [
-            {
-                text: "No.",
-                align: "left",
-                value: "no"
-
-            },
-            { text: "Clinc", value: "clinc" },
-            { text: "Date", value: "date" },
-            { text: "Start Time", value: "startTime" },
-            { text: "End Time", value: "endTime" },
-            { text: "Symptom", value: "symptom" },
-            { text: "Medicine", value: "medicine" },
-            { text: "Amount", value: "amount" },
-
-        ],
         contents: [
             {
 
@@ -63,7 +47,7 @@ const state = {
 
 
 const getters = {
-    getMedicineRecordList: state => state.medicineRecordList
+    getMedicalRecordList: state => state.medicalRecordList
 }
 
 
