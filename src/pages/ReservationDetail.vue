@@ -1,8 +1,17 @@
 <template>
   <div>
     <v-card flat>
+      <v-layout row wrap>
+      <v-flex sm1>
+      <v-btn fab flat small @click="back()">
+        <v-icon >arrow_back</v-icon>
+      </v-btn>
+      </v-flex>
+      <v-flex sm10 style="padding-top:3px">
       <div class="grey--text text-sm-center">Date and Time</div>
       <div class="text-sm-center font-weight-black">{{computedDate}}</div>
+      </v-flex>
+      </v-layout>
     </v-card>
 
     <v-card flat class="card">
@@ -17,7 +26,7 @@
 
         <hr>
         <br>
-        <v-card-actions v-if="detail.status==='Approval'">
+        <!-- <v-card-actions v-if="detail.status==='Approval'">
           <v-flex sm4>
             <v-layout justify-center>
               <v-btn outline color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
@@ -33,8 +42,8 @@
               <v-btn outline color="primary">Get Directions</v-btn>
             </v-layout>
           </v-flex>
-        </v-card-actions>
-        <v-card-actions v-else>
+        </v-card-actions>-->
+        <v-card-actions>
           <v-flex sm6>
             <v-layout justify-center>
               <v-btn outline color="primary">Call Clinc</v-btn>
@@ -49,6 +58,15 @@
       </v-container>
     </v-card>
 
+    <v-card flat class="card" v-if="detail.status==='Approval'">
+      <!-- <v-card-actions> -->
+      <v-btn flat color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
+    </v-card>
+    <v-card flat class="card">
+      <!-- <v-card-actions> -->
+      <v-btn flat color="error">Cancel Reservation</v-btn>
+      <!-- </v-card-actions> -->
+    </v-card>
     <v-card flat class="card">
       <v-card-text>
         <span class="grey--text">Reservation ID:</span>
@@ -56,11 +74,6 @@
         <span class="font-weight-black">{{detail.id}}</span>
       </v-card-text>
       <img src="@/assets/qr-code.png" id="qrCode">
-    </v-card>
-    <v-card flat class="card">
-      <v-card-actions>
-        <v-btn outline color="error">Cancel Reservation</v-btn>
-      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -110,6 +123,9 @@ export default {
   methods: {
     router(linkStr) {
       this.$router.push("/" + linkStr);
+    },
+    back(){
+      window.history.back();
     }
   }
 };
