@@ -14,6 +14,7 @@ import ViewDoctorInfo from './pages/ViewDoctorInfo.vue'
 import DoctorList from './pages/DoctorList.vue'
 import YourDriver from './pages/YourDriver.vue'
 import EditProfile from './pages/EditProfile.vue'
+import ChangePassword from './pages/ChangePassword'
 import ReservationDetail from './pages/ReservationDetail.vue'
 
 Vue.use(Router)
@@ -92,6 +93,9 @@ export default new Router({
           component: ReservationDetail,
     
         },
+        {path: 'changePassword',
+         component: ChangePassword,
+        }
         
       ]
     },
