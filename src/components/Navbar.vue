@@ -79,7 +79,7 @@ export default {
       return [
         { title: "Medical Record", link: "yourDriver/medicalRecordList" },
          { title: "View Reservation", link: "yourDriver/viewReservation" },
-        { title: "Edit Profile", link: "" },
+        { title: "Edit Profile", link: "yourDriver/editProfile" },
         { title: "Logout", link: "actionLogout" }
       ];
     }
