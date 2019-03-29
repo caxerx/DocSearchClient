@@ -1,90 +1,11 @@
 
 
+
 const state = {
     doctorList: {
-        // showIndex:-1,
-        // showList:[],
-        list: [
-            {
-                
-                name:"Dr. Nirmala Rajgopalan",
-                academic:"MBBS, Diploma in Hospital Administration",
-                experience:"20 years experience",
-                position:"General Physician",
-                icon:"icon-person.png",
-                clinc:"Niramai Clinic and Counselling Center",
-                img:["@/assets/image-icon.png","@/assets/image-icon.png","@/assets/image-icon.png"],
-                like:"98%",
-                feedback:47,
-                location:"Indiranagar, Bangalore",
-                available:"Available Tomorrow",
-                phone:11223366,
-                email:"miahcel8884",
-                timeList:["9:00","9:20","9:40","10:30"],
+        
 
-
-            },
-            {
-                name:"Dr. Nirmala Rajgopalan",
-                academic:"MBBS, Diploma in Hospital Administration",
-                experience:"20 years experience",
-                position:"General Physician",
-                icon:"icon-person.png",
-                clinc:"Niramai Clinic and Counselling Center",
-                img:["@/assets/image-icon.png","@/assets/image-icon.png","@/assets/image-icon.png"],
-                like:"98%",
-                feedback:47,
-                location:"Indiranagar, Bangalore",
-                available:"Available Tomorrow",
-                phone:11223366,
-                email:"miahcel8883",
-                timeList:["9:00","9:20","9:40","10:30"],
-               
-
-
-            },
-            {
-                name:"Dr. Nirmala Rajgopalan",
-                academic:"MBBS, Diploma in Hospital Administration",
-                experience:"20 years experience",
-                position:"General Physician",
-                icon:"icon-person.png",
-                clinc:"Niramai Clinic and Counselling Center",
-                img:["@/assets/image-icon.png","@/assets/image-icon.png","@/assets/image-icon.png"],
-                like:"98%",
-                feedback:47,
-                location:"Indiranagar, Bangalore",
-                available:"Available Tomorrow",
-                phone:11223366,
-                email:"miahcel8882",
-                timeList:["9:00","9:20","9:40","10:30"],
-
-
-            },
-            {
-                name:"Dr. Nirmala Rajgopalan",
-                academic:"MBBS, Diploma in Hospital Administration",
-                experience:"20 years experience",
-                position:"General Physician",
-                icon:"icon-person.png",
-                clinc:"Niramai Clinic and Counselling Center",
-                img:["@/assets/image-icon.png","@/assets/image-icon.png","@/assets/image-icon.png"],
-                like:"98%",
-                feedback:47,
-                location:"Indiranagar, Bangalore",
-                available:"Available Tomorrow",
-                phone:11223366,
-                email:"miahcel111",
-                timeList:["9:00","9:20","9:40","10:30"],
-
-
-            },
-
-        ],
-
-        doctor:{
-
-        }
+   
 
 
     }
@@ -93,7 +14,7 @@ const state = {
 
 
 const getters = {
-    getDoctorList: state => state.doctorList,
+    getDoctorList:state=>state.getDoctorList,
     getDoctor:state => state.doctorList.doctor,
 }
 

@@ -1,6 +1,5 @@
 <template>
-  <v-card v-if="!$apollo.loading" flat> 
-    <!-- {{doctor.id}} -->
+  <v-card>
     <v-layout row wrap>
       <v-flex xs4 sm2>
         <v-card-title>
@@ -12,6 +11,7 @@
           <h3 class="headline mb primary--text">Dr. {{doctor.name}}</h3>
         </v-card-text>
         <v-card-text>
+          <div>{{doctor.a}}</div>
           <div>{{doctor.experience}}</div>
           <div>{{doctor.specialty}}</div>
         </v-card-text>
@@ -51,76 +51,77 @@
           </div>
         </v-card-text>
       </v-flex>
+
+      <v-card-actions style="width:100%">
+        <v-spacer></v-spacer>
+
+        <v-btn color="primary" @click="linkProfile(doctor.id)">
+          <v-icon>person</v-icon>Profile
+        </v-btn>
+        <v-btn color="primary" @click="show=!show">
+          <v-icon>local_phone</v-icon>Contact Clinc
+        </v-btn>
+        <v-btn color="primary" @click="linkReservation(doctor.id)">
+          <v-icon>add</v-icon>Create Reservation
+        </v-btn>
+      </v-card-actions>
+
+      <!-- hidden contact -->
+      <v-slide-y-transition>
+        <v-card-text v-if="show">
+          <hr>
+          <div>
+            <v-icon>local_phone</v-icon>
+            {{doctor.phoneNo}}
+          </div>
+          <div>
+            <v-icon>email</v-icon>
+            {{doctor.email}}
+          </div>
+        </v-card-text>
+      </v-slide-y-transition>
     </v-layout>
   </v-card>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
-import gql from "graphql-tag";
 
-const doctorQuery = gql`
-  query($id: ID!) {
-    doctor(id: $id) {
-      id
-      name
-      gender
-      email
-      phoneNo
-      dob
-      hkid
-      type
-      language
-      specialty
-      workplace {
-        id
-        name
-        location
-        type
-      }
-    }
-  }
-`;
 export default {
-  data: () => ({
-    doctor: {
-      name: ""
-    }
-  }),
-
-  created: function() {},
-
-  computed: {
-    ...mapGetters({
-      // getter: "getCreateReservation"
-    }),
-
-    routeId() {
-      return this.$route.query.id;
-    }
+  data() {
+    return {
+      show: false
+    };
   },
-
-  components: {},
-
-  methods: {},
-
-  apollo: {
-    // Query with parameters
-
-    doctor: {
-      query: doctorQuery,
-      variables() {
-        return {
-          id: this.routeId
-        };
-      }
+  props: {
+    // attribute name: Type
+    doctor: Object,
+    icon: String
+  },
+  methods: {
+    ...mapActions(["actionSetDoctorForDoctorList"]),
+    linkProfile(doctorId) {
+      this.$router.push({
+        name: "viewDoctorInfo",
+        query: {
+          id: doctorId
+        }
+      });
+    },
+    linkReservation(doctorId) {
+      this.$router.push({
+        name: "createReservation",
+        query: {
+          id: doctorId
+        }
+      });
     }
   }
 };
 </script>
 
 <style scoped>
-img {
+.icon {
   width: 100%;
 }
 </style>

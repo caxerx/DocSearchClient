@@ -81,7 +81,7 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 export default {
-  name: "App",
+
   data: () => ({
     // height: this.$refs.docInfDiv.clientHeight
   }),

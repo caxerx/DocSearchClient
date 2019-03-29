@@ -63,7 +63,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 import LoginDialog from "@/components/dialog/login";
 
 export default {
-  name: "App",
+
   components: {
     LoginDialog
   },

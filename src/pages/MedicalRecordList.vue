@@ -15,7 +15,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 import Container from "@/components/Container";
 import List from "@/components/medicalRecordList/List";
 export default {
-  name: "App",
+
   data() {
     return {
       search: ""

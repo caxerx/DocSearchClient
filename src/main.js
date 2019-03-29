@@ -17,6 +17,9 @@ import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css'
 // Helpers
 import colors from 'vuetify/es5/util/colors'
 
+import { createProvider } from './vue-apollo'
+
+
 Vue.use(Vuex)
 
 
@@ -36,5 +39,6 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: (h) => h(App),
+  apolloProvider: createProvider(),
+  render: (h) => h(App)
 })
