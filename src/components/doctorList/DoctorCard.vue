@@ -11,12 +11,12 @@
           <h3 class="headline mb primary--text">Dr. {{doctor.name}}</h3>
         </v-card-text>
         <v-card-text>
-          <div>{{doctor.specialty}}</div>
+          <div>{{doctor.a}}</div>
           <div>{{doctor.experience}}</div>
-          <div>{{doctor.position}}</div>
+          <div>{{doctor.specialty}}</div>
         </v-card-text>
         <v-card-text>
-          <h3 class="font-weight-bold">{{doctor.clinc}}</h3>
+          <h3 class="font-weight-bold">{{doctor.workplace.name}}</h3>
           <v-layout row wrap>
             <v-flex xs3 sm1>
               <img src="@/assets/image-icon.png" class="icon">
@@ -35,19 +35,19 @@
         <v-card-text>
           <div>
             <v-icon small>thumb_up</v-icon>
-            {{doctor.like}}
+            98%
           </div>
           <div>
             <v-icon small>comment</v-icon>
-            {{doctor.feedback}} Feedback
+            47 Feedback
           </div>
           <div>
             <v-icon small>place</v-icon>
-            {{doctor.location}}
+            {{doctor.workplace.location}}
           </div>
           <div>
             <v-icon small>access_time</v-icon>
-            {{doctor.available}}
+            Available Today
           </div>
         </v-card-text>
       </v-flex>

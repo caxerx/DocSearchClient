@@ -3,8 +3,6 @@
     <!-- {{hello}} -->
     <div v-for="(doctor,index) in doctors" :key="index" style="margin-bottom:20px">
       <doctor-card :doctor="doctor"/>
-
-     
     </div>
   </div>
 </template>
@@ -12,7 +10,7 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
-import DoctorCard from "./DoctorCard.vue"
+import DoctorCard from "./DoctorCard.vue";
 import gql from "graphql-tag";
 
 export default {
@@ -21,7 +19,7 @@ export default {
     return {
       search: "",
       test: "",
-      show:false,
+      show: false
     };
   },
 
@@ -69,6 +67,12 @@ export default {
           type
           language
           specialty
+          workplace {
+            id
+            name
+            location
+            type
+          }
         }
       }
     `
