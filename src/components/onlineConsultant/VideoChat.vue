@@ -18,7 +18,7 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 import SmallContainer from "@/components/SmallContainer";
 export default {
-  name: "App",
+
   components: {
     SmallContainer
   },

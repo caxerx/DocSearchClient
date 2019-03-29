@@ -34,20 +34,17 @@
       <v-flex sm3>
         <v-card-text>
           <div>
-            <v-icon small>thumb_up</v-icon>
-            98%
+            <v-icon small>thumb_up</v-icon>98%
           </div>
           <div>
-            <v-icon small>comment</v-icon>
-            47 Feedback
+            <v-icon small>comment</v-icon>47 Feedback
           </div>
           <div>
             <v-icon small>place</v-icon>
             {{doctor.workplace.location}}
           </div>
           <div>
-            <v-icon small>access_time</v-icon>
-            Available Today
+            <v-icon small>access_time</v-icon>Available Today
           </div>
         </v-card-text>
       </v-flex>
@@ -55,7 +52,7 @@
       <v-card-actions style="width:100%">
         <v-spacer></v-spacer>
 
-        <v-btn color="primary" @click>
+        <v-btn color="primary" @click="setProfile(doctor)">
           <v-icon>person</v-icon>Profile
         </v-btn>
         <v-btn color="primary" @click="show=!show">
@@ -78,9 +75,6 @@
             <v-icon>email</v-icon>
             {{doctor.email}}
           </div>
-          <v-btn block color="primary">
-            <v-icon left dark>chat</v-icon>Online Chat Now
-          </v-btn>
         </v-card-text>
       </v-slide-y-transition>
     </v-layout>
@@ -88,6 +82,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -98,6 +93,13 @@ export default {
     // attribute name: Type
     doctor: Object,
     icon: String
+  },
+  methods: {
+    ...mapActions(["actionSetDoctorForDoctorList"]),
+    setProfile(doctor) {
+      this.actionSetDoctorForDoctorList(doctor);
+      this.$router.push("/viewDoctorInfo");
+    }
   }
 };
 </script>

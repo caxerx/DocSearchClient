@@ -18,7 +18,7 @@ import cList from "@/components/doctorList/List.vue";
 import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
-  name: "App",
+
     data() {
     return {
        search: "",

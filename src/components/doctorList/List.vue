@@ -14,7 +14,6 @@ import DoctorCard from "./DoctorCard.vue";
 import gql from "graphql-tag";
 
 export default {
-  name: "App",
   data() {
     return {
       search: "",

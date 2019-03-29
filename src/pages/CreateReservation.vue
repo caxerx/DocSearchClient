@@ -23,7 +23,7 @@ import Container from "@/components/Container";
 
 
 export default {
-  name: "App",
+ 
   components: {
     ReservationForm,
     ConfirmForm,

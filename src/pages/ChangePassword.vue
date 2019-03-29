@@ -17,7 +17,7 @@ import Password from "@/components/yourDriver/password";
 import axios from "axios";
 import SmallContainer from "@/components/SmallContainer.vue";
 export default {
-  name: "App",
+
   data() {
     return {
       valid: true,
