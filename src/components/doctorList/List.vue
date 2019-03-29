@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-card v-for="(doctor,index) in doctorList" :key="index" style="margin-bottom:20px">
+    <!-- {{hello}} -->
+    {{doctors}}
+    <v-card v-for="(doctor,index) in doctors" :key="index" style="margin-bottom:20px">
       <v-layout row wrap>
         <v-flex xs4 sm2>
           <v-card-title>
@@ -53,7 +55,7 @@
           </v-card-text>
         </v-flex>
 
-        <v-card-actions style="width:100%">
+        <!-- <v-card-actions style="width:100%">
           <v-spacer></v-spacer>
 
           <v-btn color="primary" @click="setProfile(doctor)">
@@ -65,10 +67,10 @@
           <v-btn color="primary" @click="setReservation(doctor)">
             <v-icon>add</v-icon>Create Reservation
           </v-btn>
-        </v-card-actions>
+        </v-card-actions> -->
 
         <!-- hidden contact -->
-        <v-slide-y-transition>
+        <!-- <v-slide-y-transition>
           <v-card-text v-if="contactShowList[index].show">
             <hr>
             <div>
@@ -83,7 +85,7 @@
               <v-icon left dark>chat</v-icon>Online Chat Now
             </v-btn>
           </v-card-text>
-        </v-slide-y-transition>
+        </v-slide-y-transition> -->
       </v-layout>
     </v-card>
   </div>
@@ -92,6 +94,7 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+import gql from "graphql-tag";
 
 export default {
   name: "App",
@@ -100,24 +103,28 @@ export default {
       search: "",
       show: false,
       showList: [],
-      contactShowList: []
+      contactShowList: [],
+      test: ""
     };
   },
-  components: {
-      
+
+  components: {},
+  apollo: {
+    doctors: gql`
+      query {
+        doctors {
+          id
+          name
+        }
+      }
+    `
   },
   computed: {
     ...mapGetters({
       getter: "getDoctorList"
     }),
 
-    doctorList() {
-      //also set showList
-      for (let i = 0; i < this.getter.list.length; i++) {
-        this.contactShowList.push({ index: i, show: false });
-      }
-      return this.getter.list;
-    }
+ 
   },
 
   //   created: function() {
@@ -134,16 +141,10 @@ export default {
       this.$router.push("/" + linkStr);
     },
 
-    setContactShow(index) {
-      this.contactShowList[index].show = !this.contactShowList[index].show;
-    },
-    setReservation(doctor) {
+
+    setProfile(doctor) {
       this.actionSetDoctorForDoctorList(doctor);
-      this.$router.push("/createReservation");
-    },
-    setProfile(doctor){
-         this.actionSetDoctorForDoctorList(doctor);
-          this.$router.push("/viewDoctorInfo");
+      this.$router.push("/viewDoctorInfo");
     }
   }
 };
