@@ -1,8 +1,9 @@
 
 
+
 const state = {
     doctorList: {
-     
+        
 
    
 
@@ -13,6 +14,7 @@ const state = {
 
 
 const getters = {
+    getDoctorList:state=>state.getDoctorList,
     getDoctor:state => state.doctorList.doctor,
 }
 

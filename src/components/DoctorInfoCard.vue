@@ -1,5 +1,6 @@
 <template>
-  <v-card>
+  <v-card v-if="!$apollo.loading" flat> 
+    <!-- {{doctor.id}} -->
     <v-layout row wrap>
       <v-flex xs4 sm2>
         <v-card-title>
@@ -11,7 +12,6 @@
           <h3 class="headline mb primary--text">Dr. {{doctor.name}}</h3>
         </v-card-text>
         <v-card-text>
-          <div>{{doctor.a}}</div>
           <div>{{doctor.experience}}</div>
           <div>{{doctor.specialty}}</div>
         </v-card-text>
@@ -34,51 +34,87 @@
       <v-flex sm3>
         <v-card-text>
           <div>
-            <v-icon small>thumb_up</v-icon>98%
+            <v-icon small>thumb_up</v-icon>
+            <span>&nbsp;98%</span>
           </div>
           <div>
-            <v-icon small>comment</v-icon>47 Feedback
+            <v-icon small>comment</v-icon>
+            <span>&nbsp;47 Feedback</span>
           </div>
           <div>
             <v-icon small>place</v-icon>
-            {{doctor.workplace.location}}
+            <span>&nbsp;{{doctor.workplace.location}}</span>
           </div>
           <div>
-            <v-icon small>access_time</v-icon>Available Today
+            <v-icon small>access_time</v-icon>
+            <span>&nbsp;Available Today</span>
           </div>
         </v-card-text>
       </v-flex>
-
-   
+    </v-layout>
   </v-card>
 </template>
 
 <script>
-
 import { mapGetters, mapActions, mapState } from "vuex";
+import gql from "graphql-tag";
 
+const doctorQuery = gql`
+  query($id: ID!) {
+    doctor(id: $id) {
+      id
+      name
+      gender
+      email
+      phoneNo
+      dob
+      hkid
+      type
+      language
+      specialty
+      workplace {
+        id
+        name
+        location
+        type
+      }
+    }
+  }
+`;
 export default {
-  data: () => ({}),
+  data: () => ({
+    doctor: {
+      name: ""
+    }
+  }),
 
-  created: function() {
-   
-  },
+  created: function() {},
 
   computed: {
     ...mapGetters({
       // getter: "getCreateReservation"
-      doctor: "getDoctor",
-
     }),
 
+    routeId() {
+      return this.$route.query.id;
+    }
   },
 
-  components: {
-    
-  },
+  components: {},
 
-  methods: {
+  methods: {},
 
+  apollo: {
+    // Query with parameters
+
+    doctor: {
+      query: doctorQuery,
+      variables() {
+        return {
+          id: this.routeId
+        };
+      }
+    }
   }
 };
 </script>

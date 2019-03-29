@@ -34,17 +34,20 @@
       <v-flex sm3>
         <v-card-text>
           <div>
-            <v-icon small>thumb_up</v-icon>98%
+            <v-icon small>thumb_up</v-icon>
+            <span>&nbsp;98%</span>
           </div>
           <div>
-            <v-icon small>comment</v-icon>47 Feedback
+            <v-icon small>comment</v-icon>
+            <span>&nbsp;47 Feedback</span>
           </div>
           <div>
             <v-icon small>place</v-icon>
-            {{doctor.workplace.location}}
+            <span>&nbsp;{{doctor.workplace.location}}</span>
           </div>
           <div>
-            <v-icon small>access_time</v-icon>Available Today
+            <v-icon small>access_time</v-icon>
+            <span>&nbsp;Available Today</span>
           </div>
         </v-card-text>
       </v-flex>
@@ -52,13 +55,13 @@
       <v-card-actions style="width:100%">
         <v-spacer></v-spacer>
 
-        <v-btn color="primary" @click="setProfile(doctor)">
+        <v-btn color="primary" @click="linkProfile(doctor.id)">
           <v-icon>person</v-icon>Profile
         </v-btn>
         <v-btn color="primary" @click="show=!show">
           <v-icon>local_phone</v-icon>Contact Clinc
         </v-btn>
-        <v-btn color="primary" @click>
+        <v-btn color="primary" @click="linkReservation(doctor.id)">
           <v-icon>add</v-icon>Create Reservation
         </v-btn>
       </v-card-actions>
@@ -83,6 +86,7 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -96,9 +100,21 @@ export default {
   },
   methods: {
     ...mapActions(["actionSetDoctorForDoctorList"]),
-    setProfile(doctor) {
-      this.actionSetDoctorForDoctorList(doctor);
-      this.$router.push("/viewDoctorInfo");
+    linkProfile(doctorId) {
+      this.$router.push({
+        name: "viewDoctorInfo",
+        query: {
+          id: doctorId
+        }
+      });
+    },
+    linkReservation(doctorId) {
+      this.$router.push({
+        name: "createReservation",
+        query: {
+          id: doctorId
+        }
+      });
     }
   }
 };
