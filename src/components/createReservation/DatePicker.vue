@@ -24,8 +24,7 @@
         v-model="reservationDate"
         no-title
         @input="close"
-        :event-color="eventColor"
-        :events="functionEvents"
+   
       ></v-date-picker>
     </v-menu>
   </div>

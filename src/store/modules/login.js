@@ -1,80 +1,67 @@
 
 
-const state = {
-  login: {
-    userInfo: {
-      email: "test@gmail.com",
-      pwd: "test",
-      name:"test",
-      phone:"12345678",
-    },
-    isSuccess: false,
-    dialog:false,
+// const state = {
+//   login: {
+//     userInfo: {
+//       id:1,
+//     },
+//     dialog:false,
 
-  }
+      
+//   }
 
-}
+// }
 
 
-const getters = {
-  getLogin: state => state.login
-}
+// const getters = {
+//   getLogin: state => state.login
+// }
 
 
-const actions = {
+// const actions = {
 
-  actionLogin({ commit }, obj) {
-    // if (obj.email == state.login.userInfo.email && obj.pwd == state.login.userInfo.pwd) {
-    //   commit("success");
-    // } else {
-     
-    //   commit("fail");
-    // }
-    commit("success",obj);
-  },
-  actionLogout({ commit }) {
-    commit("logout");
-  },
-  actionOpenDialogLogin({ commit }) {
-    commit("openDialogLogin");
-  },
-  actionCloseDialogLogin({ commit }) {
-    commit("closeDialogLogin");
-  },
+//   actionLogin({ commit }, obj) {
 
-}
-// mutations
-const mutations = {
-  ["openDialogLogin"](state){
-    state.login.dialog=true;
-    console.log(state.login.dialog)
-  },
-  ["closeDialogLogin"](state){
-    state.login.dialog=false;
-  },
-  ["success"](state,obj) {
-    state.login.isSuccess = true;
-    console.log("state ", state.login.isSuccess);
+//     commit("success",obj);
+//   },
+//   actionLogout({ commit }) {
+//     commit("logout");
+//   },
+//   actionOpenDialogLogin({ commit }) {
+//     commit("openDialogLogin");
+//   },
+//   actionCloseDialogLogin({ commit }) {
+//     commit("closeDialogLogin");
+//   },
 
-  },
-  ["fail"](state) {
+// }
+// // mutations
+// const mutations = {
+//   ["openDialogLogin"](state){
+//     state.login.dialog=true;
+//     console.log(state.login.dialog)
+//   },
+//   ["closeDialogLogin"](state){
+//     state.login.dialog=false;
+//   },
+//   ["success"](state,obj) {
+//     localStorage.setItem("userId",1);
 
-    state.login.isSuccess = false;
-    console.log("state ", state.login.isSuccess);
-    console.log("state ", state.login.userInfo);
+//     console.log(localStorage)
 
-  },
-  ["logout"](state) {
+//   },
+//   ["fail"](state) {
 
-    state.login.isSuccess = false;
-    console.log("state ", state.login.isSuccess);
 
-  },
-}
+//   },
+//   ["logout"](state) {
 
-export default {
-  state,
-  getters,
-  actions,
-  mutations
-}
+//   },
+// }
+
+// export default {
+//   state,
+//   getters,
+//   actions,
+//   mutations
+// }

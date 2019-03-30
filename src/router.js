@@ -65,7 +65,7 @@ export default new Router({
     },
     {
       path: '/',
-      name:'',
+      name:'/',
       component: Main
     },
     {

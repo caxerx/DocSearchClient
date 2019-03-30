@@ -53,11 +53,11 @@ export default {
 
   computed: {
     ...mapGetters({
-      getter: "getLogin"
+   
     })
   },
   methods: {
-    ...mapActions(["actionLogin"]),
+    ...mapActions(["actionCloseDialog"]),
     clear() {},
     check() {
       if (this.$refs.form.validate()) {
@@ -65,14 +65,19 @@ export default {
           email: this.email,
           pwd: this.pwd
         };
-        this.actionLogin(obj);
+        
 
-        if (this.getter.isSuccess) {
-          this.$router.push("/");
-          this.errMsg = "";
-        } else {
-          this.errMsg = "Login Fail";
-        }
+        localStorage.setItem("userId",1);
+        this.$router.push("/")
+        this.actionCloseDialog("normal")
+        
+
+        // if (this.getter.isSuccess) {
+        //   this.$router.push("/");
+        //   this.errMsg = "";
+        // } else {
+        //   this.errMsg = "Login Fail";
+        // }
       }
     },
     signUp(){

@@ -219,7 +219,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["actionLogin"]),
+   
     clear() {},
     check() {
       if (this.$refs.form.validate()) {

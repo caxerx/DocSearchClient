@@ -104,7 +104,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["actionLogin"]),
+
     clear() {},
     confirmChPwd() {
       if (this.$refs.form.validate()) {

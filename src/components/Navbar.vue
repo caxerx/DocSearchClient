@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <drawer/> -->
-    <v-toolbar  >
+    <v-toolbar>
       <slot name="hiddenIcon"></slot>
 
       <v-toolbar-items>
@@ -13,10 +13,10 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat >About us</v-btn>
+        <v-btn flat>About us</v-btn>
         <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
-        <v-btn flat >download our app</v-btn>
-        
+        <v-btn flat>download our app</v-btn>
+
         <!-- <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>reservation
             <v-icon>arrow_drop_down</v-icon>
@@ -30,10 +30,10 @@
               <v-list-tile-title>{{reservation.title}}</v-list-tile-title>
             </v-list-tile>
           </v-list>
-        </v-menu> -->
+        </v-menu>-->
       </v-toolbar-items>
 
-      <span v-if="this.getter.isSuccess">
+      <span v-if="isSuccess()&&!$apollo.loading">
         <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>
             <v-icon>{{personalName.icon}}</v-icon>
@@ -48,8 +48,8 @@
       </span>
       <span v-else>
         <div class="text-xs-center">
-          <v-dialog v-model="dialog" width="500">
-            <v-btn flat slot="activator">{{signIn.title}}</v-btn>
+          <v-btn flat @click="openDialog()">{{signIn.title}}</v-btn>
+          <v-dialog  width="500" :value="dialog" @input="closeDialog()">
             <login-dialog/>
           </v-dialog>
         </div>
@@ -60,37 +60,24 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
-import LoginDialog from "@/components/dialog/login";
+import LoginDialog from "@/components/dialog/loginDialog";
+import gql from "graphql-tag";
+
+const patientQuery = gql`
+  query($id: ID!) {
+    patient(id: $id) {
+      name
+    }
+  }
+`;
 
 export default {
-
   components: {
     LoginDialog
-  },
-  computed: {
-    ...mapGetters({
-      getter: "getLogin"
-    }),
-
-    personalName() {
-      return { icon: "person", title: this.getter.userInfo.name, link: "" };
-    },
-    profile() {
-      return [
-        { title: "Medical Record", link: "yourDriver/medicalRecordList" },
-         { title: "View Reservation", link: "yourDriver/viewReservation" },
-        { title: "Edit Profile", link: "yourDriver/editProfile" },
-        { title: "Change Password", link: "yourDriver/changePassword"},
-        { title: "Logout", link: "actionLogout" },
-        
-      ];
-    }
   },
   data() {
     return {
       //
-      dialog: false,
-
       feedBack: { title: "FeedBack", link: "feedBack" },
       signIn: { title: "sign-in", link: "login" },
       docSearch: { title: "DocSearch", link: "" },
@@ -102,21 +89,66 @@ export default {
       ]
     };
   },
+  apollo: {
+    patient: {
+      query() {
+        return patientQuery;
+      },
+      variables() {
+        return {
+          id: 1
+        };
+      }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      getter:"getDialog"
+    }),
+    dialog(){
+      return this.getter.normal;
+    },
+    personalName() {
+      return { icon: "person", title: this.patient.name, link: "" };
+    },
+    profile() {
+      return [
+        { title: "Medical Record", link: "yourDriver/medicalRecordList" },
+        { title: "View Reservation", link: "yourDriver/viewReservation" },
+        { title: "Edit Profile", link: "yourDriver/editProfile" },
+        { title: "Change Password", link: "yourDriver/changePassword" },
+        { title: "Logout", link: "actionLogout" }
+      ];
+    }
+  },
 
   methods: {
-    ...mapActions(["actionLogout", "actionOpenDialogLogin"]),
+    ...mapActions(["actionOpenDialog","actionCloseDialog"]),
 
     router(linkStr) {
       if (linkStr === "actionLogout") {
-        this.actionLogout();
-        this.dialog = false;
+        localStorage.clear();
         this.$router.push("/");
+        this.$forceUpdate();
       } else {
         this.$router.push("/" + linkStr);
       }
     },
     menuItems() {
       return this.menu;
+    },
+    isSuccess() {
+      if (localStorage.getItem("userId") != null) {
+        return true;
+      }
+
+      return false;
+    },
+    openDialog(){
+      this.actionOpenDialog("normal");
+    },
+    closeDialog(){
+      this.actionCloseDialog("normal");
     }
   }
 };

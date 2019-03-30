@@ -35,6 +35,7 @@
       <v-select :items="gender" label="gender" outline name="Gender" color="white"></v-select>
       </v-flex>
       </v-layout>     
+      
     </v-form>
     
 </template>

@@ -56,7 +56,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      getter: "getLogin"
+    
     }),
     routerHeight() {
       return this.height + "px";

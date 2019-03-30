@@ -65,7 +65,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      getter: "getLogin"
+     
     })
   },
   methods: {

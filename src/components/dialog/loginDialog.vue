@@ -39,12 +39,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getter: "getLogin"
+    
     }),
 
-    dialog() {
-      return this.getter.dialog;
-    }
+   
   },
 
   methods: {}

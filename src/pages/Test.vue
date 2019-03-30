@@ -54,7 +54,7 @@ export default {
       return this.$store.state.login.login;
     },
     ...mapGetters({
-      getter: "getLogin"
+     
     }),
 
   },
