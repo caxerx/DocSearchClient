@@ -33,11 +33,11 @@
         </v-menu>-->
       </v-toolbar-items>
 
-      <span v-if="isSuccess()&&!$apollo.loading">
+      <span v-if="isSuccess()&&patient!=null">
         <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>
-            <v-icon>{{personalName.icon}}</v-icon>
-            {{personalName.title}}
+            <v-icon>person</v-icon>
+            {{patient.name}}
           </v-btn>
           <v-list>
             <v-list-tile v-for="(pInf, index) in profile" :key="index" @click="router(pInf.link)">
@@ -49,7 +49,7 @@
       <span v-else>
         <div class="text-xs-center">
           <v-btn flat @click="openDialog()">{{signIn.title}}</v-btn>
-          <v-dialog  width="500" :value="dialog" @input="closeDialog()">
+          <v-dialog width="500" :value="dialog" @input="closeDialog()">
             <login-dialog/>
           </v-dialog>
         </div>
@@ -78,6 +78,7 @@ export default {
   data() {
     return {
       //
+      skipQuery: true,
       feedBack: { title: "FeedBack", link: "feedBack" },
       signIn: { title: "sign-in", link: "login" },
       docSearch: { title: "DocSearch", link: "" },
@@ -91,25 +92,23 @@ export default {
   },
   apollo: {
     patient: {
-      query() {
-        return patientQuery;
-      },
+      query:patientQuery,
       variables() {
         return {
-          id: 1
+          id: localStorage.getItem("userId")
         };
+      },
+      skip() {
+        return this.skipQuery;
       }
     }
   },
   computed: {
     ...mapGetters({
-      getter:"getDialog"
+      getter: "getDialog"
     }),
-    dialog(){
+    dialog() {
       return this.getter.normal;
-    },
-    personalName() {
-      return { icon: "person", title: this.patient.name, link: "" };
     },
     profile() {
       return [
@@ -123,7 +122,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionOpenDialog","actionCloseDialog"]),
+    ...mapActions(["actionOpenDialog", "actionCloseDialog"]),
 
     router(linkStr) {
       if (linkStr === "actionLogout") {
@@ -139,15 +138,17 @@ export default {
     },
     isSuccess() {
       if (localStorage.getItem("userId") != null) {
+        this.$apollo.queries.patient.skip = false;
+        this.$apollo.queries.patient.refetch();
         return true;
       }
 
       return false;
     },
-    openDialog(){
+    openDialog() {
       this.actionOpenDialog("normal");
     },
-    closeDialog(){
+    closeDialog() {
       this.actionCloseDialog("normal");
     }
   }

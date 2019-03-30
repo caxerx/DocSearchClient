@@ -9,7 +9,7 @@
         label="Old Password"
         type="password"
         :rules="pwdRules"
-        v-model="pwd"
+        v-model="opwd"
       ></v-text-field>
        <!-- npwd -->
       <v-text-field
@@ -19,7 +19,7 @@
         label="New Password"
         type="password"
         :rules="pwdRules"
-        v-model="pwd"
+        v-model="npwd"
       ></v-text-field>
       <!-- cPwd -->
       <v-text-field
@@ -52,6 +52,7 @@ import SmallContainer from "@/components/SmallContainer.vue";
 export default {
   data: () => ({
     valid: true,
+    
     opwd: "",
     npwd: "",
     cpwd: "",
