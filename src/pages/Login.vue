@@ -67,7 +67,7 @@ export default {
         };
         
 
-        localStorage.setItem("userId",1);
+        localStorage.setItem("userId",7);
         this.$router.push("/")
         this.actionCloseDialog("normal")
         

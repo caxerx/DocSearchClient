@@ -94,9 +94,7 @@ export default {
     };
   },
   props: {
-    // attribute name: Type
     doctor: Object,
-    icon: String
   },
   methods: {
     ...mapActions(["actionSetDoctorForDoctorList"]),
