@@ -25,6 +25,9 @@ const doctorsQuery = gql`
       type
       language
       specialty
+      academic
+      experience
+
       workplace {
         id
         name

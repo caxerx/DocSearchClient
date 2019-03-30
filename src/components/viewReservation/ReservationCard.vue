@@ -1,0 +1,102 @@
+<template>
+<div >
+  <v-card @click="showDetail(reservation)" style="padding-left: 2%;">
+      
+    <v-layout row wrap>
+      <v-flex sm1>
+        <v-layout align-center justify-center row fill-height>
+          <v-card color="blue-grey lighten-5">
+            <div id="dateDiv">
+              <div class="headline text-md-center">{{reservation.startTime |moment("DD")}}</div>
+              <span class="headline grey--text">{{reservation.startTime|moment("MMM")}}</span>
+            </div>
+          </v-card>
+        </v-layout>
+      </v-flex>
+      <v-flex sm8>
+        <v-card-text>
+          <div class="headline">Dr. {{reservation.reserver.name}}</div>
+          <div class="grey--text">{{reservation.startTime|moment("YYYY-MM-DD")}}, {{reservation.startTime|moment("HH:MM")}}</div>
+          <div v-if="reservation.status==='Waiting'" class="error--text">{{reservation.status}}</div>
+          <div v-if="reservation.status==='Approval'" class="info--text">{{reservation.status}}</div>
+          <div v-if="reservation.status==='Finish'" class="success--text">{{reservation.status}}</div>
+          <div v-if="reservation.status==='Cancel'" class="error--text">{{reservation.status}}</div>
+        </v-card-text>
+      </v-flex>
+      <v-flex sm2 offset-sm1>
+        <v-layout align-center justify-center row fill-height>
+          <v-btn
+            v-if="reservation.status==='Cancel'||reservation.status==='Finish'"
+            @click.stop="nothing()"
+            outline
+            color="grey"
+          >Cancel</v-btn>
+          <v-btn v-else color="error" outline @click.stop="showCancelDialog()">Cancel</v-btn>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+  </v-card>
+</div>
+</template>
+
+<script>
+import { mapGetters, mapActions, mapState } from "vuex";
+
+
+export default {
+  data() {
+    return {
+      search: "",
+      date: null,
+     
+      
+    };
+  },
+  components: {
+      
+  },
+  computed: {
+    ...mapGetters({})
+  },
+  props:{
+      reservation:Object
+  },
+
+  methods: {
+    ...mapActions([
+      "actionOpenDialog"
+    ]),
+
+    showDetail(reservation) {
+        this.$emit("input", reservation);
+        
+    },
+
+    showCancelDialog() {
+        this.actionOpenDialog("normal");
+    },
+    
+    nothing(){
+
+    }
+
+  }
+};
+</script>
+
+<style scoped>
+/* .column1{
+     width:10%;
+     display: inline-table;
+ }
+  .column2{
+     width:70%;
+     display: inline-table;'
+ } */
+
+#dateDiv {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+</style>

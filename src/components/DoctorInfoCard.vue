@@ -95,9 +95,6 @@ export default {
       // getter: "getCreateReservation"
     }),
 
-    routeId() {
-      return this.$route.query.id;
-    }
   },
 
   components: {},
@@ -111,7 +108,7 @@ export default {
       query: doctorQuery,
       variables() {
         return {
-          id: this.routeId
+          id: this.$route.query.id
         };
       }
     }

@@ -14,7 +14,7 @@ import onlineConsultant from './modules/onlineConsultant.js';
 import medicalRecordList from './modules/medicalRecordList.js';
 import signup from './modules/signup.js';
 import doctorList from './modules/doctorList.js';
-import reservationDetail from './modules/reservationDetail.js';
+
 
 
 
@@ -35,7 +35,6 @@ export default new Vuex.Store({
     onlineConsultant,
     medicalRecordList,
     doctorList,
-    reservationDetail
 
   },
 

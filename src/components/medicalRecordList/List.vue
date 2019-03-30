@@ -1,13 +1,11 @@
 <template>
   <div v-if="!$apollo.loading">
-    
     <div
-
       v-for="(medicalRecord,index) in patient.consultations"
       :key="index"
-      style="margin-bottom:2%;padding-left:2%"
+      style="margin-bottom:2%"
     >
-      <medical-record-card :medicalRecord="medicalRecord"/>
+      <medical-record-card :medicalRecord="medicalRecord" style="padding-left:2%"/>
     </div>
   </div>
 </template>
@@ -29,7 +27,11 @@ const patientQuery = gql`
         note
         startTime
         endTime
-        
+        diseases {
+          id
+          name
+          description
+        }
       }
     }
   }
@@ -47,7 +49,7 @@ export default {
       query: patientQuery,
       variables() {
         return {
-          id: localStorage.getItem('userId')
+          id: localStorage.getItem("userId")
         };
       }
     }

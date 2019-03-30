@@ -9,7 +9,7 @@
       </v-flex>
       <v-flex sm10 style="padding-top:3px">
       <div class="grey--text text-sm-center">Date and Time</div>
-      <div class="text-sm-center font-weight-black">{{computedDate}}</div>
+      <div class="text-sm-center font-weight-black"></div>
       </v-flex>
       </v-layout>
     </v-card>
@@ -18,10 +18,10 @@
       <v-container>
         <v-card-text class="text-sm-center">
           <img src="@/assets/icon-person.png" id="icon">
-          <div class="grey--text">{{doctor.position}}</div>
-          <div class="font-weight-black">{{doctor.name}}</div>
+          <div class="grey--text">{{reservation.position}}</div>
+          <div class="font-weight-black">{{reservation.name}}</div>
           <div class="grey--text">Clinc</div>
-          <div class="font-weight-black">{{doctor.clinc}}</div>
+          <div class="font-weight-black">{{reservation.clinc}}</div>
         </v-card-text>
 
         <hr>
@@ -58,7 +58,7 @@
       </v-container>
     </v-card>
 
-    <v-card flat class="card" v-if="detail.status==='Approval'">
+    <v-card flat class="card" v-if="reservation.status==='Approval'">
       <!-- <v-card-actions> -->
       <v-btn flat color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
     </v-card>
@@ -71,7 +71,7 @@
       <v-card-text>
         <span class="grey--text">Reservation ID:</span>
         <br>
-        <span class="font-weight-black">{{detail.id}}</span>
+        <span class="font-weight-black">{{reservation.id}}</span>
       </v-card-text>
       <img src="@/assets/qr-code.png" id="qrCode">
     </v-card>
@@ -88,36 +88,16 @@ export default {
       search: ""
     };
   },
+  props:{
+      reservation:Object
+  },
   components: {},
   computed: {
     ...mapGetters({
-      getter: "getReservationDetail"
+     
     }),
-    detail() {
-      return this.getter.detail;
-    },
 
-    computedDate() {
-      let options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      };
-      let dateStr =
-        this.getter.detail.date + "T" + this.getter.detail.startTime;
-      let d = new Date(dateStr);
 
-      return (
-        d.toLocaleDateString("en-US", options) +
-        ", " +
-        d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
-      );
-    },
-
-    doctor() {
-      return this.getter.doctor;
-    }
   },
 
   methods: {
@@ -125,7 +105,7 @@ export default {
       this.$router.push("/" + linkStr);
     },
     back(){
-      window.history.back();
+      this.$emit("input",null);
     }
   }
 };
