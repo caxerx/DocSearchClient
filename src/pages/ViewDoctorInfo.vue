@@ -10,11 +10,38 @@
         </v-tabs>
       </v-card-title>
       <v-flex v-if="active==0">
-        <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
+        <!-- <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
           <br>
           <v-card style="margin-right: 25px; width:100%" flat>
             <h2>{{clinic.name}}</h2>
             <h3>{{clinic.Address}}</h3>
+
+            <h2 style="padding-top: 25px;">opening hour</h2>
+            <table>
+              <tr v-for="(time,index) in clinic.times" :key="index">
+                <th>{{time.date}}</th>
+                <td>{{time.am}}</td>
+                <td>{{time.pm}}</td>
+              </tr>
+            </table>
+          </v-card>
+          <v-flex id="ClinicMap_div">
+            <h2>Map</h2>
+            <iframe
+              v-bind:src="clinic.map"
+              width="600"
+              height="450"
+              frameborder="0"
+              style="border:0"
+              allowfullscreen
+            ></iframe>
+          </v-flex>
+        </v-layout>-->
+        <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
+          <br>
+          <v-card style="margin-right: 25px; width:100%" flat>
+            <h2>{{doctor.workplace.name}}</h2>
+            <h3>{{doctor.workplace.location}}</h3>
 
             <h2 style="padding-top: 25px;">opening hour</h2>
             <table>
@@ -52,11 +79,8 @@
         </v-data-table>
       </v-flex>
 
-      <v-flex v-if="active==2" >
-       
-        <div class="display-1" style="padding: 20px">
-        Feedback for Doctor
-        </div>
+      <v-flex v-if="active==2">
+        <div class="display-1" style="padding: 20px">Feedback for Doctor</div>
         <v-divider/>
         <v-card flat>
           <v-card-title class="title font-weight-medium">user a</v-card-title>
@@ -68,8 +92,6 @@
           <v-divider/>
         </v-card>
 
-        
-       
         <v-card flat>
           <v-card-title class="title font-weight-medium">user b</v-card-title>
           <v-card-text class="body-2">
@@ -79,7 +101,6 @@
           </v-card-text>
           <v-divider/>
         </v-card>
-    
       </v-flex>
     </v-card>
   </v-container>
@@ -104,24 +125,48 @@ tr:hover {
 }
 </style>
 <script>
+import gql from "graphql-tag";
 import DoctorInfoCard from "@/components/DoctorInfoCard";
+
+// const workplaceQuery = gql`
+//   query($id: ID!)){
+//     doctor(id: $id) {
+//       workplace {
+//         name
+//         location
+//         type
+//       }
+//     }
+//   }
+// `;
+
 export default {
+  apollo: {
+    doctor: {
+      query: gql`
+        query doctor($id: ID!) {
+          doctor(id: $id) {
+            workplace {
+              name
+              location
+              type
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          id: this.$route.query.id
+        };
+      }
+    }
+  },
+
   components: {
     DoctorInfoCard
   },
   data() {
     return {
-      infos: {
-        name: "YellowGreen",
-
-        gender: "Male",
-
-        professional: ["General Pratice", "Paediatrics"],
-
-        email: "123456@gmail.com",
-
-        phone: "12345678"
-      },
       quali: [
         {
           details: "MBBS (HK) 1975"
