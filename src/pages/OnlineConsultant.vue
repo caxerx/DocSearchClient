@@ -1,92 +1,96 @@
 <template>
-  <container>
-    <div slot="content">
-      <v-layout row wrap>
-        <v-flex fill-height>
-          <v-card flat>
-            <video-chat style="height: 500px"/>
+  <v-layout row fill-height>
+    <v-flex xs6>
+      <v-layout fill-height column>
+        <v-flex xs6>
+          <v-card style="max-height:100%;min-height:100%">
+            <v-card-title class="title">Patient Profile</v-card-title>
+            <v-divider></v-divider>
+            <v-list dense>
+              <v-list-tile>
+                <v-list-tile-title>Patient Name: Dennis Au Yeung</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-title>Gender: Male</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-title>Date of Birth: 2014-10-20</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-title>Consultation Type: Psychology Consultants</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn flat color="primary">View Medical Record</v-btn>
+            </v-card-actions>
+            <v-divider></v-divider>
           </v-card>
         </v-flex>
+        <v-flex xs6 style="background: black"></v-flex>
       </v-layout>
-      <v-card>
-        <v-toolbar color="primary" dark>
-          <v-toolbar-title>chat</v-toolbar-title>
-        </v-toolbar>
-        <div style="height: 100px"></div>
-
-        <v-layout row wrap>
-          <v-flex xs11 sm11>
-            <v-text-field
-              name="keywords"
-              v-model="message"
-              :append-outer-icon="'send'"
-              box
-              clear-icon="cancel"
-              clearable
-              label="Search"
-              type="text"
-              @click:append="toggleMarker"
-              @click:append-outer="sendMessage"
-              @click:clear="clearMessage"
-              style=""
-            ></v-text-field>
-          </v-flex>
-         <v-flex xs12 sm1  >
-            <v-layout justify-center>
-            <v-btn color="primary" fab   dark>
-                <v-icon>description</v-icon>
-              </v-btn>
-            </v-layout>
-          </v-flex>
+    </v-flex>
+    <v-divider vertical></v-divider>
+    <v-flex xs6>
+      <v-navigation-drawer permanent right absolute style="width:50%; height:75%">
+        <v-list>
+          <div v-for="i in 10" :key="i">
+            <v-list-tile>
+              <v-list-tile-avatar>
+                <v-avatar>
+                  <v-icon>account_circle</v-icon>
+                </v-avatar>
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Any Problem?</v-list-tile-title>
+                <v-list-tile-sub-title>Dr. Michael Wang</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile>
+              <v-list-tile-content>
+                <v-list-tile-title class="text-xs-right">I don't feel well</v-list-tile-title>
+                <v-list-tile-sub-title class="text-xs-right">Dennis Au Yeung</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-avatar>
+                <v-avatar>
+                  <v-icon>accessibility</v-icon>
+                </v-avatar>
+              </v-list-tile-avatar>
+            </v-list-tile>
+            <v-divider></v-divider>
+          </div>
+        </v-list>
+      </v-navigation-drawer>
+      <v-card flat style="height:25%;top:75%" absolute>
+        <v-layout fill-height column align-content-end>
+          <v-divider></v-divider>
+          <v-textarea label="Message" solo hide-details></v-textarea>
+          <v-card-actions>
+            <span class="subtitle grey--text">Message Max Length: 200</span>
+            <v-spacer></v-spacer>
+            <v-btn flat>Send</v-btn>
+          </v-card-actions>
         </v-layout>
       </v-card>
-    </div>
-  </container>
+    </v-flex>
+  </v-layout>
 </template>
 
 
 <script>
-import DoctorInfo from "@/components/onlineConsultant/DoctorInfo.vue";
-import VideoChat from "@/components/onlineConsultant/VideoChat.vue";
-import { mapGetters, mapActions, mapState } from "vuex";
-import Container from "@/components/Container.vue";
 export default {
-  data: () => ({
-    password: "Password",
-    show: false,
-    message: "",
-    marker: true
-  }),
-  components: {
-    Container,
-    DoctorInfo,
-    VideoChat
-  },
+  data: () => ({}),
 
-  computed: {
-    ...mapGetters({
-     
-    })
-  },
-  methods: {
-    toggleMarker() {
-      this.marker = !this.marker;
-    },
-    sendMessage() {
-      this.resetIcon();
-      this.clearMessage();
-    },
-    clearMessage() {
-      this.message = "";
-    },
-    resetIcon() {
-      this.iconIndex = 0;
-    },
-    changeIcon() {
-      this.iconIndex === this.icons.length - 1
-        ? (this.iconIndex = 0)
-        : this.iconIndex++;
-    }
-  }
+  components: {},
+
+  methods: {}
 };
 </script>
+
+<style>
+.dark {
+  background-color: black;
+}
+</style>

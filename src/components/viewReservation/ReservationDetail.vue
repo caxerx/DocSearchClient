@@ -2,15 +2,17 @@
   <div>
     <v-card flat>
       <v-layout row wrap>
-      <v-flex sm1>
-      <v-btn fab flat small @click="back()">
-        <v-icon >arrow_back</v-icon>
-      </v-btn>
-      </v-flex>
-      <v-flex sm10 style="padding-top:3px">
-      <div class="grey--text text-sm-center">Date and Time</div>
-      <div class="text-sm-center font-weight-black"></div>
-      </v-flex>
+        <v-flex sm1>
+          <v-btn fab flat small @click="back()">
+            <v-icon>arrow_back</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex sm10 style="padding-top:3px">
+          <div class="grey--text text-sm-center">Date and Time</div>
+          <div
+            class="text-sm-center font-weight-black"
+          >{{reservation.startTime|moment("dddd, MMMM, DD, YYYY, h:MM A")}}</div>
+        </v-flex>
       </v-layout>
     </v-card>
 
@@ -18,15 +20,15 @@
       <v-container>
         <v-card-text class="text-sm-center">
           <img src="@/assets/icon-person.png" id="icon">
-          <div class="grey--text">{{reservation.position}}</div>
-          <div class="font-weight-black">{{reservation.name}}</div>
+          <div class="grey--text">{{reservation.reserver.type}}</div>
+          <div class="font-weight-black">Dr. {{reservation.reserver.name}}</div>
           <div class="grey--text">Clinc</div>
           <div class="font-weight-black">{{reservation.clinc}}</div>
         </v-card-text>
 
         <hr>
         <br>
-        <!-- <v-card-actions v-if="detail.status==='Approval'">
+        <v-card-actions >
           <v-flex sm4>
             <v-layout justify-center>
               <v-btn outline color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
@@ -42,8 +44,8 @@
               <v-btn outline color="primary">Get Directions</v-btn>
             </v-layout>
           </v-flex>
-        </v-card-actions>-->
-        <v-card-actions>
+        </v-card-actions>
+        <!-- <v-card-actions>
           <v-flex sm6>
             <v-layout justify-center>
               <v-btn outline color="primary">Call Clinc</v-btn>
@@ -54,7 +56,7 @@
               <v-btn outline color="primary">Get Directions</v-btn>
             </v-layout>
           </v-flex>
-        </v-card-actions>
+        </v-card-actions> -->
       </v-container>
     </v-card>
 
@@ -64,7 +66,7 @@
     </v-card>
     <v-card flat class="card">
       <!-- <v-card-actions> -->
-      <v-btn flat color="error">Cancel Reservation</v-btn>
+      <v-btn flat color="error" @click="showCancelDialog()">Cancel Reservation</v-btn>
       <!-- </v-card-actions> -->
     </v-card>
     <v-card flat class="card">
@@ -82,30 +84,30 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 export default {
-
   data() {
     return {
       search: ""
     };
   },
-  props:{
-      reservation:Object
+  props: {
+    reservation: Object
   },
   components: {},
   computed: {
-    ...mapGetters({
-     
-    }),
-
-
+    ...mapGetters({})
   },
 
   methods: {
+    ...mapActions(["actionOpenDialog"]),
+
+    showCancelDialog(){
+        this.actionOpenDialog("normal");
+    },
     router(linkStr) {
       this.$router.push("/" + linkStr);
     },
-    back(){
-      this.$emit("input",null);
+    back() {
+      this.$emit("input", null);
     }
   }
 };
