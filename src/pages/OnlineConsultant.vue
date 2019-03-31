@@ -2,13 +2,13 @@
   <v-layout row fill-height>
     <v-flex xs6>
       <v-layout fill-height column>
-        <v-flex xs6>
+        <v-flex xs5>
           <v-card style="max-height:100%;min-height:100%">
-            <v-card-title class="title">Patient Profile</v-card-title>
+            <v-card-title class="title">Doctor Profile</v-card-title>
             <v-divider></v-divider>
             <v-list dense>
               <v-list-tile>
-                <v-list-tile-title>Patient Name: Dennis Au Yeung</v-list-tile-title>
+                <v-list-tile-title>Doctor Name: Dennis Au Yeung</v-list-tile-title>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-title>Gender: Male</v-list-tile-title>
@@ -21,14 +21,9 @@
               </v-list-tile>
             </v-list>
             <v-divider></v-divider>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary">View Medical Record</v-btn>
-            </v-card-actions>
-            <v-divider></v-divider>
           </v-card>
         </v-flex>
-        <v-flex xs6 style="background: black"></v-flex>
+        <v-flex xs7 style="background: black"></v-flex>
       </v-layout>
     </v-flex>
     <v-divider vertical></v-divider>
