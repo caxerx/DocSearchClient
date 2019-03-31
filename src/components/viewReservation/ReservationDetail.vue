@@ -11,7 +11,7 @@
           <div class="grey--text text-sm-center">Date and Time</div>
           <div
             class="text-sm-center font-weight-black"
-          >{{reservation.startTime|moment("dddd, MMMM, DD, YYYY, h:MM A")}}</div>
+          >{{reservation.startTime|moment("utc","dddd, MMMM, DD, YYYY, h:MM A")}}</div>
         </v-flex>
       </v-layout>
     </v-card>

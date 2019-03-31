@@ -20,8 +20,11 @@ import colors from 'vuetify/es5/util/colors'
 import { createProvider } from './vue-apollo'
 
 
+
 Vue.use(Vuex)
-Vue.use(require('vue-moment'));
+Vue.use(require('vue-moment'),{
+  
+});
 
 
 Vue.use(Vuetify, {

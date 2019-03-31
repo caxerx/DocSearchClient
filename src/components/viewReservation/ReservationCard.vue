@@ -7,8 +7,8 @@
         <v-layout align-center justify-center row fill-height>
           <v-card color="blue-grey lighten-5">
             <div id="dateDiv">
-              <div class="headline text-md-center">{{reservation.startTime |moment("DD")}}</div>
-              <span class="headline grey--text">{{reservation.startTime|moment("MMM")}}</span>
+              <div class="headline text-md-center">{{reservation.startTime |moment("utc","DD")}}</div>
+              <span class="headline grey--text">{{reservation.startTime|moment("utc","MMM")}}</span>
             </div>
           </v-card>
         </v-layout>
@@ -16,7 +16,7 @@
       <v-flex sm8>
         <v-card-text>
           <div class="headline">Dr. {{reservation.reserver.name}}</div>
-          <div class="grey--text">{{reservation.startTime|moment("YYYY-MM-DD")}}, {{reservation.startTime|moment("HH:MM")}}</div>
+          <div class="grey--text">{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}}</div>
           <div v-if="reservation.status==='Waiting'" class="error--text">{{reservation.status}}</div>
           <div v-if="reservation.status==='Approval'" class="info--text">{{reservation.status}}</div>
           <div v-if="reservation.status==='Finish'" class="success--text">{{reservation.status}}</div>
