@@ -60,7 +60,7 @@ export default {
       query: patientQuery,
       variables() {
         return {
-          id: localStorage.getItem("userId")
+          id: this.$cookie.get("userId")
         };
       }
     }

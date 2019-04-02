@@ -1,28 +1,7 @@
 <template>
   <div class="text-xs-center">
-    <v-dialog v-model="dialog" width="500">
-        <v-btn
-        slot="activator"
-        color="red lighten-2"
-        dark
-      >
-        Click Me
-      </v-btn>
-      <v-card>
-        <v-card-title class="headline primary" primary-title>
-          <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
-            <v-tab v-for="type in types" :key="type" ripple>{{type}}</v-tab>
-          </v-tabs>
-        </v-card-title>
-
-        <v-card-text>
-          <login v-if="active==0"/>
-          <sign-up v-if="active==1"/>
-        </v-card-text>
-
-        <v-divider></v-divider>
-      </v-card>
-    </v-dialog>
+      <v-btn @click="setCookie()"></v-btn>
+       {{getCookie}}
   </div>
 </template>
 
@@ -49,16 +28,25 @@ export default {
     Login,
     SignUp
   },
+
   computed: {
     $state() {
       return this.$store.state.login.login;
     },
+    getCookie(){
+      localStorage.clear();
+      return this.$cookie.get('stringSuffixs');
+    },
     ...mapGetters({
-     
+      
     }),
 
   },
 
-  methods: {}
+  methods: {
+    setCookie(){
+      this.$cookie.set('stringSuffixs', 'Thirty seconds later', { expires: '30m' });
+    }
+  }
 };
 </script>

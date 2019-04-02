@@ -22,9 +22,8 @@ import { createProvider } from './vue-apollo'
 
 
 Vue.use(Vuex)
-Vue.use(require('vue-moment'),{
-  
-});
+Vue.use(require('vue-cookie'))
+Vue.use(require('vue-moment'));
 
 
 Vue.use(Vuetify, {

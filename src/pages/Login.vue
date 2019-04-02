@@ -1,6 +1,6 @@
 <template>
-<div>
-    <v-form  ref="form" height="100%" v-model="valid" lazy-validation>
+  <div>
+    <v-form ref="form" height="100%" v-model="valid" lazy-validation>
       <v-text-field
         prepend-icon="email"
         name="email"
@@ -19,18 +19,18 @@
         :rules="pwdRules"
         v-model="pwd"
       ></v-text-field>
-  
+
       <span style="color:red">{{errMsg}}</span>
-      <br/>
+      <br>
       <!-- <h1>FeedBack</h1> -->
-     <v-card-actions>
+      <v-card-actions>
         <v-btn @click="check" style="width:100%" color="primary">Login</v-btn>
-     </v-card-actions>
-        <p>
-         <v-btn small flat color="secondary">Forgot Password?</v-btn>
-        </p>
+      </v-card-actions>
+      <p>
+        <v-btn small flat color="secondary">Forgot Password?</v-btn>
+      </p>
     </v-form>
-</div>
+  </div>
 </template>
 
 
@@ -52,9 +52,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-   
-    })
+    ...mapGetters({})
   },
   methods: {
     ...mapActions(["actionCloseDialog"]),
@@ -65,12 +63,10 @@ export default {
           email: this.email,
           pwd: this.pwd
         };
-        
 
-        localStorage.setItem("userId",7);
-        this.$router.push("/")
-        this.actionCloseDialog("normal")
-        
+        this.setCookie(7);
+        this.$router.push("/");
+        this.actionCloseDialog("normal");
 
         // if (this.getter.isSuccess) {
         //   this.$router.push("/");
@@ -80,8 +76,13 @@ export default {
         // }
       }
     },
-    signUp(){
-           this.$router.push("/signup");
+    signUp() {
+      this.$router.push("/signup");
+    },
+    setCookie(id) {
+      this.$cookie.set("userId", id, {
+        expires: "30m"
+      });
     }
   }
 };

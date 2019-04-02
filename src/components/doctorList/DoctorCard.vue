@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-if="doctor!=null">
     <v-layout row wrap>
       <v-flex xs4 sm2>
         <v-card-title>
@@ -35,11 +35,11 @@
         <v-card-text>
           <div>
             <v-icon small>thumb_up</v-icon>
-            <span>&nbsp;98%</span>
+            <span>&nbsp;{{doctor.averageRating}} %</span>
           </div>
           <div>
             <v-icon small>comment</v-icon>
-            <span>&nbsp;47 Feedback</span>
+            <span>&nbsp;{{countFeedBacks}} Feedback</span>
           </div>
           <div>
             <v-icon small>place</v-icon>
@@ -93,8 +93,14 @@ export default {
       show: false
     };
   },
+
+  computed: {
+    countFeedBacks() {
+      return this.doctor.feedbacks.length;
+    }
+  },
   props: {
-    doctor: Object,
+    doctor: Object
   },
   methods: {
     ...mapActions(["actionSetDoctorForDoctorList"]),

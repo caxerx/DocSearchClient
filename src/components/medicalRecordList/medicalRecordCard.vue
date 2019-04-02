@@ -5,8 +5,8 @@
       <v-layout justify-center row pt-5>
         <v-card color="blue-grey lighten-5">
           <div id="dateDiv">
-            <div class="headline text-md-center">{{medicalRecord.startTime|moment("DD")}}</div>
-            <span class="headline grey--text">{{medicalRecord.startTime |moment("MMM")}}</span>
+            <div class="headline text-md-center">{{medicalRecord.startTime|moment("utc","DD")}}</div>
+            <span class="headline grey--text">{{medicalRecord.startTime |moment("utc","MMM")}}</span>
           </div>
         </v-card>
       </v-layout>
@@ -14,7 +14,7 @@
     <v-flex sm11>
       <v-card-text>
         <div class="headline">Dr. {{medicalRecord.consultant.name}}</div>
-        <div class="grey--text">{{medicalRecord.startTime|moment("YYYY-MM-DD")}}, {{medicalRecord.startTime|moment("HH:MM")}}</div>
+        <div class="grey--text">{{medicalRecord.startTime|moment("utc","YYYY-MM-DD")}}, {{medicalRecord.startTime|moment("utc","HH:MM")}}</div>
         <span class="grey--text">{{medicalRecord.note}}</span>
       </v-card-text>
 

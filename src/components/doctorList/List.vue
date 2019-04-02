@@ -1,7 +1,14 @@
 <template>
-  <div>
-    <div v-for="(doctor,index) in doctors" :key="index" style="margin-bottom:20px">
-      <doctor-card :doctor="doctor"/>
+  <div v-if="!$apollo.loading">
+    <div v-if="isEmptySearch">
+      <div v-for="(doctor,index) in doctors" :key="index" style="margin-bottom:20px">
+        <doctor-card :doctor="doctor"/>
+      </div>
+    </div>
+    <div v-else>
+      <div v-for="(doctor,index) in newDoctorList()" :key="index" style="margin-bottom:20px">
+        <doctor-card :doctor="doctor"/>
+      </div>
     </div>
   </div>
 </template>
@@ -20,29 +27,30 @@ const doctorsQuery = gql`
       gender
       email
       phoneNo
-      dob
-      hkid
-      type
       language
       specialty
       academic
       experience
-
       workplace {
-        id
         name
         location
-        type
       }
+      feedbacks {
+        id
+        comment
+        rating
+      }
+      averageRating
     }
   }
 `;
 export default {
   data() {
     return {
-      search: "",
+      search: [],
       test: "",
-      show: false
+      show: false,
+
     };
   },
 
@@ -53,7 +61,21 @@ export default {
   computed: {
     ...mapGetters({
       getter: "getDoctorList"
-    })
+    }),
+    isEmptySearch() {
+      if (
+        this.getter.search.specialty === "" &&
+        this.getter.search.location === "" &&
+        this.getter.search.language === "" &&
+        this.getter.search.gender === "" &&
+        this.getter.search.searchKey === ""
+      ) {
+        console.log("true");
+        return true;
+      }
+
+      return false;
+    }
   },
 
   //   created: function() {
@@ -65,6 +87,20 @@ export default {
     getImgPath(imgName) {
       let url = "@/assets/" + imgName;
       return url;
+    },
+
+    newDoctorList() {
+      let gender = this.getter.search.gender;
+      let name = this.getter.search.searchKey;
+
+      let mapDoctorList = this.doctors.map(function(doctor) {
+        if (doctor.gender.includes(gender)) {
+          return doctor;
+        }
+
+        return null;
+      });
+      return mapDoctorList;
     }
   },
 

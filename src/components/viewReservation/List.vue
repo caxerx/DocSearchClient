@@ -73,7 +73,7 @@ export default {
       query: reservationQuery,
       variables() {
         return {
-          id: localStorage.getItem("userId")
+          id: this.$cookie.get("userId")
         };
       }
     }

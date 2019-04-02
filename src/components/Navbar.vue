@@ -95,7 +95,7 @@ export default {
       query:patientQuery,
       variables() {
         return {
-          id: localStorage.getItem("userId")
+           id: this.$cookie.get("userId")
         };
       },
       skip() {
@@ -126,7 +126,7 @@ export default {
 
     router(linkStr) {
       if (linkStr === "actionLogout") {
-        localStorage.clear();
+       this.$cookie.delete("userId");
         this.$router.push("/");
         this.$forceUpdate();
       } else {
@@ -137,7 +137,7 @@ export default {
       return this.menu;
     },
     isSuccess() {
-      if (localStorage.getItem("userId") != null) {
+      if (this.$cookie.get("userId") != null&&this.$cookie.get("userId")!="") {
         this.$apollo.queries.patient.skip = false;
         this.$apollo.queries.patient.refetch();
         return true;

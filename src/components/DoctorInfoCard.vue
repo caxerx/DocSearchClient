@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="!$apollo.loading" flat> 
+  <v-card v-if="!$apollo.loading" flat>
     <!-- {{doctor.id}} -->
     <v-layout row wrap>
       <v-flex xs4 sm2>
@@ -35,11 +35,11 @@
         <v-card-text>
           <div>
             <v-icon small>thumb_up</v-icon>
-            <span>&nbsp;98%</span>
+            <span>&nbsp;{{doctor.averageRating}} %</span>
           </div>
           <div>
             <v-icon small>comment</v-icon>
-            <span>&nbsp;47 Feedback</span>
+            <span>&nbsp;{{countFeedBacks}} Feedback</span>
           </div>
           <div>
             <v-icon small>place</v-icon>
@@ -67,17 +67,20 @@ const doctorQuery = gql`
       gender
       email
       phoneNo
-      dob
-      hkid
-      type
       language
       specialty
+      academic
+      experience
       workplace {
-        id
         name
         location
-        type
       }
+      feedbacks {
+        id
+        comment
+        rating
+      }
+      averageRating
     }
   }
 `;
@@ -91,10 +94,9 @@ export default {
   created: function() {},
 
   computed: {
-    ...mapGetters({
-      // getter: "getCreateReservation"
-    }),
-
+    countFeedBacks() {
+      return this.doctor.feedbacks.length;
+    }
   },
 
   components: {},
