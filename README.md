@@ -1,4 +1,4 @@
-# fyppp
+# DocSearchClient
 
 ## Project setup
 ```
