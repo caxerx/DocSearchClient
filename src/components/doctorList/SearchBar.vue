@@ -1,15 +1,19 @@
 <template>
-  <v-toolbar dark color="secondary" id="searchBar" >
-   
-    <v-select :items="specialty" class="select white-text" label="specialty"></v-select>
+  <v-toolbar dark color="secondary" id="searchBar">
+    <v-select :items="specialty" class="select white-text" label="specialty" @change="searchSpecialty"></v-select>
     <v-toolbar-title>
-      <v-select :items="location" class="select" label="locations"></v-select>
+      <v-select :items="location" class="select" label="locations" @change="searchLocation"></v-select>
     </v-toolbar-title>
     <v-toolbar-title>
-      <v-select :items="language" class="select" label="language"></v-select>
+      <v-select :items="language" class="select" label="language" @change="searchLanguage"></v-select>
     </v-toolbar-title>
     <v-toolbar-title>
-      <v-select :items="gender" item-text="name"  item-value="value" class="select" label="gender"  @change="searchGender"></v-select>
+      <v-select
+        :items="gender"
+        class="select"
+        label="gender"
+        @change="searchGender"
+      ></v-select>
     </v-toolbar-title>
 
     <v-spacer/>
@@ -29,27 +33,34 @@ export default {
       specialty: ["General Pratice", "Cardiology", "Dentisry", "Dietetics"],
       location: ["Kowloon", "Hong Kong", "New Territories"],
       language: ["Chinese", "English"],
-      gender: [
-        {
-          name: "Male",
-          value: "M"
-        },
-        {
-          name: "Female",
-          value: "F"
-        }
-      ],
+      gender: ["Male", "Female"]
     };
   },
 
-  methods:{
-    ...mapActions(["actionSearchGenderForDoctorList","actionSearchKeyWordForDoctorList"]),
-    searchGender(val){
-     this.actionSearchGenderForDoctorList(val);
+  methods: {
+    ...mapActions([
+      "actionSearchGenderForDoctorList",
+      "actionSearchSpecialtyForDoctorList",
+      "actionSearchLocationForDoctorList",
+      "actionSearchLanguageForDoctorList",
+      "actionSearchKeyWordForDoctorList"
+    ]),
+    searchGender(val) {
+      this.actionSearchGenderForDoctorList(val);
     },
-    searchKeyWord(val){
+    searchKeyWord(val) {
       this.actionSearchKeyWordForDoctorList(val);
-    }
+    },
+     searchSpecialty(val) {
+      this.actionSearchSpecialtyForDoctorList(val);
+    },
+     searchLocation(val) {
+      this.actionSearchLocationForDoctorList(val);
+    },
+     searchLanguage(val) {
+      this.actionSearchLanguageForDoctorList(val);
+    },
+
   }
 };
 </script>

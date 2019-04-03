@@ -1,14 +1,17 @@
 <template>
-  <div v-if="!$apollo.loading">
-    <div v-if="isEmptySearch">
-      <div v-for="(doctor,index) in doctors" :key="index" style="margin-bottom:20px">
-        <doctor-card :doctor="doctor"/>
+  <div>
+    <div v-if="!$apollo.loading">
+      <div v-if="searchResultStr===''">
+        <div class="grey--text">{{doctors.length}} matches found for: {{searchResultStr}}</div>
+        <div v-for="(doctor,index) in doctors" :key="index" style="margin-bottom:20px">
+          <doctor-card :doctor="doctor"/>
+        </div>
       </div>
-    </div>
-    <!-- test -->
-    <div v-else>
-      <div v-for="(doctor,index) in newDoctorList()" :key="index" style="margin-bottom:20px">
-        <doctor-card :doctor="doctor"/>
+      <div v-else>
+        <div class="grey--text">{{newDoctorList.length}} matches found for: {{searchResultStr}}</div>
+        <div v-for="(doctor,index) in newDoctorList" :key="index" style="margin-bottom:20px">
+          <doctor-card :doctor="doctor"/>
+        </div>
       </div>
     </div>
   </div>
@@ -48,10 +51,9 @@ const doctorsQuery = gql`
 export default {
   data() {
     return {
-      search: [],
+      searchResult: "",
       test: "",
-      show: false,
-
+      show: false
     };
   },
 
@@ -63,19 +65,39 @@ export default {
     ...mapGetters({
       getter: "getDoctorList"
     }),
-    isEmptySearch() {
-      if (
-        this.getter.search.specialty === "" &&
-        this.getter.search.location === "" &&
-        this.getter.search.language === "" &&
-        this.getter.search.gender === "" &&
-        this.getter.search.searchKey === ""
-      ) {
-        console.log("true");
-        return true;
-      }
 
-      return false;
+    gender() {
+      return this.getter.search.gender;
+    },
+    keyword() {
+      return this.getter.search.keyword;
+    },
+    specialty() {
+      return this.getter.search.specialty;
+    },
+    location() {
+      return this.getter.search.location;
+    },
+    language() {
+      return this.getter.search.language;
+    },
+       newDoctorList() {
+      return this.getter.newDoctorList;
+    },
+
+    searchResultStr() {
+      this.actionUpdateDoctorListForDoctorList(this.doctors);
+      let str =
+        (this.specialty !== "" ? ", " + this.specialty : "") +
+        (this.location !== "" ? ", " + this.location : "") +
+        (this.language !== "" ? ", " + this.language : "") +
+        (this.gender !== "" ? ", " + this.gender : "") +
+        (this.keyword !== "" ? ", " + this.keyword : "");
+
+      if (str[0] === ",") {
+        str = str.substring(1);
+      }
+      return str;
     }
   },
 
@@ -84,25 +106,15 @@ export default {
   //   },
 
   methods: {
-    ...mapActions(["actionSetDoctorForDoctorList"]),
+    ...mapActions([
+      "actionSetDoctorForDoctorList",
+      "actionUpdateDoctorListForDoctorList"
+    ]),
     getImgPath(imgName) {
       let url = "@/assets/" + imgName;
       return url;
     },
 
-    newDoctorList() {
-      let gender = this.getter.search.gender;
-      let name = this.getter.search.searchKey;
-
-      let mapDoctorList = this.doctors.map(function(doctor) {
-        if (doctor.gender.includes(gender)) {
-          return doctor;
-        }
-
-        return null;
-      });
-      return mapDoctorList;
-    }
   },
 
   apollo: {
@@ -112,5 +124,6 @@ export default {
   }
 };
 </script>
+
 
 

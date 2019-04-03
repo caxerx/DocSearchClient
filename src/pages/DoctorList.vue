@@ -3,7 +3,7 @@
     <search-bar/>
     <container>
       <div slot="content">
-        <div class="grey--text">79 matches found for:General Physician In Indiranagar, Bangalore</div><br/>
+        
         <c-list slot="content"/>
       </div>
     </container>
@@ -49,4 +49,5 @@ img {
   height: 100px;
 }
 </style>
+
 
