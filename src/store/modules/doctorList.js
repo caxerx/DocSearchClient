@@ -52,6 +52,9 @@ const actions = {
 
     actionUpdateDoctorListForDoctorList({ commit }, doctors) {
         commit("updateDoctorListForDoctorList", doctors);
+    },
+    actionResetSearchForDoctorList({ commit }) {
+        commit("resetSearchForDoctorList");
     }
 
 
@@ -148,6 +151,16 @@ const mutations = {
 
         state.doctorList.newDoctorList = mapDoctorList;
         // console.log( state.doctorList.newDoctorList);
+    },
+
+    ["resetSearchForDoctorList"](state) {
+        state.doctorList.search = {
+                keyword: "",
+                specialty: "",
+                location: "",
+                language: "",
+                gender: "",
+        }
     }
 }
 

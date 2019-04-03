@@ -1,23 +1,24 @@
 <template>
   <v-toolbar dark color="secondary" id="searchBar">
-    <v-select :items="specialty" class="select white-text" label="specialty" @change="searchSpecialty"></v-select>
+    <v-select
+      :items="specialty"
+      class="select white-text"
+      label="specialty"
+      @change="searchSpecialty"
+      v-model="selected"
+    ></v-select>
     <v-toolbar-title>
-      <v-select :items="location" class="select" label="locations" @change="searchLocation"></v-select>
+      <v-select :items="location" class="select" label="locations" @change="searchLocation"  v-model="selected"></v-select>
     </v-toolbar-title>
     <v-toolbar-title>
-      <v-select :items="language" class="select" label="language" @change="searchLanguage"></v-select>
+      <v-select :items="language" class="select" label="language" @change="searchLanguage"  v-model="selected"></v-select>
     </v-toolbar-title>
     <v-toolbar-title>
-      <v-select
-        :items="gender"
-        class="select"
-        label="gender"
-        @change="searchGender"
-      ></v-select>
+      <v-select :items="gender" class="select" label="gender" @change="searchGender"  v-model="selected"></v-select>
     </v-toolbar-title>
-
+    <v-btn flat small @click="reset()">Reset Filters</v-btn>
     <v-spacer/>
-    <v-text-field label="Name" @input="searchKeyWord"></v-text-field>
+    <v-text-field label="Name" @input="searchKeyWord"  v-model="keyword"></v-text-field>
     <v-btn flat dark fab>
       <v-icon>search</v-icon>
     </v-btn>
@@ -33,7 +34,9 @@ export default {
       specialty: ["General Pratice", "Cardiology", "Dentisry", "Dietetics"],
       location: ["Kowloon", "Hong Kong", "New Territories"],
       language: ["Chinese", "English"],
-      gender: ["Male", "Female"]
+      gender: ["Male", "Female"],
+      selected:"",
+      keyword:"",
     };
   },
 
@@ -43,7 +46,8 @@ export default {
       "actionSearchSpecialtyForDoctorList",
       "actionSearchLocationForDoctorList",
       "actionSearchLanguageForDoctorList",
-      "actionSearchKeyWordForDoctorList"
+      "actionSearchKeyWordForDoctorList",
+      "actionResetSearchForDoctorList"
     ]),
     searchGender(val) {
       this.actionSearchGenderForDoctorList(val);
@@ -51,16 +55,21 @@ export default {
     searchKeyWord(val) {
       this.actionSearchKeyWordForDoctorList(val);
     },
-     searchSpecialty(val) {
+    searchSpecialty(val) {
       this.actionSearchSpecialtyForDoctorList(val);
     },
-     searchLocation(val) {
+    searchLocation(val) {
       this.actionSearchLocationForDoctorList(val);
     },
-     searchLanguage(val) {
+    searchLanguage(val) {
       this.actionSearchLanguageForDoctorList(val);
     },
 
+    reset() {
+      this.selected = undefined
+      this.keyword = undefined
+      this.actionResetSearchForDoctorList();
+    }
   }
 };
 </script>
