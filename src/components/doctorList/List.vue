@@ -5,6 +5,7 @@
         <doctor-card :doctor="doctor"/>
       </div>
     </div>
+    <!-- test -->
     <div v-else>
       <div v-for="(doctor,index) in newDoctorList()" :key="index" style="margin-bottom:20px">
         <doctor-card :doctor="doctor"/>
