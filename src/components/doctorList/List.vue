@@ -35,6 +35,13 @@ const searchDoctorsQuery = gql`
         location
         type
       }
+
+      feedbacks {
+        id
+        comment
+        rating
+      }
+      averageRating
     }
   }
 `;

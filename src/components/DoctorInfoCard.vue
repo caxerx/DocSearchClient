@@ -1,6 +1,7 @@
 <template>
-  <v-card v-if="!$apollo.loading" flat>
+  <v-card v-if="doctor!=null" flat>
     <!-- {{doctor.id}} -->
+    
     <v-layout row wrap>
       <v-flex xs4 sm2>
         <v-card-title>
@@ -59,43 +60,21 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 import gql from "graphql-tag";
 
-const doctorQuery = gql`
-  query($id: ID!) {
-    doctor(id: $id) {
-      id
-      name
-      gender
-      email
-      phoneNo
-      language
-      specialty
-      academic
-      experience
-      workplace {
-        name
-        location
-      }
-      feedbacks {
-        id
-        comment
-        rating
-      }
-      averageRating
-    }
-  }
-`;
+
 export default {
   data: () => ({
-    doctor: {
-      name: ""
-    }
+
   }),
+
+  props:{
+    doctor:Object
+  },
 
   created: function() {},
 
   computed: {
-    countFeedBacks() {
-      return 0
+       countFeedBacks() {
+      return (this.doctor.feedbacks.length ===null?feedbacks.length:0);
     }
   },
 
@@ -103,18 +82,6 @@ export default {
 
   methods: {},
 
-  apollo: {
-    // Query with parameters
-
-    doctor: {
-      query: doctorQuery,
-      variables() {
-        return {
-          id: this.$route.query.id
-        };
-      }
-    }
-  }
 };
 </script>
 

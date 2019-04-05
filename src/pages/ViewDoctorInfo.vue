@@ -1,42 +1,16 @@
 <template>
-  <v-container>
+  <v-container v-if="!$apollo.loading">
     <v-card>
-      <DoctorInfoCard/>
+      <DoctorInfoCard :doctor="doctor"/>
     </v-card>
-    <v-card style="margin-top: 25px">
+
+     <v-card style="margin-top: 25px">
       <v-card-title class="headline primary" primary-title>
         <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
           <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}}</v-tab>
         </v-tabs>
       </v-card-title>
       <v-flex v-if="active==0">
-        <!-- <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
-          <br>
-          <v-card style="margin-right: 25px; width:100%" flat>
-            <h2>{{clinic.name}}</h2>
-            <h3>{{clinic.Address}}</h3>
-
-            <h2 style="padding-top: 25px;">opening hour</h2>
-            <table>
-              <tr v-for="(time,index) in clinic.times" :key="index">
-                <th>{{time.date}}</th>
-                <td>{{time.am}}</td>
-                <td>{{time.pm}}</td>
-              </tr>
-            </table>
-          </v-card>
-          <v-flex id="ClinicMap_div">
-            <h2>Map</h2>
-            <iframe
-              v-bind:src="clinic.map"
-              width="600"
-              height="450"
-              frameborder="0"
-              style="border:0"
-              allowfullscreen
-            ></iframe>
-          </v-flex>
-        </v-layout>-->
         <v-layout v-for="(clinic,index) in clinics" :key="index" style="padding: 25px;">
           <br>
           <v-card style="margin-right: 25px; width:100%" flat>
@@ -128,40 +102,34 @@ tr:hover {
 import gql from "graphql-tag";
 import DoctorInfoCard from "@/components/DoctorInfoCard";
 
-// const workplaceQuery = gql`
-//   query($id: ID!)){
-//     doctor(id: $id) {
-//       workplace {
-//         name
-//         location
-//         type
-//       }
-//     }
-//   }
-// `;
+const doctorQuery = gql`
+  query($id: ID!) {
+    doctor(id: $id) {
+      id
+      name
+      gender
+      email
+      phoneNo
+      language
+      specialty
+      academic
+      experience
+      workplace {
+        id
+        name
+        location
+      }
+      feedbacks {
+        id
+        comment
+        rating
+      }
+      averageRating
+    }
+  }
+`;
 
 export default {
-  apollo: {
-    doctor: {
-      query: gql`
-        query doctor($id: ID!) {
-          doctor(id: $id) {
-            workplace {
-              name
-              location
-              type
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          id: this.$route.query.id
-        };
-      }
-    }
-  },
-
   components: {
     DoctorInfoCard
   },
@@ -282,6 +250,16 @@ export default {
       DocInfoTypes: ["Information", "Services", "Feedback"],
       active: 0
     };
+  },
+  apollo: {
+    doctor: {
+      query: doctorQuery,
+      variables() {
+        return {
+          id: this.$route.query.id
+        };
+      }
+    }
   },
   focus: {
     active: function(val) {
