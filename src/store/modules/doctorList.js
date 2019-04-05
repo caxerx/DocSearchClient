@@ -3,18 +3,13 @@
 
 const state = {
     doctorList: {
-        search: {
+        criteria: {
             keyword: "",
             specialty: "",
             location: "",
             language: "",
             gender: "",
         },
-
-        newDoctorList: [],
-
-
-
 
     }
 
@@ -50,9 +45,6 @@ const actions = {
         commit("searchKeyWordForDoctorList", key)
     },
 
-    actionUpdateDoctorListForDoctorList({ commit }, doctors) {
-        commit("updateDoctorListForDoctorList", doctors);
-    },
     actionResetSearchForDoctorList({ commit }) {
         commit("resetSearchForDoctorList");
     }
@@ -64,97 +56,26 @@ const actions = {
 const mutations = {
 
     ["searchSpecialtyForDoctorList"](state, key) {
-        state.doctorList.search.specialty = key;
+        state.doctorList.criteria.specialty = key;
     },
     ["searchLocationForDoctorList"](state, key) {
-        state.doctorList.search.location = key;
+        state.doctorList.criteria.location = key;
     },
     ["searchGenderForDoctorList"](state, key) {
-        state.doctorList.search.gender = key;
+        state.doctorList.criteria.gender = key;
         // console.log(state.doctorList.search.gender)
     },
 
     ["searchLanguageForDoctorList"](state, key) {
-        state.doctorList.search.language = key;
+        state.doctorList.criteria.language = key;
     },
 
     ["searchKeyWordForDoctorList"](state, key) {
-        state.doctorList.search.keyword = key;
-        // console.log(state.doctorList.search.searchKey);
-    },
-    ["updateDoctorListForDoctorList"](state, doctors) {
-        let mapDoctorList = doctors;
-        let gender = state.doctorList.search.gender;
-
-        if (state.doctorList.search.gender === "Male") {
-            gender = "M";
-        } else if (state.doctorList.search.gender === "Female") {
-            gender = "F";
-        }
-        let keyword = state.doctorList.search.keyword;
-        let specialty = state.doctorList.search.specialty;
-        let location = state.doctorList.search.location;
-        let language = state.doctorList.search.language;
-
-        if (keyword !== "") {
-            mapDoctorList = mapDoctorList.filter(function (doctor) {
-                if (doctor.name.includes(keyword)) {
-                    return true;
-                } else if (doctor.specialty.includes(keyword)) {
-                    console.log(doctor)
-                    return true;
-                } else if (doctor.workplace.name.includes(keyword)) {
-                    return true;
-                }
-                else if (doctor.language.includes(keyword)) {
-                    return true;
-                }
-                else if (doctor.gender.includes(keyword)) {
-                    return true;
-                }
-                return false;
-            });
-        }
-        if (gender !== "") {
-            mapDoctorList = mapDoctorList.filter(function (doctor) {
-                if (doctor.gender.includes(gender)) {
-                    return true;
-                }
-                return false;
-            });
-        }
-        if (specialty !== "") {
-            mapDoctorList = mapDoctorList.filter(function (doctor) {
-                if (doctor.gender.includes(specialty)) {
-                    return true;
-                }
-                return false;
-            });
-        }
-        if (location !== "") {
-            mapDoctorList = mapDoctorList.filter(function (doctor) {
-                if (doctor.workplace.name.includes(location)) {
-                    return true;
-                }
-
-                return false;
-            });
-        }
-        if (language !== "") {
-            mapDoctorList = mapDoctorList.filter(function (doctor) {
-                if (doctor.language.includes(language)) {
-                    return true;
-                }
-                return false;
-            });
-        }
-
-        state.doctorList.newDoctorList = mapDoctorList;
-        // console.log( state.doctorList.newDoctorList);
+        state.doctorList.criteria.keyword = key;
     },
 
     ["resetSearchForDoctorList"](state) {
-        state.doctorList.search = {
+        state.doctorList.criteria = {
                 keyword: "",
                 specialty: "",
                 location: "",

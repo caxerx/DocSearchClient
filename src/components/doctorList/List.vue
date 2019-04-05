@@ -1,17 +1,9 @@
 <template>
   <div>
     <div v-if="!$apollo.loading">
-      <div v-if="searchResultStr===''">
-        <div class="grey--text">{{doctors.length}} matches found for: {{searchResultStr}}</div>
-        <div v-for="(doctor,index) in doctors" :key="index" style="margin-bottom:20px">
-          <doctor-card :doctor="doctor"/>
-        </div>
-      </div>
-      <div v-else>
-        <div class="grey--text">{{newDoctorList.length}} matches found for: {{searchResultStr}}</div>
-        <div v-for="(doctor,index) in newDoctorList" :key="index" style="margin-bottom:20px">
-          <doctor-card :doctor="doctor"/>
-        </div>
+      <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
+      <div v-for="(doctor,index) in searchDoctors" :key="index" style="margin-bottom:20px">
+        <doctor-card :doctor="doctor"/>
       </div>
     </div>
   </div>
@@ -23,31 +15,30 @@ import { mapGetters, mapActions, mapState } from "vuex";
 import DoctorCard from "./DoctorCard.vue";
 import gql from "graphql-tag";
 
-const doctorsQuery = gql`
-  query {
-    doctors {
+
+const searchDoctorsQuery = gql`
+  query($criteria: SearchDoctorInput!) {
+    searchDoctors(criteria: $criteria) {
       id
       name
       gender
       email
       phoneNo
+      dob
+      hkid
+      type
       language
       specialty
-      academic
-      experience
       workplace {
+        id
         name
         location
+        type
       }
-      feedbacks {
-        id
-        comment
-        rating
-      }
-      averageRating
     }
   }
 `;
+
 export default {
   data() {
     return {
@@ -56,7 +47,22 @@ export default {
       show: false
     };
   },
-
+  apollo: {
+    searchDoctors: {
+      query: searchDoctorsQuery,
+      variables() {
+        return {
+          criteria: {
+            search: this.keyword,
+            language: this.language,
+            specialty: this.specialty,
+            gender: this.gender,
+            location: this.location
+          }
+        };
+      }
+    }
+  },
   components: {
     DoctorCard
   },
@@ -67,31 +73,40 @@ export default {
     }),
 
     gender() {
-      return this.getter.search.gender;
+      let g = this.getter.criteria.gender;
+      if(g==="Male"){
+        return "M"
+      }else if(g==="Female"){
+        return "F"
+      }
+      
+      return g;
     },
     keyword() {
-      return this.getter.search.keyword;
+      return this.getter.criteria.keyword;
     },
     specialty() {
-      return this.getter.search.specialty;
+      return this.getter.criteria.specialty;
     },
     location() {
-      return this.getter.search.location;
+      return this.getter.criteria.location;
     },
     language() {
-      return this.getter.search.language;
-    },
-       newDoctorList() {
-      return this.getter.newDoctorList;
+      return this.getter.criteria.language;
     },
 
     searchResultStr() {
-      this.actionUpdateDoctorListForDoctorList(this.doctors);
+      let gender = this.gender;
+      if(gender==="M"){
+        gender="Male";
+      }else if(gender==="F"){
+        gender = "Female";
+      }
       let str =
         (this.specialty !== "" ? ", " + this.specialty : "") +
         (this.location !== "" ? ", " + this.location : "") +
         (this.language !== "" ? ", " + this.language : "") +
-        (this.gender !== "" ? ", " + this.gender : "") +
+        (gender !== "" ? ", " + gender : "") +
         (this.keyword !== "" ? ", " + this.keyword : "");
 
       if (str[0] === ",") {
@@ -106,20 +121,10 @@ export default {
   //   },
 
   methods: {
-    ...mapActions([
-      "actionSetDoctorForDoctorList",
-      "actionUpdateDoctorListForDoctorList"
-    ]),
+    ...mapActions(["actionSetDoctorForDoctorList"]),
     getImgPath(imgName) {
       let url = "@/assets/" + imgName;
       return url;
-    },
-
-  },
-
-  apollo: {
-    doctors: {
-      query: doctorsQuery
     }
   }
 };

@@ -95,7 +95,7 @@ export default {
 
   computed: {
     countFeedBacks() {
-      return this.doctor.feedbacks.length;
+      return 0
     }
   },
 
