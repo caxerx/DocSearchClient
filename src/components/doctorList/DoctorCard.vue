@@ -96,7 +96,7 @@ export default {
 
   computed: {
     countFeedBacks() {
-      return this.doctor.feedbacks.length === null ? feedbacks.length : 0;
+      return this.doctor.feedbacks.length !== null ? this.doctor.feedbacks.length: 0;
     }
   },
   props: {

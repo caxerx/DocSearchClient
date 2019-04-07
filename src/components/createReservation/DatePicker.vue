@@ -49,11 +49,9 @@ export default {
 
     reservationDate: {
       get() {
-        console.log(this.$state.date);
         return this.$state.date;
       },
       set(date) {
-        console.log(date);
         this.$store.commit("setDateForCreateReservation", date);
       }
     },

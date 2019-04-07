@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="doctor!=null" flat>
+  <v-card  flat>
     <!-- {{doctor.id}} -->
     
     <v-layout row wrap>
@@ -74,7 +74,7 @@ export default {
 
   computed: {
        countFeedBacks() {
-      return (this.doctor.feedbacks.length ===null?feedbacks.length:0);
+      return (this.doctor.feedbacks.length !==null?this.doctor.feedbacks.length:0);
     }
   },
 
