@@ -1,7 +1,7 @@
 <template>
-  <div v-if="!$apollo.loading">
-    <v-card>
-      <doctor-info-card :doctor="doctor"/>
+  <v-card>
+    <div>
+      <doctor-info-card :doctor="doctorObj"/>
       <v-layout row wrap>
         <v-card-text>
           <hr>
@@ -13,16 +13,23 @@
             <date-picker/>
           </v-flex>
           <v-flex sm12>
-            <v-layout row wrap justify-space-arround>
-              <span v-for="(time,index) in compareTimeSlot(date,doctor.timeSlots)" :key="index">
-                <v-btn color="primary" @click="setTime(time.start)">{{time.start}}</v-btn>
-              </span>
+            <v-layout row wrap v-if="timeslots.length !== 0 ">
+              <v-flex v-for="(time,index) in timeslots" :key="index" sm2>
+                <v-layout justify-center>
+                  <v-btn color="primary" @click="setTime(time.start,time.end)">{{time.start}}</v-btn>
+                </v-layout>
+              </v-flex>
+            </v-layout>
+            <v-layout row wrap v-else>
+              <v-flex>
+                <p class="text-sm-center">No available time in this day</p>
+              </v-flex>
             </v-layout>
           </v-flex>
         </v-card-text>
       </v-layout>
-    </v-card>
-  </div>
+    </div>
+  </v-card>
 </template>
 
 <script>
@@ -56,18 +63,47 @@ const doctorQuery = gql`
         rating
       }
       averageRating
-      timeSlots {
-        id
-        weekday
-        start
-        end
-      }
+    }
+  }
+`;
+
+const timeSlotQuery = gql`
+  query($date: DateTime!, $doctorId: ID!) {
+    getDoctorTimeSlots(date: $date, doctorId: $doctorId) {
+      id
+      weekday
+      start
+      end
     }
   }
 `;
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    timeslots: [],
+    doctorObj: {
+      id: "",
+      name: "",
+      gender: "",
+      email: "",
+      phoneNo: "",
+      language: "",
+      specialty: "",
+      academic: "",
+      experience: "",
+      workplace: {
+        id: "",
+        name: "",
+        location: ""
+      },
+      feedbacks: {
+        id: "",
+        comment: "",
+        rating: ""
+      },
+      averageRating: ""
+    }
+  }),
 
   apollo: {
     doctor: {
@@ -76,6 +112,22 @@ export default {
         return {
           id: this.$route.query.id
         };
+      },
+      update(data) {
+        this.doctorObj = data.doctor;
+      }
+    },
+
+    getDoctorTimeSlots: {
+      query: timeSlotQuery,
+      variables() {
+        return {
+          date: this.date,
+          doctorId: this.$route.query.id
+        };
+      },
+      update(data) {
+        this.timeslots = data.getDoctorTimeSlots;
       }
     }
   },
@@ -97,18 +149,12 @@ export default {
 
   methods: {
     ...mapActions(["actionSetTimeForCreateReservation"]),
-    setTime(time) {
-      this.actionSetTimeForCreateReservation(time);
-    },
-    compareTimeSlot(date, timeslots) {
-      let weekdayOfDate = moment.utc(date).format("ddd").toLowerCase();
-      // filter weekday of the timeslots
-      var filterTimeslot = timeslots.filter(function(item) {
-        return item.weekday === weekdayOfDate?true:false
-      });
-      //filter the time is available in the reservations (undo part)
 
-      return filterTimeslot
+    setTime(start, end) {
+      this.actionSetTimeForCreateReservation({
+        start: start,
+        end: end
+      });
     }
   }
 };

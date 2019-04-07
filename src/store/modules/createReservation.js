@@ -3,7 +3,14 @@
 const state = {
     createReservation: {
         date: new Date().toISOString().substr(0, 10),
-        time:"",
+        note: "",
+        type: "",
+        endTime: "",
+        startTime: "",
+        workplaceId: "",
+        patientId: "",
+        doctorId: "",
+        staffId: "",
 
     },
    
@@ -38,8 +45,8 @@ const mutations = {
 
     },
     ["setTimeForCreateReservation"](state, time) {
-        state.createReservation.time = time;
-        console.log("state ", state.createReservation.time);
+        state.createReservation.startTime = time.start;
+        state.createReservation.endTime = time.end;
 
     },
 

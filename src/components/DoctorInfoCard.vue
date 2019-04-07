@@ -1,5 +1,5 @@
 <template>
-  <v-card  flat>
+  <v-card  flat v-if="doctor!=null">
     <!-- {{doctor.id}} -->
     
     <v-layout row wrap>

@@ -45,7 +45,8 @@ export default {
     emailRules: [v => !!v || "Email is required"],
     pwd: "",
     pwdRules: [v => !!v || "Password is required"],
-    errMsg: ""
+    errMsg: "",
+    
   }),
   components: {
     SmallContainer
@@ -64,7 +65,7 @@ export default {
           pwd: this.pwd
         };
 
-        this.setCookie(7);
+        this.setCookie(3);
         this.$router.push("/");
         this.actionCloseDialog("normal");
 
