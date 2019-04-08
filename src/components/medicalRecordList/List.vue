@@ -1,18 +1,6 @@
 <template>
   <div>
-    <v-layout row justify-center>
-    <v-dialog v-model="dialog" persistent width="200">
-        <v-card >
-          <v-card-text>
-            <v-layout column justify-center align-center>
-              <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
-               <p style="padding-top:15px" class="text-sm-center">Loading</p>
-            </v-layout>
-          
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-    </v-layout>
+     <loading-dialog :dialog="dialog" />
 
     <div v-if="!$apollo.loading">
       <div
@@ -30,6 +18,7 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import MedicalRecordCard from "./medicalRecordCard.vue";
+import LoadingDialog from "@/components/dialog/loadingDialog.vue"
 import gql from "graphql-tag";
 
 const patientQuery = gql`
@@ -71,7 +60,8 @@ export default {
     }
   },
   components: {
-    MedicalRecordCard
+    MedicalRecordCard,
+    LoadingDialog
   },
   computed: {
     ...mapGetters({}),

@@ -1,27 +1,13 @@
 <template>
   <div>
-    <v-layout row justify-center>
-      <v-dialog v-model="dialog" persistent width="200">
-        <v-card>
-          <v-card-text>
-            <v-layout column justify-center align-center>
-              <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
-              <p style="padding-top:15px" class="text-sm-center">Loading</p>
-            </v-layout>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-    </v-layout>
+    <loading-dialog :dialog="dialog"/>
     <div v-if="!$apollo.loading">
       <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
       <div v-for="(doctor,index) in searchDoctors" :key="index" style="margin-bottom:20px">
-        <doctor-card :doctor="doctor" v-model="loginDialog"/>
+        <doctor-card :doctor="doctor"/>
       </div>
-    </div>
 
-    <v-dialog width="500" v-model="loginDialog">
-      <login-dialog/>
-    </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -29,7 +15,9 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import DoctorCard from "./DoctorCard.vue";
-import LoginDialog from "@/components/dialog/loginDialog";
+import LoadingDialog from "@/components/dialog/loadingDialog.vue";
+
+
 import gql from "graphql-tag";
 
 const searchDoctorsQuery = gql`
@@ -67,8 +55,7 @@ export default {
     return {
       searchResult: "",
       test: "",
-      show: false,
-      loginDialog: false
+      show: false
     };
   },
   apollo: {
@@ -88,13 +75,15 @@ export default {
     }
   },
   components: {
+    LoadingDialog,
     DoctorCard,
-    LoginDialog
+    
   },
 
   computed: {
     ...mapGetters({
-      getter: "getDoctorList"
+      getter: "getDoctorList",
+      getDialog: "getDialog"
     }),
 
     dialog: {
@@ -107,6 +96,14 @@ export default {
       },
       set(val) {
         this.dialog = val;
+      }
+    },
+    loginDialog: {
+      get() {
+        return this.getDialog.login;
+      },
+      set(val) {
+        this.loginDialog = val;
       }
     },
 

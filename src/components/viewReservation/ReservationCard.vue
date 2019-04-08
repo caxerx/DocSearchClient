@@ -64,7 +64,7 @@ export default {
 
   methods: {
     ...mapActions([
-      "actionOpenDialog"
+
     ]),
 
     showDetail(reservation) {
@@ -72,10 +72,6 @@ export default {
         
     },
 
-    showCancelDialog() {
-        this.actionOpenDialog("normal");
-    },
-    
     nothing(){
 
     }

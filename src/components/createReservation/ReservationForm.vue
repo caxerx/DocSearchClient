@@ -1,18 +1,7 @@
 <template>
   <div>
-    <v-layout row justify-center>
-    <v-dialog v-model="dialog" persistent width="200">
-        <v-card >
-          <v-card-text>
-            <v-layout column justify-center align-center>
-              <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
-               <p style="padding-top:15px" class="text-sm-center">Loading</p>
-            </v-layout>
-          
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-    </v-layout>
+    <loading-dialog :dialog="dialog" />
+    
     <v-card>
       <doctor-info-card :doctor="doctorObj"/>
       <v-layout row wrap>
@@ -49,6 +38,7 @@
 import axios from "axios";
 import DatePicker from "./DatePicker";
 import DoctorInfoCard from "@/components/DoctorInfoCard";
+import LoadingDialog from "@/components/dialog/loadingDialog.vue"
 import { mapGetters, mapActions, mapState } from "vuex";
 import gql from "graphql-tag";
 
@@ -173,7 +163,8 @@ export default {
 
   components: {
     DatePicker,
-    DoctorInfoCard
+    DoctorInfoCard,
+    LoadingDialog
   },
 
   methods: {

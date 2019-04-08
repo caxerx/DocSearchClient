@@ -1,18 +1,6 @@
 <template>
   <div>
-    <v-layout row justify-center>
-    <v-dialog v-model="queryDialog" persistent width="200">
-        <v-card >
-          <v-card-text>
-            <v-layout column justify-center align-center>
-              <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
-               <p style="padding-top:15px" class="text-sm-center">Loading</p>
-            </v-layout>
-          
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-    </v-layout>
+    <loading-dialog :dialog="queryDialog"/>
     <div v-if="patient!=null&&reservationForDetail===null">
       <v-card-text class="grey--text">Reservation List</v-card-text>
       <div
@@ -56,6 +44,7 @@
 <script>
 import ReservationCard from "./ReservationCard";
 import { mapGetters, mapActions, mapState } from "vuex";
+import LoadingDialog from "@/components/dialog/loadingDialog.vue";
 import ReservationDetail from "./ReservationDetail.vue";
 import gql from "graphql-tag";
 
@@ -64,7 +53,7 @@ const reservationQuery = gql`
     patient(id: $id) {
       reservations {
         id
-        
+
         reserver {
           name
         }
@@ -94,7 +83,8 @@ export default {
   },
   components: {
     ReservationCard,
-    ReservationDetail
+    ReservationDetail,
+    LoadingDialog
   },
   computed: {
     ...mapGetters({
@@ -119,11 +109,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionCloseDialog"]),
 
-    cancelDialog() {
-      this.actionCloseDialog("normal");
-    }
   }
 };
 </script>

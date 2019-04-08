@@ -81,7 +81,6 @@
         </v-card-text>
       </v-slide-y-transition>
     </v-layout>
-
   </v-card>
 </template>
 
@@ -102,9 +101,15 @@ export default {
         ? this.doctor.feedbacks.length
         : 0;
     },
-    ...mapGetters({
-      getter: "getDialog"
-    })
+    dialog: {
+      get() {
+        return false;
+      },
+
+      set(val) {
+        this.dialog = val;
+      }
+    }
   },
   components: {
     
@@ -113,11 +118,7 @@ export default {
     doctor: Object
   },
   methods: {
-    ...mapActions([
-      "actionSetDoctorForDoctorList",
-      "actionOpenDialog",
-      "actionCloseDialog"
-    ]),
+    ...mapActions(["actionSetDoctorForDoctorList"]),
     linkProfile(doctorId) {
       this.$router.push({
         name: "viewDoctorInfo",
@@ -128,12 +129,12 @@ export default {
     },
     linkReservation(doctorId) {
       if (
-        this.$cookie.get("userId") === null ||
-        this.$cookie.get("userId") === ""
+        this.$cookie.get("userId") == null ||
+        this.$cookie.get("userId") == ""
       ) {
-        //for login dialog
-        this.$emit("input", true);
+        this.$store.commit("setLoginDialog",true)
       } else {
+        
         this.$router.push({
           name: "createReservation",
           query: {

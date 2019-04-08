@@ -1,18 +1,20 @@
 <template>
-  <v-card>
-    <v-card-title class="headline primary" primary-title>
-      <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
-        <v-tab v-for="type in types" :key="type" ripple>{{type}}</v-tab>
-      </v-tabs>
-    </v-card-title>
+  <v-dialog width="500" :value="dialog" @input="closeDialog()">
+    <v-card>
+      <v-card-title class="headline primary" primary-title>
+        <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
+          <v-tab v-for="(type,index) in types" :key="index" ripple>{{type}}</v-tab>
+        </v-tabs>
+      </v-card-title>
 
-    <v-card-text>
-      <login v-if="active==0"/>
-      <sign-up v-if="active==1"/>
-    </v-card-text>
+      <v-card-text>
+        <login v-if="active==0"/>
+        <sign-up v-if="active==1"/>
+      </v-card-text>
 
-    <v-divider></v-divider>
-  </v-card>
+      <v-divider></v-divider>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -27,7 +29,9 @@ export default {
       types: ["Login", "Sign Up"]
     };
   },
-
+  props:{
+    dialog:Boolean,
+  },
   watch: {
     active: function(val) {
       console.log(val);
@@ -38,13 +42,13 @@ export default {
     SignUp
   },
   computed: {
-    ...mapGetters({
-    
-    }),
-
-   
+    ...mapGetters({})
   },
 
-  methods: {}
+  methods: {
+    closeDialog(){
+      this.$store.commit("setLoginDialog",false)
+    }
+  }
 };
 </script>

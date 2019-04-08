@@ -16,24 +16,10 @@
         <v-btn flat>About us</v-btn>
         <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
         <v-btn flat>download our app</v-btn>
-
-        <!-- <v-menu offset-y open-on-hover>
-          <v-btn slot="activator" flat>reservation
-            <v-icon>arrow_drop_down</v-icon>
-          </v-btn>
-          <v-list>
-            <v-list-tile
-              v-for="(reservation, index) in reservation"
-              :key="index"
-              @click="router(reservation.link)"
-            >
-              <v-list-tile-title>{{reservation.title}}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>-->
       </v-toolbar-items>
-
+      <loading-dialog :dialog="loadingDialog"/>
       <span v-if="isSuccess()&&patient!=null">
+        
         <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>
             <v-icon>person</v-icon>
@@ -49,9 +35,8 @@
       <span v-else>
         <div class="text-xs-center">
           <v-btn flat @click="openDialog()">{{signIn.title}}</v-btn>
-          <v-dialog width="500" :value="dialog" @input="closeDialog()">
-            <login-dialog/>
-          </v-dialog>
+
+          <login-dialog :dialog="dialog"/>
         </div>
       </span>
     </v-toolbar>
@@ -61,6 +46,7 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import LoginDialog from "@/components/dialog/loginDialog";
+import LoadingDialog from "@/components/dialog/loadingDialog";
 import gql from "graphql-tag";
 
 const patientQuery = gql`
@@ -73,7 +59,8 @@ const patientQuery = gql`
 
 export default {
   components: {
-    LoginDialog
+    LoginDialog,
+    LoadingDialog
   },
   data() {
     return {
@@ -92,10 +79,10 @@ export default {
   },
   apollo: {
     patient: {
-      query:patientQuery,
+      query: patientQuery,
       variables() {
         return {
-           id: this.$cookie.get("userId")
+          id: this.$cookie.get("userId")
         };
       },
       skip() {
@@ -107,8 +94,26 @@ export default {
     ...mapGetters({
       getter: "getDialog"
     }),
-    dialog() {
-      return this.getter.normal;
+    dialog: {
+      get() {
+        return this.getter.login;
+      },
+      set(val) {
+        this.$store.commit("setLoginDialog", val);
+      }
+    },
+    loadingDialog: {
+      get() {
+        if(this.$apollo.loading){
+          return true;
+        }else{
+          return false;
+        }
+      },
+      set(val) {
+        console.log(val);
+        this.loadingDialog = val;
+      }
     },
     profile() {
       return [
@@ -122,11 +127,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionOpenDialog", "actionCloseDialog"]),
-
     router(linkStr) {
       if (linkStr === "actionLogout") {
-       this.$cookie.delete("userId");
+        this.$cookie.delete("userId");
         this.$router.push("/");
         this.$forceUpdate();
       } else {
@@ -137,19 +140,18 @@ export default {
       return this.menu;
     },
     isSuccess() {
-      if (this.$cookie.get("userId") != null&&this.$cookie.get("userId")!="") {
+      if (
+        this.$cookie.get("userId") != null &&
+        this.$cookie.get("userId") != ""
+      ) {
         this.$apollo.queries.patient.skip = false;
-        this.$apollo.queries.patient.refetch();
         return true;
       }
 
       return false;
     },
     openDialog() {
-      this.actionOpenDialog("normal");
-    },
-    closeDialog() {
-      this.actionCloseDialog("normal");
+      this.$store.commit("setLoginDialog", true);
     }
   }
 };

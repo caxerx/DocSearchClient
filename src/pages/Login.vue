@@ -23,7 +23,7 @@
       <br>
       <!-- <h1>FeedBack</h1> -->
       <v-card-actions>
-        <v-btn @click="check" style="width:100%" color="primary">Login</v-btn>
+        <v-btn @click="check()" style="width:100%" color="primary">Login</v-btn>
       </v-card-actions>
       <p>
         <v-btn small flat color="secondary">Forgot Password?</v-btn>
@@ -55,7 +55,6 @@ export default {
     ...mapGetters({})
   },
   methods: {
-    ...mapActions(["actionCloseDialog"]),
     clear() {},
     check() {
       if (this.$refs.form.validate()) {
@@ -66,8 +65,8 @@ export default {
 
         this.setCookie(3);
         this.$router.push("/");
-        this.actionCloseDialog("normal");
-
+        this.$store.commit("setLoginDialog",false)
+        
         // if (this.getter.isSuccess) {
         //   this.$router.push("/");
         //   this.errMsg = "";
@@ -81,7 +80,7 @@ export default {
     },
     setCookie(id) {
       this.$cookie.set("userId", id, {
-        expires: "2h"
+        expires: "50m"
       });
     }
   }
