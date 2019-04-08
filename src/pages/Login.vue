@@ -11,7 +11,6 @@
         required
       ></v-text-field>
       <v-text-field
-        id="password"
         prepend-icon="lock"
         name="password"
         label="Password"
@@ -82,7 +81,7 @@ export default {
     },
     setCookie(id) {
       this.$cookie.set("userId", id, {
-        expires: "30m"
+        expires: "2h"
       });
     }
   }

@@ -1,11 +1,14 @@
 <template>
   <div>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" persistent width="300">
-        <v-card color="primary" dark>
+    <v-dialog v-model="dialog" persistent width="200">
+        <v-card >
           <v-card-text>
-            Please stand by
-            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+            <v-layout column justify-center align-center>
+              <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
+               <p style="padding-top:15px" class="text-sm-center">Loading</p>
+            </v-layout>
+          
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -48,7 +51,7 @@ import DatePicker from "./DatePicker";
 import DoctorInfoCard from "@/components/DoctorInfoCard";
 import { mapGetters, mapActions, mapState } from "vuex";
 import gql from "graphql-tag";
-let moment = require("moment");
+
 
 const doctorQuery = gql`
   query($id: ID!) {
@@ -88,26 +91,6 @@ const timeSlotQuery = gql`
   }
 `;
 
-const patientQuery = gql`
-  query($id: ID!) {
-    patient(id: $id) {
-      consultations {
-        id
-        consultant {
-          name
-        }
-        note
-        startTime
-        endTime
-        diseases {
-          id
-          name
-          description
-        }
-      }
-    }
-  }
-`;
 
 export default {
   data: () => ({
@@ -134,7 +117,7 @@ export default {
       },
       averageRating: ""
     },
-    patientObj: {},
+
   }),
 
   apollo: {
@@ -150,17 +133,6 @@ export default {
       }
     },
 
-    patient: {
-      query: patientQuery,
-      variables() {
-        return {
-          id: this.$cookie.get("userId")
-        };
-      },
-      update(data) {
-        this.patientObj = data.patient;
-      }
-    },
 
     getDoctorTimeSlots: {
       query: timeSlotQuery,
@@ -193,7 +165,7 @@ export default {
           return false;
         }
       },
-      set(val){
+      set(val) {
         this.dialog = val;
       }
     }
@@ -208,10 +180,14 @@ export default {
     ...mapActions(["actionSetReservationForCreateReservation"]),
 
     setReservation(start, end) {
+
       this.actionSetReservationForCreateReservation({
-        start: start,
-        end: end,
-        doctor: this.doctor
+        "start": start,
+        "end": end,
+        workplaceId:this.doctorObj.workplace.id,
+        patientId:this.$cookie.get("userId"),
+        doctorId:this.doctorObj.id,
+        staffId:this.doctorObj.id
       });
     },
 

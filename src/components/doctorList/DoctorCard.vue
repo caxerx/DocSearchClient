@@ -81,11 +81,13 @@
         </v-card-text>
       </v-slide-y-transition>
     </v-layout>
+
   </v-card>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+
 
 export default {
   data() {
@@ -96,14 +98,26 @@ export default {
 
   computed: {
     countFeedBacks() {
-      return this.doctor.feedbacks.length !== null ? this.doctor.feedbacks.length: 0;
-    }
+      return this.doctor.feedbacks.length !== null
+        ? this.doctor.feedbacks.length
+        : 0;
+    },
+    ...mapGetters({
+      getter: "getDialog"
+    })
+  },
+  components: {
+    
   },
   props: {
     doctor: Object
   },
   methods: {
-    ...mapActions(["actionSetDoctorForDoctorList"]),
+    ...mapActions([
+      "actionSetDoctorForDoctorList",
+      "actionOpenDialog",
+      "actionCloseDialog"
+    ]),
     linkProfile(doctorId) {
       this.$router.push({
         name: "viewDoctorInfo",
@@ -113,12 +127,20 @@ export default {
       });
     },
     linkReservation(doctorId) {
-      this.$router.push({
-        name: "createReservation",
-        query: {
-          id: doctorId
-        }
-      });
+      if (
+        this.$cookie.get("userId") === null ||
+        this.$cookie.get("userId") === ""
+      ) {
+        //for login dialog
+        this.$emit("input", true);
+      } else {
+        this.$router.push({
+          name: "createReservation",
+          query: {
+            id: doctorId
+          }
+        });
+      }
     }
   }
 };

@@ -35,7 +35,7 @@ export default {
     },
     getCookie(){
       localStorage.clear();
-      return this.$cookie.get('stringSuffixs');
+      return this.$.get('stringSuffixs');
     },
     ...mapGetters({
       

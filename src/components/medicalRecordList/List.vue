@@ -1,11 +1,14 @@
 <template>
   <div>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" persistent width="300">
-        <v-card color="primary" dark>
+    <v-dialog v-model="dialog" persistent width="200">
+        <v-card >
           <v-card-text>
-            Please stand by
-            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+            <v-layout column justify-center align-center>
+              <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
+               <p style="padding-top:15px" class="text-sm-center">Loading</p>
+            </v-layout>
+          
           </v-card-text>
         </v-card>
       </v-dialog>

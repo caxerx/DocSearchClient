@@ -1,11 +1,13 @@
 <template>
   <div>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" persistent width="300">
-        <v-card color="primary" dark>
+      <v-dialog v-model="dialog" persistent width="200">
+        <v-card>
           <v-card-text>
-            Please stand by
-            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+            <v-layout column justify-center align-center>
+              <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
+              <p style="padding-top:15px" class="text-sm-center">Loading</p>
+            </v-layout>
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -13,9 +15,13 @@
     <div v-if="!$apollo.loading">
       <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
       <div v-for="(doctor,index) in searchDoctors" :key="index" style="margin-bottom:20px">
-        <doctor-card :doctor="doctor"/>
+        <doctor-card :doctor="doctor" v-model="loginDialog"/>
       </div>
     </div>
+
+    <v-dialog width="500" v-model="loginDialog">
+      <login-dialog/>
+    </v-dialog>
   </div>
 </template>
 
@@ -23,6 +29,7 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import DoctorCard from "./DoctorCard.vue";
+import LoginDialog from "@/components/dialog/loginDialog";
 import gql from "graphql-tag";
 
 const searchDoctorsQuery = gql`
@@ -60,7 +67,8 @@ export default {
     return {
       searchResult: "",
       test: "",
-      show: false
+      show: false,
+      loginDialog: false
     };
   },
   apollo: {
@@ -80,7 +88,8 @@ export default {
     }
   },
   components: {
-    DoctorCard
+    DoctorCard,
+    LoginDialog
   },
 
   computed: {
