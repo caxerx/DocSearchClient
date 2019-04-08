@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import gql from "graphql-tag";
+
 
 // root
 import * as getters from './getters.js';

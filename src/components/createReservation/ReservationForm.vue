@@ -135,7 +135,6 @@ export default {
       averageRating: ""
     },
     patientObj: {},
-    dialog: true
   }),
 
   apollo: {
