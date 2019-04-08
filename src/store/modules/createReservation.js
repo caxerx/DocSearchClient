@@ -7,10 +7,22 @@ const state = {
         type: "",
         endTime: "",
         startTime: "",
-        workplaceId: "",
-        patientId: "",
-        doctorId: "",
-        staffId: "",
+        doctor:{},
+
+          reservation:{
+            id:null,
+            reserver:{
+                id:null,
+                name:"",
+                gender:"",
+                email:"",
+                phoneNo:"",
+                dob:"",
+                hkid:"",
+                type:"",
+                
+            }
+          }
 
     },
    
@@ -30,8 +42,8 @@ const actions = {
     },
 
 
-    actionSetTimeForCreateReservation({ commit }, time) {
-        commit("setTimeForCreateReservation", time);
+    actionSetReservationForCreateReservation({ commit }, reservation) {
+        commit("setReservationForCreateReservation", reservation);
     },
 
 
@@ -44,9 +56,10 @@ const mutations = {
         state.createReservation.date = newDate;
 
     },
-    ["setTimeForCreateReservation"](state, time) {
-        state.createReservation.startTime = time.start;
-        state.createReservation.endTime = time.end;
+    ["setReservationForCreateReservation"](state, reservation) {
+        state.createReservation.startTime = reservation.start;
+        state.createReservation.endTime = reservation.end;
+        state.createReservation.doctor = reservation.doctor
 
     },
 

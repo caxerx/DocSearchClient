@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-layout row justify-center>
+      <v-dialog v-model="queryDialog" persistent width="300">
+        <v-card color="primary" dark>
+          <v-card-text>
+            Please stand by
+            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-layout>
     <div v-if="patient!=null&&reservationForDetail===null">
       <v-card-text class="grey--text">Reservation List</v-card-text>
       <div
@@ -89,6 +99,18 @@ export default {
 
     dialog() {
       return this.getDialog.normal;
+    },
+    queryDialog: {
+      get() {
+        if (this.$apollo.loading) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      set(val) {
+        this.dialog = val;
+      }
     }
   },
 

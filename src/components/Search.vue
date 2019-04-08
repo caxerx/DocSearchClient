@@ -104,7 +104,6 @@ export default {
       this.actionSearchGenderForDoctorList(this.newGender);
     },
     searchKeyWord() {
-      console.log(this.newKeyword)
       this.actionSearchKeyWordForDoctorList(this.newKeyword);
     },
     searchSpecialty() {

@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent width="300">
+        <v-card color="primary" dark>
+          <v-card-text>
+            Please stand by
+            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-layout>
     <div v-if="!$apollo.loading">
       <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
       <div v-for="(doctor,index) in searchDoctors" :key="index" style="margin-bottom:20px">
@@ -14,7 +24,6 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 import DoctorCard from "./DoctorCard.vue";
 import gql from "graphql-tag";
-
 
 const searchDoctorsQuery = gql`
   query($criteria: SearchDoctorInput!) {
@@ -79,14 +88,27 @@ export default {
       getter: "getDoctorList"
     }),
 
+    dialog: {
+      get() {
+        if (this.$apollo.loading) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      set(val) {
+        this.dialog = val;
+      }
+    },
+
     gender() {
       let g = this.getter.criteria.gender;
-      if(g==="Male"){
-        return "M"
-      }else if(g==="Female"){
-        return "F"
+      if (g === "Male") {
+        return "M";
+      } else if (g === "Female") {
+        return "F";
       }
-      
+
       return g;
     },
     keyword() {
@@ -104,9 +126,9 @@ export default {
 
     searchResultStr() {
       let gender = this.gender;
-      if(gender==="M"){
-        gender="Male";
-      }else if(gender==="F"){
+      if (gender === "M") {
+        gender = "Male";
+      } else if (gender === "F") {
         gender = "Female";
       }
       let str =

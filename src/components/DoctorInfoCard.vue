@@ -58,7 +58,6 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
-import gql from "graphql-tag";
 
 
 export default {

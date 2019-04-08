@@ -18,9 +18,9 @@
     </v-toolbar-title>
     <v-btn flat small @click="reset()">Reset Filters</v-btn>
     <v-spacer/>
-    <v-text-field label="Name" @input="searchKeyWord"  v-model="keyword"></v-text-field>
+    <v-text-field label="Name"  @change="searchKeyWord" v-model="keyword"></v-text-field>
     <v-btn flat dark fab>
-      <v-icon>search</v-icon>
+      <v-icon @click="searchKeyWord">search</v-icon>
     </v-btn>
   </v-toolbar>
 </template>
@@ -52,8 +52,8 @@ export default {
     searchGender(val) {
       this.actionSearchGenderForDoctorList(val);
     },
-    searchKeyWord(val) {
-      this.actionSearchKeyWordForDoctorList(val);
+    searchKeyWord() {
+      this.actionSearchKeyWordForDoctorList(this.keyword);
     },
     searchSpecialty(val) {
       this.actionSearchSpecialtyForDoctorList(val);

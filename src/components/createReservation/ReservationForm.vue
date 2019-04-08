@@ -1,6 +1,16 @@
 <template>
-  <v-card>
-    <div>
+  <div>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent width="300">
+        <v-card color="primary" dark>
+          <v-card-text>
+            Please stand by
+            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+    <v-card>
       <doctor-info-card :doctor="doctorObj"/>
       <v-layout row wrap>
         <v-card-text>
@@ -16,7 +26,7 @@
             <v-layout row wrap v-if="timeslots.length !== 0 ">
               <v-flex v-for="(time,index) in timeslots" :key="index" sm2>
                 <v-layout justify-center>
-                  <v-btn color="primary" @click="setTime(time.start,time.end)">{{time.start}}</v-btn>
+                  <v-btn color="primary" @click="setReservation(time.start,time.end)">{{time.start}}</v-btn>
                 </v-layout>
               </v-flex>
             </v-layout>
@@ -28,8 +38,8 @@
           </v-flex>
         </v-card-text>
       </v-layout>
-    </div>
-  </v-card>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -78,6 +88,27 @@ const timeSlotQuery = gql`
   }
 `;
 
+const patientQuery = gql`
+  query($id: ID!) {
+    patient(id: $id) {
+      consultations {
+        id
+        consultant {
+          name
+        }
+        note
+        startTime
+        endTime
+        diseases {
+          id
+          name
+          description
+        }
+      }
+    }
+  }
+`;
+
 export default {
   data: () => ({
     timeslots: [],
@@ -102,7 +133,9 @@ export default {
         rating: ""
       },
       averageRating: ""
-    }
+    },
+    patientObj: {},
+    dialog: true
   }),
 
   apollo: {
@@ -115,6 +148,18 @@ export default {
       },
       update(data) {
         this.doctorObj = data.doctor;
+      }
+    },
+
+    patient: {
+      query: patientQuery,
+      variables() {
+        return {
+          id: this.$cookie.get("userId")
+        };
+      },
+      update(data) {
+        this.patientObj = data.patient;
       }
     },
 
@@ -139,6 +184,19 @@ export default {
     }),
     date() {
       return this.getter.date;
+    },
+
+    dialog: {
+      get() {
+        if (this.$apollo.loading) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      set(val){
+        this.dialog = val;
+      }
     }
   },
 
@@ -148,14 +206,17 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionSetTimeForCreateReservation"]),
+    ...mapActions(["actionSetReservationForCreateReservation"]),
 
-    setTime(start, end) {
-      this.actionSetTimeForCreateReservation({
+    setReservation(start, end) {
+      this.actionSetReservationForCreateReservation({
         start: start,
-        end: end
+        end: end,
+        doctor: this.doctor
       });
-    }
+    },
+
+    test() {}
   }
 };
 </script>
