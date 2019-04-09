@@ -43,20 +43,24 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 
 
+
 export default {
   data() {
     return {
       search: "",
       date: null,
+  
      
       
     };
   },
   components: {
-      
+   
   },
   computed: {
-    ...mapGetters({})
+    ...mapGetters({
+      getDialog:"getDialog",
+    }),
   },
   props:{
       reservation:Object
@@ -70,6 +74,9 @@ export default {
     showDetail(reservation) {
         this.$emit("input", reservation);
         
+    },
+    showCancelDialog(){
+        this.$store.commit("cancelReservationDialog",true);
     },
 
     nothing(){

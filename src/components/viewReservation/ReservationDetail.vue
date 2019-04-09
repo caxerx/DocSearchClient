@@ -28,7 +28,7 @@
 
         <hr>
         <br>
-        <v-card-actions >
+        <v-card-actions>
           <v-flex sm4>
             <v-layout justify-center>
               <v-btn outline color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
@@ -56,7 +56,7 @@
               <v-btn outline color="primary">Get Directions</v-btn>
             </v-layout>
           </v-flex>
-        </v-card-actions> -->
+        </v-card-actions>-->
       </v-container>
     </v-card>
 
@@ -98,12 +98,14 @@ export default {
   },
 
   methods: {
-
     router(linkStr) {
       this.$router.push("/" + linkStr);
     },
     back() {
       this.$emit("input", null);
+    },
+    showCancelDialog() {
+      this.$store.commit("cancelReservationDialog", true);
     }
   }
 };

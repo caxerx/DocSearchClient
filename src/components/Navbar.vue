@@ -104,11 +104,8 @@ export default {
     },
     loadingDialog: {
       get() {
-        if(this.$apollo.loading){
-          return true;
-        }else{
-          return false;
-        }
+       
+       return false;
       },
       set(val) {
         console.log(val);

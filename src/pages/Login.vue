@@ -63,8 +63,8 @@ export default {
           pwd: this.pwd
         };
 
-        this.setCookie(3);
-        this.$router.push("/");
+        this.setCookie(3);  
+        
         this.$store.commit("setLoginDialog",false)
         
         // if (this.getter.isSuccess) {

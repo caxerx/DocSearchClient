@@ -30,7 +30,7 @@ export default {
     };
   },
   props:{
-    dialog:Boolean,
+    
   },
   watch: {
     active: function(val) {
@@ -42,7 +42,13 @@ export default {
     SignUp
   },
   computed: {
-    ...mapGetters({})
+    ...mapGetters({
+      getDialog:"getDialog"
+    }),
+
+    dialog(){
+      return this.getDialog.login
+    }
   },
 
   methods: {

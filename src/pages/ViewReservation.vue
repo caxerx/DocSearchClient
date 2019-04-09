@@ -1,13 +1,13 @@
 <template>
   <div>
-    
+    <cancel-dialog/>
     <c-list/>
   </div>
 </template>
 
 <script>
-import Container from "@/components/Container.vue";
 import cList from "@/components/viewReservation/List.vue";
+import CancelDialog from "@/components/dialog/cancelReservationDialog"
 
 export default {
   data() {
@@ -17,8 +17,8 @@ export default {
   },
 
   components: {
-    Container,
-    cList
+    cList,
+    CancelDialog
   }
 };
 </script>

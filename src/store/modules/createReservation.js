@@ -15,8 +15,8 @@ const state = {
             patientId: "",
             doctorId: "",
             staffId: "",
-        }
-
+        },
+        
     },
 
 
@@ -41,6 +41,9 @@ const actions = {
     actionSetReservationTypeAndNoteForCreateReservation({commit},inf){
         commit("setReservationTypeAndNoteForCreateReservation",inf)
     },
+    actionAfterCreationForCreateReservation({commit},val){
+        commit("afterCreateionForCreateReservation",val)
+    }
 
 
 
@@ -71,6 +74,10 @@ const mutations = {
         state.createReservation.reservation.startTime = inf.startTime;
         state.createReservation.reservation.endTime = inf.endTime;
     
+    },
+    ["afterCreateionForCreateReservation"](state,val){
+        state.createReservation.isCreateSuccess = val;
+        console.log(state.createReservation.isCreateSuccess)
     }
 
 

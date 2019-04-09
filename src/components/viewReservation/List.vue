@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <loading-dialog :dialog="queryDialog"/>
+  <div>    
+    <loading-dialog :dialog="dialog"/>
     <div v-if="patient!=null&&reservationForDetail===null">
       <v-card-text class="grey--text">Reservation List</v-card-text>
       <div
@@ -20,24 +20,6 @@
       <reservation-detail :reservation="reservationForDetail" v-model="reservationForDetail"/>
     </div>
 
-    <template>
-      <div class="text-xs-center">
-        <v-dialog :value="dialog" width="500" @input="cancelDialog()">
-          <v-card>
-            <v-card-title class="headline grey lighten-2" primary-title>Cancel Reservation</v-card-title>
-
-            <v-card-text>Do you want to delete this reservation?</v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="primary" flat @click="cancelDialog()">I accept</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </div>
-    </template>
   </div>
 </template>
 
@@ -70,7 +52,9 @@ export default {
       reservationForDetail: null
     };
   },
-
+  created:function(){
+     this.$apollo.queries.patient.refetch();
+  },
   apollo: {
     patient: {
       query: reservationQuery,
@@ -88,14 +72,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getDialog: "getDialog"
-    }),
+      getCreateReservation:"getCreateReservation",
 
-    dialog() {
-      return this.getDialog.normal;
+    }),
+    isCreateSuccess(){
+      return this.getCreateReservation.isCreateSuccess;
     },
-    queryDialog: {
+    dialog: {
       get() {
+        
         if (this.$apollo.loading) {
           return true;
         } else {
