@@ -12,7 +12,7 @@
         </v-card-text>
         <v-card-text>
           <div>{{doctor.academic}}</div>
-          <div>{{doctor.experience}}</div>
+          <div>{{doctor.experience}} experience</div>
           <div>{{doctor.specialty}}</div>
         </v-card-text>
         <v-card-text>

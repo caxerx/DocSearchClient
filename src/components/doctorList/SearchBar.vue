@@ -31,7 +31,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      specialty: ["General Pratice", "Cardiology", "Dentisry", "Dietetics"],
+      specialty: ["General_Practice", "Cardiology", "Dentisry", "Dietetics"],
       location: ["Kowloon", "Hong Kong", "New Territories"],
       language: ["Chinese", "English"],
       gender: ["Male", "Female"],

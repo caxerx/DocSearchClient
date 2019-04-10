@@ -33,6 +33,8 @@ const searchDoctorsQuery = gql`
       type
       language
       specialty
+      experience
+      academic
       workplace {
         id
         name

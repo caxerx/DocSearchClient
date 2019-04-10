@@ -1,10 +1,10 @@
 <template>
-  <div>    
+  <div>
     <loading-dialog :dialog="dialog"/>
     <div v-if="patient!=null&&reservationForDetail===null">
       <v-card-text class="grey--text">Reservation List</v-card-text>
       <div
-        v-for="(reservation, index) in patient.reservations"
+        v-for="(reservation, index) in computedNewArr(patient.reservations)"
         :key="index"
         style="margin-bottom:2%;"
       >
@@ -19,7 +19,6 @@
     <div v-else-if="reservationForDetail!=null">
       <reservation-detail :reservation="reservationForDetail" v-model="reservationForDetail"/>
     </div>
-
   </div>
 </template>
 
@@ -42,6 +41,9 @@ const reservationQuery = gql`
         note
         startTime
         endTime
+        workplace {
+          name
+        }
       }
     }
   }
@@ -52,8 +54,8 @@ export default {
       reservationForDetail: null
     };
   },
-  created:function(){
-     this.$apollo.queries.patient.refetch();
+  created: function() {
+    this.$apollo.queries.patient.refetch();
   },
   apollo: {
     patient: {
@@ -72,15 +74,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getCreateReservation:"getCreateReservation",
-
+      getCreateReservation: "getCreateReservation"
     }),
-    isCreateSuccess(){
+    isCreateSuccess() {
       return this.getCreateReservation.isCreateSuccess;
     },
     dialog: {
       get() {
-        
         if (this.$apollo.loading) {
           return true;
         } else {
@@ -94,7 +94,16 @@ export default {
   },
 
   methods: {
+    computedNewArr(arr) {
+      let newArr = arr.slice();
 
+      newArr.sort(function(a, b) {
+        let atime = new Date(a.startTime);
+        let btime = new Date(b.startTime);
+        return btime - atime;
+      });
+      return newArr;
+    }
   }
 };
 </script>

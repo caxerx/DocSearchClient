@@ -17,7 +17,8 @@
         <v-card-text>
           <div class="headline">Dr. {{reservation.reserver.name}}</div>
           <div class="grey--text">{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}}</div>
-          <div v-if="reservation.status==='Waiting'" class="error--text">{{reservation.status}}</div>
+
+          <div v-if="reservation.status==='pending'" class="error--text">{{reservation.status}}</div>
           <div v-if="reservation.status==='Approval'" class="info--text">{{reservation.status}}</div>
           <div v-if="reservation.status==='Finish'" class="success--text">{{reservation.status}}</div>
           <div v-if="reservation.status==='Cancel'" class="error--text">{{reservation.status}}</div>

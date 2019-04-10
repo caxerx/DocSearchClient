@@ -52,7 +52,7 @@ export default {
     password: "Password",
     show: false,
     marker: true,
-    specialty: ["General Pratice", "Cardiology", "Dentisry", "Dietetics"],
+    specialty: ["General_Practice", "Cardiology", "Dentisry", "Dietetics"],
     location: ["Kowloon", "Hong Kong", "New Territories"],
     language: ["Chinese", "English"],
     gender: ["Male", "Female"],

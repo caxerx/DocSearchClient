@@ -4,7 +4,7 @@
 
     <div v-if="!$apollo.loading">
       <div
-        v-for="(medicalRecord,index) in patient.consultations"
+        v-for="(medicalRecord,index) in computedNewArr(patient.consultations)"
         :key="index"
         style="margin-bottom:2%"
       >
@@ -79,7 +79,19 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    computedNewArr(arr) {
+      let newArr = arr.slice();
+
+      newArr.sort(function(a, b) {
+        let atime = new Date(a.startTime);
+        let btime = new Date(b.startTime);
+        return btime - atime;
+      });
+
+      return newArr;
+    }
+  }
 };
 </script>
 
