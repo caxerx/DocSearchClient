@@ -3,10 +3,22 @@
     <loading-dialog :dialog="dialog"/>
     <div v-if="!$apollo.loading">
       <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
-      <div v-for="(doctor,index) in searchDoctors" :key="index" style="margin-bottom:20px">
+      <div
+        v-for="(doctor,index) in pagination(page,searchDoctors)"
+        :key="index"
+        style="margin-bottom:20px"
+      >
         <doctor-card :doctor="doctor"/>
       </div>
-
+      <div class="text-xs-center" style="padding-bottom:30px" v-if="searchDoctors.length>0">
+        <v-container>
+          <v-layout justify-center>
+            <v-flex xs8>
+              <v-pagination v-model="page" :length="length"></v-pagination>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </div>
     </div>
   </div>
 </template>
@@ -16,7 +28,6 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 import DoctorCard from "./DoctorCard.vue";
 import LoadingDialog from "@/components/dialog/loadingDialog.vue";
-
 
 import gql from "graphql-tag";
 
@@ -57,7 +68,10 @@ export default {
     return {
       searchResult: "",
       test: "",
-      show: false
+      show: false,
+      page: 1,
+      perpage: 5,
+      length: 1
     };
   },
   apollo: {
@@ -73,13 +87,16 @@ export default {
             location: this.location
           }
         };
+      },
+      update(data) {
+        this.length = Math.ceil(data.searchDoctors.length / this.perpage);
+        return data.searchDoctors;
       }
     }
   },
   components: {
     LoadingDialog,
-    DoctorCard,
-    
+    DoctorCard
   },
 
   computed: {
@@ -162,6 +179,12 @@ export default {
     getImgPath(imgName) {
       let url = "@/assets/" + imgName;
       return url;
+    },
+    pagination(page, arr) {
+      let newArr = arr.slice();
+      let from = page * this.perpage - this.perpage;
+      let to = page * this.perpage;
+      return newArr.slice(from, to);
     }
   }
 };

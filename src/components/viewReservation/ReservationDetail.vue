@@ -28,7 +28,7 @@
 
         <hr>
         <br>
-        <v-card-actions>
+        <v-card-actions v-if="reservation.type==='online'">
           <v-flex sm4>
             <v-layout justify-center>
               <v-btn outline color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
@@ -45,7 +45,7 @@
             </v-layout>
           </v-flex>
         </v-card-actions>
-        <!-- <v-card-actions>
+        <v-card-actions v-else>
           <v-flex sm6>
             <v-layout justify-center>
               <v-btn outline color="primary">Call Clinc</v-btn>
@@ -56,7 +56,7 @@
               <v-btn outline color="primary">Get Directions</v-btn>
             </v-layout>
           </v-flex>
-        </v-card-actions>-->
+        </v-card-actions>
       </v-container>
     </v-card>
 
@@ -66,7 +66,13 @@
     </v-card>
     <v-card flat class="card">
       <!-- <v-card-actions> -->
-      <v-btn flat color="error" @click="showCancelDialog()">Cancel Reservation</v-btn>
+         <v-btn
+            v-if="reservation.status==='checked_in'||reservation.status==='expired'"
+            @click.stop="nothing()"
+            flat
+            color="grey"
+          >Cancel Reservation</v-btn>
+      <v-btn v-else flat color="error" @click="showCancelDialog()">Cancel Reservation</v-btn>
       <!-- </v-card-actions> -->
     </v-card>
     <v-card flat class="card">
@@ -106,7 +112,11 @@ export default {
     },
     showCancelDialog() {
       this.$store.commit("cancelReservationDialog", true);
+    },
+        nothing(){
+
     }
+
   }
 };
 </script>

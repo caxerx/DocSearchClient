@@ -1,51 +1,56 @@
 <template>
   <div class="text-xs-center">
-      <v-btn @click="setCookie()"></v-btn>
-       {{getCookie}}
+    <span v-for="(val,index) in computedArr(page)" :key="index">{{val}}</span>
+    <div class="text-xs-center">
+      
+      <v-container>
+        <v-layout justify-center>
+          <v-flex xs8>
+            <v-card>
+              <v-card-text>
+                <v-pagination v-model="page" :length="length"></v-pagination>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </div>
   </div>
 </template>
 
 <script>
-import Login from "@/pages/Login";
-import SignUp from "@/pages/SignUp";
-import { mapGetters, mapActions, mapState } from "vuex";
 export default {
-
   data() {
     return {
-      search: "",
-      active: null,
-      types: ["Login", "Sign Up"]
+      page: 1,
+      perpage: 5,
+      length: 1
     };
   },
 
-  watch: {
-    active: function(val) {
-      console.log(val);
+  created: function() {
+    this.length = Math.ceil(this.array.length / this.perpage);
+  },
+  computed: {
+    array() {
+      let arr = [];
+      for (let i = 0; i <= 51; i++) {
+        arr.push(i);
+      }
+
+      return arr;
     }
   },
-  components: {
-    Login,
-    SignUp
-  },
-
-  computed: {
-    $state() {
-      return this.$store.state.login.login;
-    },
-    getCookie(){
-      localStorage.clear();
-      return this.$.get('stringSuffixs');
-    },
-    ...mapGetters({
-      
-    }),
-
-  },
-
   methods: {
-    setCookie(){
-      this.$cookie.set('stringSuffixs', 'Thirty seconds later', { expires: '30m' });
+    computedArr(page) {
+      let newArr = this.array.slice();
+      let from = page * this.perpage - this.perpage;
+      let to = page * this.perpage;
+      // for(let i = from;i < to;i++){
+      //  newArr[i] = this.array[i]
+      // }
+
+      return newArr.slice(from, to);
     }
   }
 };

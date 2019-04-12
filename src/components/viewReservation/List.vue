@@ -44,6 +44,8 @@ const reservationQuery = gql`
         workplace {
           name
         }
+        status
+        type
       }
     }
   }
