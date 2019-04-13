@@ -10,7 +10,13 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click>I accept</v-btn>
+          <v-btn
+            color="primary"
+            :disabled="loadingDialog"
+            :loading="loadingDialog"
+            flat
+            @click="cancelReservation(reservationId)"
+          >I accept</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -19,22 +25,58 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+import gql from "graphql-tag";
+
+const removeReservationMutation = gql`
+  mutation($id: ID!) {
+    removeReservation(id: $id)
+  }
+`;
 export default {
   data() {
-    return {};
+    return {
+      loadingDialog: false
+    };
   },
   computed: {
     ...mapGetters({
-      getDialog: "getDialog"
+      getDialog: "getDialog",
+      getViewReservation: "getViewReservation"
     }),
     dialog() {
       return this.getDialog.cancelReservationDialog;
+    },
+    reservationId() {
+      return this.getViewReservation.rid;
     }
   },
   props: {},
   methods: {
+    ...mapActions(["actionSetIsCancelFromViewReservation"]),
     cancelDialog() {
       this.$store.commit("cancelReservationDialog", false);
+    },
+    cancelReservation(rid) {
+      this.loadingDialog = true;
+      this.$apollo
+        .mutate({
+          // Query
+          mutation: removeReservationMutation,
+          // Parameters
+          variables: {
+            id: rid
+          }
+        })
+        .then(data => {
+          // Result
+          this.loadingDialog = false;
+          this.actionSetIsCancelFromViewReservation(true);
+          this.cancelDialog();
+        })
+        .catch(error => {
+          // Error
+          console.error(error);
+        });
     }
   }
 };

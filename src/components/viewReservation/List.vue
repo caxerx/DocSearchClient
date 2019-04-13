@@ -129,10 +129,14 @@ export default {
   computed: {
     ...mapGetters({
       getCreateReservation: "getCreateReservation",
-      getLogin: "getLogin"
+      getLogin: "getLogin",
+      getViewReservation: "getViewReservation"
     }),
     isCreateSuccess() {
       return this.getCreateReservation.isCreateSuccess;
+    },
+    isCancel() {
+      return this.getViewReservation.isCancel;
     },
     dialog: {
       get() {
@@ -147,8 +151,24 @@ export default {
       }
     }
   },
-
+  watch: {
+    isCancel: function(val) {
+      if (val && this.getViewReservation.isDetailPage) {
+        this.actionSetIsCancelFromViewReservation(false);
+        this.actionSetIsDetailPageFromViewReservation(false);
+        this.$apollo.queries.patient.refetch();
+        this.reservationForDetail = null;
+      } else if (val) {
+        this.$apollo.queries.patient.refetch();
+        this.actionSetIsCancelFromViewReservation(false);
+      }
+    }
+  },
   methods: {
+    ...mapActions([
+      "actionSetIsCancelFromViewReservation",
+      "actionSetIsDetailPageFromViewReservation"
+    ]),
     computedNewArr(arr) {
       let newArr = arr.slice();
 

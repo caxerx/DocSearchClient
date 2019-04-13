@@ -72,7 +72,7 @@
             flat
             color="grey"
           >Cancel Reservation</v-btn>
-      <v-btn v-else flat color="error" @click="showCancelDialog()">Cancel Reservation</v-btn>
+      <v-btn v-else flat color="error" @click="showCancelDialog(reservation)">Cancel Reservation</v-btn>
       <!-- </v-card-actions> -->
     </v-card>
     <v-card flat class="card">
@@ -104,13 +104,16 @@ export default {
   },
 
   methods: {
+    ...mapActions(["actionSetIdFromViewReservation","actionSetIsDetailPageFromViewReservation"]),
     router(linkStr) {
       this.$router.push("/" + linkStr);
     },
     back() {
       this.$emit("input", null);
     },
-    showCancelDialog() {
+    showCancelDialog(reservation) {
+      this.actionSetIsDetailPageFromViewReservation(true);
+      this.actionSetIdFromViewReservation(reservation.id);
       this.$store.commit("cancelReservationDialog", true);
     },
         nothing(){

@@ -15,6 +15,9 @@ const state = {
         //     { text: "status", value: "status" },
         //     { text: "Actions", sortable: false }
         // ],
+        isCancel : false,
+        rid:"",
+        isDetailPage:false,
     }
   }
   
@@ -28,6 +31,15 @@ const state = {
     actionSetShowForViewReservation({commit},content){
         commit("setShowForViewReservation",content);
     },
+    actionSetIsCancelFromViewReservation({commit},val){
+       commit("setIsCancelFromViewReservation",val)
+    },
+    actionSetIdFromViewReservation({commit},val){
+      commit("setIdFromViewReservation",val);
+    },
+    actionSetIsDetailPageFromViewReservation({commit},val){
+      commit("setIsDetailPageFromViewReservation",val);
+    }
 
    
   
@@ -38,6 +50,15 @@ const state = {
         let editedIndex = state.viewReservation.contents.indexOf(content);
         state.viewReservation.contents[editedIndex].show=!state.viewReservation.contents[editedIndex].show;
     },
+    ["setIsCancelFromViewReservation"](state,val){
+      state.viewReservation.isCancel = val;
+    },
+    ["setIdFromViewReservation"](state,val){
+      state.viewReservation.rid = val
+    },
+    ["setIsDetailPageFromViewReservation"](state,val){
+      state.viewReservation.isDetailPage = val
+    }
     // ["setReservationDetailForViewReservation"]()
   }
   
