@@ -4,7 +4,7 @@
       <DoctorInfoCard :doctor="doctor"/>
     </v-card>
 
-     <v-card style="margin-top: 25px">
+    <v-card style="margin-top: 25px">
       <v-card-title class="headline primary" primary-title>
         <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
           <v-tab v-for="DocInfoType in DocInfoTypes" :key="DocInfoType" ripple>{{DocInfoType}}</v-tab>
@@ -42,39 +42,29 @@
       <v-flex v-if="active==1">
         <v-data-table
           id="Service_v_data_table"
-          :items="Services"
+          :items="doctor.services"
           hide-actions
           hide-headers
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left">{{props.item.details}}</td>
+            <td class="text-xs-left">{{props.item.name}}</td>
           </template>
         </v-data-table>
       </v-flex>
 
       <v-flex v-if="active==2">
-        <div class="display-1" style="padding: 20px">Feedback for Doctor</div>
+        <div class="display-1" style="padding: 20px">Feedback for Doctor <v-btn style="position:absolute;right:0">leave feedback</v-btn></div>
         <v-divider/>
-        <v-card flat>
-          <v-card-title class="title font-weight-medium">user a</v-card-title>
-          <v-card-text class="body-2">
-            He was down to earth in behaviour and attitude
-            Explained every aspect if our doubt
-            Appropriate advice for each point of query
+      <v-card flat v-for="(feedback, index) in doctor.feedbacks" :key="index">
+        <v-card-title class="title font-weight-medium">{{feedback.patient.name}} </v-card-title>
+         <v-card-text class="body-2">
+            {{feedback.comment}}
           </v-card-text>
-          <v-divider/>
-        </v-card>
+        <v-divider/>
+      </v-card>
 
-        <v-card flat>
-          <v-card-title class="title font-weight-medium">user b</v-card-title>
-          <v-card-text class="body-2">
-            He was down to earth in behaviour and attitude
-            Explained every aspect if our doubt
-            Appropriate advice for each point of query
-          </v-card-text>
-          <v-divider/>
-        </v-card>
+      
       </v-flex>
     </v-card>
   </v-container>
@@ -121,10 +111,21 @@ const doctorQuery = gql`
       }
       feedbacks {
         id
+        patient {
+          name
+        }
         comment
         rating
       }
       averageRating
+      timeSlots {
+        weekday
+        start
+        end
+      }
+      services {
+        name
+      }
     }
   }
 `;
