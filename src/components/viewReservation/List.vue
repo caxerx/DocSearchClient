@@ -83,7 +83,6 @@ const reservationQuery = gql`
     patient(id: $id) {
       reservations {
         id
-
         doctor {
           name
         }
