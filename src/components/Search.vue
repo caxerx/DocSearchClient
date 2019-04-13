@@ -11,7 +11,7 @@
       box
       clear-icon="cancel"
       clearable
-      label="Search Name/Location/Language/Gender/Clinc"
+      label="Search"
       type="text"
       @click:append="toggleMarker"
       @click:append-outer="sendMessage"
