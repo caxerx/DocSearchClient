@@ -124,6 +124,7 @@ export default {
     ...mapActions(["actionsSetLogin"]),
     clear() {},
     check() {
+      this.errMsg = "";
       if (this.$refs.form.validate()) {
         this.$apollo.queries.patientLogin.skip = false;
         // if (this.success) {
