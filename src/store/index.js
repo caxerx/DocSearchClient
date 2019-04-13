@@ -13,6 +13,7 @@ import createReservation from './modules/createReservation.js';
 import onlineConsultant from './modules/onlineConsultant.js';
 import medicalRecordList from './modules/medicalRecordList.js';
 import signup from './modules/signup.js';
+import login from './modules/login.js';
 import doctorList from './modules/doctorList.js';
 
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     viewReservation,
     createReservation,
     signup,
+    login,
     onlineConsultant,
     medicalRecordList,
     doctorList,

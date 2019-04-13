@@ -1,10 +1,16 @@
 <template>
-  <v-dialog width="500" :value="dialog" @input="closeDialog()">
+  <v-dialog width="500" :value="dialog" persistent >
     <v-card>
       <v-card-title class="headline primary" primary-title>
         <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
           <v-tab v-for="(type,index) in types" :key="index" ripple>{{type}}</v-tab>
         </v-tabs>
+        <v-spacer/>
+        <v-btn dark flat icon @click="closeDialog()">
+        <v-icon> 
+          clear
+        </v-icon>
+        </v-btn>
       </v-card-title>
 
       <v-card-text>
@@ -32,11 +38,6 @@ export default {
   props:{
     
   },
-  watch: {
-    active: function(val) {
-      console.log(val);
-    }
-  },
   components: {
     Login,
     SignUp
@@ -50,7 +51,13 @@ export default {
       return this.getDialog.login
     }
   },
-
+  watch:{
+    dialog:function(val){
+      if(!val){
+        this.active=-1;
+      }
+    }
+  },
   methods: {
     closeDialog(){
       this.$store.commit("setLoginDialog",false)

@@ -15,7 +15,7 @@
       </v-flex>
       <v-flex sm8>
         <v-card-text>
-          <div class="headline">Dr. {{reservation.reserver.name}}</div>
+          <div class="headline">Dr. {{reservation.doctor.name}}</div>
           <div class="grey--text">{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}}</div>
 
           <div v-if="reservation.status==='pending'" class="error--text">{{reservation.status}}</div>

@@ -18,12 +18,12 @@
         <v-btn flat>download our app</v-btn>
       </v-toolbar-items>
       <loading-dialog :dialog="loadingDialog"/>
-      <span v-if="isSuccess()&&patient!=null">
+      <span v-if="isSuccess()&&getLogin!=null">
         
         <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>
             <v-icon>person</v-icon>
-            {{patient.name}}
+            {{getLogin.name}}
           </v-btn>
           <v-list>
             <v-list-tile v-for="(pInf, index) in profile" :key="index" @click="router(pInf.link)">
@@ -32,7 +32,7 @@
           </v-list>
         </v-menu>
       </span>
-      <span v-else>
+      <span v-if="!isSuccess()">
         <div class="text-xs-center">
           <v-btn flat @click="openDialog()">{{signIn.title}}</v-btn>
 
@@ -49,13 +49,6 @@ import LoginDialog from "@/components/dialog/loginDialog";
 import LoadingDialog from "@/components/dialog/loadingDialog";
 import gql from "graphql-tag";
 
-const patientQuery = gql`
-  query($id: ID!) {
-    patient(id: $id) {
-      name
-    }
-  }
-`;
 
 export default {
   components: {
@@ -78,22 +71,15 @@ export default {
     };
   },
   apollo: {
-    patient: {
-      query: patientQuery,
-      variables() {
-        return {
-          id: this.$cookie.get("userId")
-        };
-      },
-      skip() {
-        return this.skipQuery;
-      }
-    }
+  
   },
   computed: {
     ...mapGetters({
-      getter: "getDialog"
+      getter: "getDialog",
+      getLogin:"getLogin",
     }),
+
+    
     dialog: {
       get() {
         return this.getter.login;
@@ -124,9 +110,10 @@ export default {
   },
 
   methods: {
+    ...mapActions(["actionsSetLogin"]),
     router(linkStr) {
       if (linkStr === "actionLogout") {
-        this.$cookie.delete("userId");
+        this.actionsSetLogin(null)
         this.$router.push("/");
         this.$forceUpdate();
       } else {
@@ -137,15 +124,11 @@ export default {
       return this.menu;
     },
     isSuccess() {
-      if (
-        this.$cookie.get("userId") != null &&
-        this.$cookie.get("userId") != ""
-      ) {
-        this.$apollo.queries.patient.skip = false;
+      if(this.getLogin!== null){
         return true;
+      }else{
+        return false;
       }
-
-      return false;
     },
     openDialog() {
       this.$store.commit("setLoginDialog", true);

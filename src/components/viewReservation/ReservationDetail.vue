@@ -20,8 +20,8 @@
       <v-container>
         <v-card-text class="text-sm-center">
           <img src="@/assets/icon-person.png" id="icon">
-          <div class="grey--text">{{reservation.reserver.type}}</div>
-          <div class="font-weight-black">Dr. {{reservation.reserver.name}}</div>
+          <div class="grey--text">{{reservation.doctor.type}}</div>
+          <div class="font-weight-black">Dr. {{reservation.doctor.name}}</div>
           <div class="grey--text">Clinc</div>
           <div class="font-weight-black">{{reservation.workplace.name}}</div>
         </v-card-text>

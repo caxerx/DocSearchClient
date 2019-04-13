@@ -49,12 +49,17 @@ export default {
       show: "",
     };
   },
+  created:function(){
+      if (this.getLogin === null) {
+        this.$store.commit("setLoginDialog", true);
+      }
+  },
   apollo: {
     patient: {
       query: patientQuery,
       variables() {
         return {
-          id: this.$cookie.get("userId")
+          id: this.getLogin.id
         };
       }
     }
@@ -64,7 +69,9 @@ export default {
     LoadingDialog
   },
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      getLogin:"getLogin"
+    }),
     dialog: {
       get() {
         if (this.$apollo.loading) {

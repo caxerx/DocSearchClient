@@ -87,7 +87,6 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 
-
 export default {
   data() {
     return {
@@ -96,6 +95,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      getLogin: "getLogin"
+    }),
     countFeedBacks() {
       return this.doctor.feedbacks.length !== null
         ? this.doctor.feedbacks.length
@@ -111,9 +113,7 @@ export default {
       }
     }
   },
-  components: {
-    
-  },
+  components: {},
   props: {
     doctor: Object
   },
@@ -128,13 +128,9 @@ export default {
       });
     },
     linkReservation(doctorId) {
-      if (
-        this.$cookie.get("userId") == null ||
-        this.$cookie.get("userId") == ""
-      ) {
-        this.$store.commit("setLoginDialog",true)
+      if (this.getLogin === null) {
+        this.$store.commit("setLoginDialog", true);
       } else {
-        
         this.$router.push({
           name: "createReservation",
           query: {

@@ -2,12 +2,11 @@
   <div>
     <v-form ref="form" height="100%" v-model="valid" lazy-validation>
       <v-text-field
-        prepend-icon="email"
-        name="email"
-        label="email"
+        prepend-icon="person"
+        label="username"
         type="text"
-        :rules="emailRules"
-        v-model="email"
+        :rules="nameRules"
+        v-model="name"
         required
       ></v-text-field>
       <v-text-field
@@ -15,15 +14,23 @@
         name="password"
         label="Password"
         type="password"
-        :rules="pwdRules"
+         :rules="pwdRules"
         v-model="pwd"
       ></v-text-field>
 
-      <span style="color:red">{{errMsg}}</span>
+      <span style="color:red" v-if="!success">{{errMsg}}</span>
       <br>
       <!-- <h1>FeedBack</h1> -->
       <v-card-actions>
-        <v-btn @click="check()" style="width:100%" color="primary">Login</v-btn>
+        <v-btn
+          @click="check()"
+          style="width:100%"
+          :disabled="dialog"
+          :loading="dialog"
+         
+          class="white--text"
+          color="primary"
+        >Login</v-btn>
       </v-card-actions>
       <p>
         <v-btn small flat color="secondary">Forgot Password?</v-btn>
@@ -36,52 +43,99 @@
 <script>
 import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
-import SmallContainer from "@/components/SmallContainer.vue";
+import LoadingDialog from "@/components/dialog/loadingDialog.vue";
+import gql from "graphql-tag";
+
+const patientLoginQuery = gql`
+  query($username: String!, $password: String!) {
+    patientLogin(username: $username, password: $password) {
+      success
+      message
+      token
+      patient {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export default {
   data: () => ({
     valid: true,
-    email: "",
-    emailRules: [v => !!v || "Email is required"],
+    name: "",
+    nameRules: [v => !!v || "Name is required"],
     pwd: "",
     pwdRules: [v => !!v || "Password is required"],
     errMsg: "",
-    
+    success: false,
+    skipQuery: true
   }),
-  components: {
-    SmallContainer
-  },
+  components: { LoadingDialog },
 
-  computed: {
-    ...mapGetters({})
+  apollo: {
+    // Query with parameters
+
+    patientLogin: {
+      query: patientLoginQuery,
+      variables() {
+        return {
+          username: this.name,
+          password: this.pwd
+        };
+      },
+      skip() {
+        return this.skipQuery;
+      },
+      update(data) {
+        this.success = data.patientLogin.success;
+        this.errMsg = data.patientLogin.message;
+        this.$apollo.queries.patientLogin.skip = true;
+        if (data.patientLogin.success) {
+          this.actionsSetLogin(data.patientLogin.patient);
+          this.$store.commit("setLoginDialog", false);
+        }
+        return data.patientLogin;
+      }
+    }
   },
+  computed: {
+    ...mapGetters({
+      getDialog: "getDialog"
+    }),
+    loginDialog() {
+      return this.getDialog.login;
+    },
+    dialog: {
+      get() {
+        if (this.$apollo.loading) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      set(val) {
+        this.dialog = val;
+      }
+    }
+  },
+  watch: {},
   methods: {
+    ...mapActions(["actionsSetLogin"]),
     clear() {},
     check() {
       if (this.$refs.form.validate()) {
-        var obj = {
-          email: this.email,
-          pwd: this.pwd
-        };
-
-        this.setCookie(3);  
-        
-        this.$store.commit("setLoginDialog",false)
-        
-        // if (this.getter.isSuccess) {
-        //   this.$router.push("/");
-        //   this.errMsg = "";
+        this.$apollo.queries.patientLogin.skip = false;
+        // if (this.success) {
+        //   this.actionsSetLogin(this.patientLogin.patient);
+        //   this.$store.commit("setLoginDialog", false);
         // } else {
-        //   this.errMsg = "Login Fail";
+        //   this.success = false;
         // }
       }
     },
     signUp() {
       this.$router.push("/signup");
-    },
-    setCookie(id) {
-      this.$cookie.set("userId", id, {
-        expires: "50m"
-      });
     }
   }
 };

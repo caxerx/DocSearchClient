@@ -17,11 +17,11 @@ export const mutations = {
 
     ["setLoginDialog"](state,val){
         state.dialog.login = val;
-        console.log(state.dialog.login)
+        // console.log(state.dialog.login)
     },
     ["cancelReservationDialog"](state,val){
         state.dialog.cancelReservationDialog = val;
-        console.log(state.dialog.cancelReservationDialog )
+        // console.log(state.dialog.cancelReservationDialog )
     }
 
 }

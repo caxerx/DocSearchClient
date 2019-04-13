@@ -43,6 +43,9 @@ const actions = {
     },
     actionAfterCreationForCreateReservation({commit},val){
         commit("afterCreateionForCreateReservation",val)
+    },
+    actionResetForCreateReservation({commit}){
+        commit("resetForCreateReservation")
     }
 
 
@@ -54,6 +57,25 @@ const mutations = {
     ["setDateForCreateReservation"](state, newDate) {
         state.createReservation.date = newDate;
 
+    },
+    ["resetForCreateReservation"](state){
+        state.createReservation = {
+            date: new Date().toISOString().substr(0, 10),
+            start:"",
+            end:"",
+    
+            reservation: {
+                note: "",
+                type: "",
+                endTime: "",
+                startTime: "",
+                workplaceId: "",
+                patientId: "",
+                doctorId: "",
+                staffId: "",
+            },
+            
+        }
     },
 
     ["setReservationForCreateReservation"](state, reservation) {
@@ -78,7 +100,8 @@ const mutations = {
     ["afterCreateionForCreateReservation"](state,val){
         state.createReservation.isCreateSuccess = val;
         console.log(state.createReservation.isCreateSuccess)
-    }
+    },
+    
 
 
 

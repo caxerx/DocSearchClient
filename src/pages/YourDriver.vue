@@ -60,7 +60,7 @@ export default {
       query: patientQuery,
       variables() {
         return {
-          id: this.$cookie.get("userId")
+          id: this.getLogin.id
         };
       }
     }
@@ -71,7 +71,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      getLogin:"getLogin"
+    }),
     routerHeight() {
       return this.height + "px";
     }

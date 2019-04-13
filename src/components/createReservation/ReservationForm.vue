@@ -141,7 +141,8 @@ export default {
   computed: {
     ...mapGetters({
       // getter: "getCreateReservation"
-      getter: "getCreateReservation"
+      getter: "getCreateReservation",
+      getLogin:"getLogin"
     }),
     date() {
       return this.getter.date;
@@ -166,9 +167,11 @@ export default {
     DoctorInfoCard,
     LoadingDialog
   },
-
+  destroyed:function(){
+    this.actionResetForCreateReservation()
+  },
   methods: {
-    ...mapActions(["actionSetReservationForCreateReservation"]),
+    ...mapActions(["actionSetReservationForCreateReservation","actionResetForCreateReservation"]),
 
     setReservation(start, end) {
 
@@ -176,12 +179,12 @@ export default {
         "start": start,
         "end": end,
         workplaceId:this.doctorObj.workplace.id,
-        patientId:this.$cookie.get("userId"),
+        patientId:this.getLogin.id,
         doctorId:this.doctorObj.id,
         staffId:this.doctorObj.id
       });
     },
-
+    
     test() {}
   }
 };
