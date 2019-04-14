@@ -66,22 +66,26 @@
     </v-card>
     <v-card flat class="card">
       <!-- <v-card-actions> -->
-         <v-btn
-            v-if="reservation.status==='checked_in'||reservation.status==='expired'"
-            @click.stop="nothing()"
-            flat
-            color="grey"
-          >Cancel Reservation</v-btn>
+      <v-btn
+        v-if="reservation.status==='checked_in'||reservation.status==='expired'"
+        @click.stop="nothing()"
+        flat
+        color="grey"
+      >Cancel Reservation</v-btn>
       <v-btn v-else flat color="error" @click="showCancelDialog(reservation)">Cancel Reservation</v-btn>
       <!-- </v-card-actions> -->
     </v-card>
     <v-card flat class="card">
       <v-card-text>
-        <span class="grey--text">Reservation ID:</span>
-        <br>
-        <span class="font-weight-black">{{reservation.id}}</span>
+        <div class="grey--text">Reservation ID:</div>
+        <div class="font-weight-black">{{reservation.id}}</div>
+        <span v-if="reservation.note!==''">
+        <div class="grey--text">Reservation Note:</div>
+        <div class="font-weight-black">{{reservation.note}}</div>
+        </span>
       </v-card-text>
-      <img src="@/assets/qr-code.png" id="qrCode">
+
+      <img v-if="reservation.type=='clinc'" src="@/assets/qr-code.png" id="qrCode">
     </v-card>
   </div>
 </template>
@@ -104,7 +108,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionSetIdFromViewReservation","actionSetIsDetailPageFromViewReservation"]),
+    ...mapActions([
+      "actionSetIdFromViewReservation",
+      "actionSetIsDetailPageFromViewReservation"
+    ]),
     router(linkStr) {
       this.$router.push("/" + linkStr);
     },
@@ -116,10 +123,7 @@ export default {
       this.actionSetIdFromViewReservation(reservation.id);
       this.$store.commit("cancelReservationDialog", true);
     },
-        nothing(){
-
-    }
-
+    nothing() {}
   }
 };
 </script>
