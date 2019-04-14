@@ -173,9 +173,7 @@ export default {
       let newArr = arr.slice();
 
       newArr.sort(function(a, b) {
-        let atime = new Date(a.startTime);
-        let btime = new Date(b.startTime);
-        return btime - atime;
+        return b.id - a.id;
       });
       return newArr;
     },

@@ -13,7 +13,8 @@
           <h3 class="headline mb primary--text">Dr. {{doctor.name}}</h3>
         </v-card-text>
         <v-card-text>
-          <div>{{doctor.experience}}</div>
+          <div>{{doctor.academic}}</div>
+          <div>{{doctor.experience}} Experience</div>
           <div>{{doctor.specialty}}</div>
         </v-card-text>
         <v-card-text>
