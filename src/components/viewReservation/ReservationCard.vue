@@ -18,7 +18,7 @@
             <div
               class="grey--text"
             >{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}}</div>
-
+            <div v-if="reservation.status==='waiting'" class="error--text">{{reservation.status}}</div>
             <div v-if="reservation.status==='pending'" class="error--text">{{reservation.status}}</div>
             <div
               v-if="reservation.status==='checked_in'"
@@ -70,7 +70,7 @@ export default {
       this.$emit("input", reservation);
     },
     showCancelDialog(reservation) {
-      console.log(reservation)
+      console.log(reservation);
       this.actionSetIdFromViewReservation(reservation.id);
       this.$store.commit("cancelReservationDialog", true);
     },

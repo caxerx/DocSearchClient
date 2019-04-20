@@ -181,7 +181,7 @@ export default {
         workplaceId:this.doctorObj.workplace.id,
         patientId:this.getLogin.id,
         doctorId:this.doctorObj.id,
-        staffId:this.doctorObj.id
+        reserverId:this.doctorObj.id
       });
     },
     

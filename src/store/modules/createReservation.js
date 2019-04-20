@@ -14,7 +14,9 @@ const state = {
             workplaceId: "",
             patientId: "",
             doctorId: "",
-            staffId: "",
+            reserverId:"",
+            status:"",
+
         },
         
     },
@@ -73,6 +75,7 @@ const mutations = {
                 patientId: "",
                 doctorId: "",
                 staffId: "",
+                status:"",
             },
             
         }
@@ -85,7 +88,7 @@ const mutations = {
         state.createReservation.reservation.workplaceId = reservation.workplaceId;
         state.createReservation.reservation.patientId = reservation.patientId;
         state.createReservation.reservation.doctorId = reservation.doctorId;
-        state.createReservation.reservation.staffId = reservation.staffId;
+        state.createReservation.reservation.reserverId = reservation.reserverId;
 
         
     },
@@ -95,6 +98,7 @@ const mutations = {
         state.createReservation.reservation.note = inf.note;
         state.createReservation.reservation.startTime = inf.startTime;
         state.createReservation.reservation.endTime = inf.endTime;
+        state.createReservation.reservation.status = "pending";
     
     },
     ["afterCreateionForCreateReservation"](state,val){

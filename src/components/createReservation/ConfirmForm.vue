@@ -32,26 +32,8 @@ import axios from "axios";
 let moment = require("moment");
 
 const createReservationMutation = gql`
-  mutation(
-    $note: String!
-    $type: String!
-    $endTime: DateTime!
-    $startTime: DateTime!
-    $workplaceId: ID!
-    $patientId: ID!
-    $doctorId: ID!
-    $staffId: ID!
-  ) {
-    createReservation(
-      note: $note
-      type: $type
-      endTime: $endTime
-      startTime: $startTime
-      workplaceId: $workplaceId
-      patientId: $patientId
-      doctorId: $doctorId
-      staffId: $staffId
-    ) {
+  mutation($data: CreateReservationInput!) {
+    createReservation(data: $data) {
       id
     }
   }
@@ -67,7 +49,7 @@ export default {
       timeRules: [v => !!v || "Time is required"],
       dateRules: [v => !!v || "Date is required"],
       typeRules: [v => !!v || "Type is required"],
-      loadingDialog:false,
+      loadingDialog: false
     };
   },
   apollo: {},
@@ -90,7 +72,7 @@ export default {
     },
     dialog: {
       get() {
-       return this.loadingDialog;
+        return this.loadingDialog;
       },
       set(val) {
         this.dialog = val;
@@ -99,7 +81,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionSetReservationTypeAndNoteForCreateReservation","actionAfterCreationForCreateReservation"]),
+    ...mapActions([
+      "actionSetReservationTypeAndNoteForCreateReservation",
+      "actionAfterCreationForCreateReservation"
+    ]),
     createReservation() {
       if (this.$refs.form.validate()) {
         let startDateFormat = this.date + " " + this.getter.start;
@@ -114,32 +99,35 @@ export default {
         };
 
         this.actionSetReservationTypeAndNoteForCreateReservation(moreinf);
-        console.log(this.getter.reservation);
+
+        let createReservationInput = {
+          note: this.getter.reservation.note,
+          type: this.getter.reservation.type,
+          endTime: this.getter.reservation.endTime,
+          startTime: this.getter.reservation.startTime,
+          patientId: this.getter.reservation.patientId,
+          doctorId: this.getter.reservation.doctorId,
+          reserverId: this.getter.reservation.reserverId,
+          workplaceId: this.getter.reservation.workplaceId,
+          status: this.getter.reservation.status
+        };
         this.loadingDialog = true;
         this.$apollo
           .mutate({
             // Query
             mutation: createReservationMutation,
             // Parameters
+
             variables: {
-              note: this.getter.reservation.note,
-              type: this.getter.reservation.type,
-              endTime: this.getter.reservation.endTime,
-              startTime: this.getter.reservation.startTime,
-              patientId: this.getter.reservation.patientId,
-              doctorId: this.getter.reservation.doctorId,
-              staffId: this.getter.reservation.staffId,
-              workplaceId: this.getter.reservation.workplaceId
+              data:createReservationInput,
             }
           })
           .then(data => {
             // Result
             console.log(data);
-             this.loadingDialog = false;
-             this.actionAfterCreationForCreateReservation(true);
-             this.$router.push("/yourDriver/viewReservation");
-            
-            
+            this.loadingDialog = false;
+            this.actionAfterCreationForCreateReservation(true);
+            this.$router.push("/yourDriver/viewReservation");
           })
           .catch(error => {
             // Error
