@@ -19,10 +19,10 @@
 
             <h2 style="padding-top: 25px;">opening hour</h2>
             <table>
-              <tr v-for="(time,index) in clinic.times" :key="index">
-                <th>{{time.date}}</th>
-                <td>{{time.am}}</td>
-                <td>{{time.pm}}</td>
+              <tr v-for="(openingHour,index) in doctor.workplace.openingHours" :key="index">
+                <th>{{switchDay(openingHour.day)}}</th>
+                <td>{{openingHour.am}}</td>
+                <td>{{openingHour.pm}}</td>
               </tr>
             </table>
           </v-card>
@@ -54,10 +54,7 @@
       </v-flex>
 
       <v-flex v-if="active==2">
-        <div class="display-1" style="padding: 20px">
-          Feedback for Doctor
-          <v-btn style="position:absolute;right:0">leave feedback</v-btn>
-        </div>
+        <div class="display-1" style="padding: 20px">Feedback for Doctor</div>
 
         <v-card flat v-if="!haveFeedback">
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -79,7 +76,7 @@
               ></v-textarea>
 
               <v-card-actions>
-                <v-btn @click="submit()" color="primary">submit</v-btn>
+                <v-btn @click="submit()" color="primary">create</v-btn>
               </v-card-actions>
             </v-card-text>
           </v-form>
@@ -104,7 +101,7 @@
               ></v-textarea>
 
               <v-card-actions>
-                <v-btn @click="edit()" color="primary">submit</v-btn>
+                <v-btn @click="edit()" color="primary">edit</v-btn>
               </v-card-actions>
             </v-card-text>
           </v-form>
@@ -180,12 +177,19 @@ const doctorQuery = gql`
       phoneNo
       language
       specialty
+      avatar
       academic
       experience
       workplace {
         id
         name
         location
+        openingHours {
+          id
+          day
+          am
+          pm
+        }
       }
       feedbacks {
         id
@@ -334,13 +338,31 @@ export default {
     }
   },
   methods: {
+    switchDay(day) {
+      switch (day) {
+        case "sun":
+          return "Sunday";
+        case "mon":
+          return "Monday";
+        case "tue":
+          return "Tuesday";
+        case "wed":
+          return "Wednesday";
+        case "thu":
+          return "Thursday";
+        case "fri":
+          return "Friday";
+        case "sat":
+          return "Saturday";
+      }
+    },
     edit() {
       if (this.$refs.form.validate()) {
         let feedbackInput = {
           rating: this.myFeedback.rating,
           comment: this.myFeedback.comment
         };
-       console.log(feedbackInput);
+        console.log(feedbackInput);
         this.$apollo
           .mutate({
             mutation: editFeedback,
