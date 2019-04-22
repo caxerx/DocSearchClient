@@ -1,6 +1,15 @@
 <template>
   <div>
-     <loading-dialog :dialog="dialog" />
+       <v-progress-circular
+      width="5"
+      size="50"
+      color="primary"
+      indeterminate
+      style="left: 48%;
+      top: 50%;
+      position: fixed"
+      v-if="$apollo.loading"
+    ></v-progress-circular>
 
     <div v-if="!$apollo.loading">
       <div
@@ -18,7 +27,6 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import MedicalRecordCard from "./medicalRecordCard.vue";
-import LoadingDialog from "@/components/dialog/loadingDialog.vue"
 import gql from "graphql-tag";
 
 const patientQuery = gql`
@@ -53,6 +61,8 @@ export default {
       if (this.getLogin === null) {
         this.$store.commit("setLoginDialog", true);
       }
+      this.$apollo.queries.patient.refetch();
+
   },
   apollo: {
     patient: {
@@ -66,24 +76,12 @@ export default {
   },
   components: {
     MedicalRecordCard,
-    LoadingDialog
+    
   },
   computed: {
     ...mapGetters({
       getLogin:"getLogin"
     }),
-    dialog: {
-      get() {
-        if (this.$apollo.loading) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      set(val) {
-        this.dialog = val;
-      }
-    }
   },
 
   methods: {

@@ -93,15 +93,6 @@ export default {
         ? this.doctor.feedbacks.length
         : 0;
     },
-    dialog: {
-      get() {
-        return false;
-      },
-
-      set(val) {
-        this.dialog = val;
-      }
-    }
   },
   components: {},
   props: {

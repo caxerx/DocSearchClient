@@ -1,6 +1,15 @@
 <template>
   <div>
-    <loading-dialog :dialog="dialog"/>
+    <v-progress-circular
+      width="5"
+      size="50"
+      color="primary"
+      indeterminate
+      style="left: 48%;
+      top: 50%;
+      position: fixed"
+      v-if="$apollo.loading"
+    ></v-progress-circular>
     <div v-if="!$apollo.loading">
       <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
       <div
@@ -27,7 +36,6 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import DoctorCard from "./DoctorCard.vue";
-import LoadingDialog from "@/components/dialog/loadingDialog.vue";
 
 import gql from "graphql-tag";
 
@@ -95,7 +103,7 @@ export default {
     }
   },
   components: {
-    LoadingDialog,
+  
     DoctorCard
   },
 
@@ -105,18 +113,6 @@ export default {
       getDialog: "getDialog"
     }),
 
-    dialog: {
-      get() {
-        if (this.$apollo.loading) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      set(val) {
-        this.dialog = val;
-      }
-    },
     loginDialog: {
       get() {
         return this.getDialog.login;
@@ -158,8 +154,8 @@ export default {
       }
 
       let specialty = this.specialty;
-      if(this.specialty.includes("_")){
-        specialty =  this.specialty.split("_").join(" ")
+      if (this.specialty.includes("_")) {
+        specialty = this.specialty.split("_").join(" ");
       }
       let str =
         (this.specialty !== "" ? ", " + specialty : "") +

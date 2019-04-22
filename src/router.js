@@ -20,8 +20,6 @@ import ChangePassword from './pages/ChangePassword'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  base: __dirname,
   routes: [
     {
       path: '/app',

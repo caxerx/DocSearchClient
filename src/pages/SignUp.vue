@@ -1,6 +1,5 @@
 <template>
   <div>
-    <signup-dialog :dialog="dialog" :createSuccess="createSuccess" v-model="dialog"/>
     <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
       <v-layout row wrap>
         <v-flex sm6 style="padding-right:15px">
@@ -117,7 +116,13 @@
           <!-- <h1>FeedBack</h1> -->
           <span style="color:red">{{errMsg}}</span>
           <v-card-actions>
-            <v-btn @click="check" style="width:100%" color="primary">Sign Up</v-btn>
+            <v-btn
+              @click="check"
+              style="width:100%"
+              color="primary"
+              :disabled="loading"
+              :loading="loading"
+            >Sign Up</v-btn>
           </v-card-actions>
         </v-flex>
       </v-layout>
@@ -129,7 +134,6 @@
 <script>
 import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
-import SignupDialog from "@/components/dialog/signupDialog.vue";
 import gql from "graphql-tag";
 
 const createPatientMutation = gql`
@@ -159,23 +163,15 @@ export default {
     phoneRules: [v => !!v || "Phone is required"],
     errMsg: "",
     menu: false,
-    dialog: false,
+    loading: false,
     createSuccess: false,
     timer: ""
   }),
-  components: {
-    SignupDialog
-  },
+  components: {},
 
   watch: {
     menu(val) {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
-    },
-    dialog: function(val) {
-      console.log(val)
-      if (!val && this.createSuccess) {
-        this.$store.commit("setLoginDialog", false);
-      }
     }
   },
 
@@ -213,8 +209,9 @@ export default {
     ...mapActions[""],
     clear() {},
     check() {
-      this.dialog = true;
       // this.dialog = false;
+
+      this.loading = true;
       if (this.$refs.form.validate()) {
         let createPatientInput = {
           name: this.name,
@@ -239,13 +236,14 @@ export default {
           })
           .then(data => {
             // Result
-
-            this.createSuccess = true;
+            this.loading = false;
+            this.$store.commit("setLoginDialog", false);
+            this.$swal("Congrats!", "Your account is created!", "success");
             console.log(data);
           })
           .catch(error => {
             // Error
-            this.dialog = false;
+            this.loading = false;
             this.createSuccess = false;
             this.errMsg = "Repeat User Name";
             console.error(error);
@@ -261,3 +259,4 @@ export default {
   }
 };
 </script>
+

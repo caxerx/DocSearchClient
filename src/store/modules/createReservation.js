@@ -74,7 +74,7 @@ const mutations = {
                 workplaceId: "",
                 patientId: "",
                 doctorId: "",
-                staffId: "",
+                reserverId: "",
                 status:"",
             },
             

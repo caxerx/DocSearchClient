@@ -17,7 +17,7 @@
         <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
         <v-btn flat>download our app</v-btn>
       </v-toolbar-items>
-      <loading-dialog :dialog="loadingDialog"/>
+     
       <span v-if="isSuccess()&&getLogin!=null">
         
         <v-menu offset-y open-on-hover>
@@ -46,7 +46,6 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import LoginDialog from "@/components/dialog/loginDialog";
-import LoadingDialog from "@/components/dialog/loadingDialog";
 
 import gql from "graphql-tag";
 
@@ -54,7 +53,7 @@ import gql from "graphql-tag";
 export default {
   components: {
     LoginDialog,
-    LoadingDialog
+    
   },
   data() {
     return {
@@ -87,16 +86,6 @@ export default {
       },
       set(val) {
         this.$store.commit("setLoginDialog", val);
-      }
-    },
-    loadingDialog: {
-      get() {
-       
-       return false;
-      },
-      set(val) {
-        console.log(val);
-        this.loadingDialog = val;
       }
     },
     profile() {

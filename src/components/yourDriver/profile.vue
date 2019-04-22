@@ -1,6 +1,15 @@
 <template>
   <div>
-    <loading-dialog :dialog="dialog"/>
+    <v-progress-circular
+      width="5"
+      size="50"
+      color="primary"
+      indeterminate
+      style="left: 48%;
+      top: 50%;
+      position: fixed"
+      v-if="$apollo.loading"
+    ></v-progress-circular>
     <v-form
       slot="content"
       ref="form"
@@ -103,7 +112,6 @@
           multiple
           :menu-props="menuProps"
         >
-        
           <template slot="selection" slot-scope="data">
             <v-chip
               close
@@ -141,7 +149,6 @@
 <script>
 import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
-import LoadingDialog from "@/components/dialog/loadingDialog.vue";
 import gql from "graphql-tag";
 
 const allergiesQuery = gql`
@@ -177,7 +184,6 @@ const editPatinetMutation = gql`
     editPatient(data: $data, id: $id) {
       id
       name
-      
     }
   }
 `;
@@ -209,9 +215,7 @@ export default {
       maxHeight: 150
     }
   }),
-  components: {
-    LoadingDialog
-  },
+  components: {},
 
   apollo: {
     patient: {
@@ -245,18 +249,7 @@ export default {
     ...mapGetters({
       getLogin: "getLogin"
     }),
-    dialog: {
-      get() {
-        if (this.$apollo.loading) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      set(val) {
-        this.dialog = val;
-      }
-    },
+
     emailRules() {
       var returnFunction = [];
       returnFunction.push(function(v) {
@@ -329,7 +322,7 @@ export default {
         })
         .then(data => {
           // Result
-         console.log(data.data.editPatient)
+          console.log(data.data.editPatient);
           this.actionSetLogin(data.data.editPatient);
           this.$apollo.queries.patient.refetch();
         })

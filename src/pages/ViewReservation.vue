@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <cancel-dialog/>
     <c-list/>
   </div>

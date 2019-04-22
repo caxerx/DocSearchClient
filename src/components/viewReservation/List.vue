@@ -1,6 +1,16 @@
 <template>
   <div>
-    <loading-dialog :dialog="dialog"/>
+    <v-progress-circular
+      width="5"
+      size="50"
+      color="primary"
+      indeterminate
+      style="left: 50%;
+      top: 50%;
+      position: fixed"
+      v-if="$apollo.loading"
+    ></v-progress-circular>
+
     <div v-if="patient!=null&&reservationForDetail===null">
       <v-layout row wrap align-center>
         <v-flex sm4>
@@ -74,7 +84,6 @@
 <script>
 import ReservationCard from "./ReservationCard";
 import { mapGetters, mapActions, mapState } from "vuex";
-import LoadingDialog from "@/components/dialog/loadingDialog.vue";
 import ReservationDetail from "./ReservationDetail.vue";
 import gql from "graphql-tag";
 
@@ -123,8 +132,7 @@ export default {
   },
   components: {
     ReservationCard,
-    ReservationDetail,
-    LoadingDialog
+    ReservationDetail
   },
   computed: {
     ...mapGetters({
@@ -137,18 +145,6 @@ export default {
     },
     isCancel() {
       return this.getViewReservation.isCancel;
-    },
-    dialog: {
-      get() {
-        if (this.$apollo.loading) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      set(val) {
-        this.dialog = val;
-      }
     }
   },
   watch: {
@@ -162,6 +158,9 @@ export default {
         this.$apollo.queries.patient.refetch();
         this.actionSetIsCancelFromViewReservation(false);
       }
+    },
+    dialog: function(val) {
+      console.log(val);
     }
   },
   methods: {
