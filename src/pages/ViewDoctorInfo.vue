@@ -54,17 +54,78 @@
       </v-flex>
 
       <v-flex v-if="active==2">
-        <div class="display-1" style="padding: 20px">Feedback for Doctor <v-btn style="position:absolute;right:0">leave feedback</v-btn></div>
-        <v-divider/>
-      <v-card flat v-for="(feedback, index) in doctor.feedbacks" :key="index">
-        <v-card-title class="title font-weight-medium">{{feedback.patient.name}} </v-card-title>
-         <v-card-text class="body-2">
-            {{feedback.comment}}
-          </v-card-text>
-        <v-divider/>
-      </v-card>
+        <div class="display-1" style="padding: 20px">
+          Feedback for Doctor
+          <v-btn style="position:absolute;right:0">leave feedback</v-btn>
+        </div>
 
-      
+        <v-card flat v-if="!haveFeedback">
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-card-title class="title font-weight-medium">Rating</v-card-title>
+            <v-rating
+              v-model="myFeedback.rating"
+              background-color="green lighten-3"
+              color="green"
+              large
+            ></v-rating>
+
+            <v-card-text>
+              <v-textarea
+                name="input-7-1"
+                label="Comment"
+                rows="3"
+                v-model="myFeedback.comment"
+                :rules="feedbackRules"
+              ></v-textarea>
+
+              <v-card-actions>
+                <v-btn @click="submit()" color="primary">submit</v-btn>
+              </v-card-actions>
+            </v-card-text>
+          </v-form>
+        </v-card>
+        <v-card flat v-if="haveFeedback">
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-card-title class="title font-weight-medium">Rating</v-card-title>
+            <v-rating
+              v-model="myFeedback.rating"
+              background-color="green lighten-3"
+              color="green"
+              large
+            ></v-rating>
+
+            <v-card-text>
+              <v-textarea
+                name="input-7-1"
+                label="Comment"
+                rows="3"
+                v-model="myFeedback.comment"
+                :rules="feedbackRules"
+              ></v-textarea>
+
+              <v-card-actions>
+                <v-btn @click="edit()" color="primary">submit</v-btn>
+              </v-card-actions>
+            </v-card-text>
+          </v-form>
+        </v-card>
+        <v-divider/>
+
+        <v-card></v-card>
+        <v-card flat v-for="(feedback, index) in doctor.feedbacks" :key="index">
+          <v-card flat>
+            <v-card-title class="title font-weight-medium">{{feedback.patient.name}}</v-card-title>
+            <v-rating
+              :value="feedback.rating"
+              background-color="green lighten-3"
+              color="green"
+              style="padding-left: 5px"
+              readonly
+            ></v-rating>
+            <v-card-text class="body-2">{{feedback.comment}}</v-card-text>
+            <v-divider/>
+          </v-card>
+        </v-card>
       </v-flex>
     </v-card>
   </v-container>
@@ -91,6 +152,23 @@ tr:hover {
 <script>
 import gql from "graphql-tag";
 import DoctorInfoCard from "@/components/DoctorInfoCard";
+import { mapGetters } from "vuex";
+import { error } from "util";
+
+const editFeedback = gql`
+  mutation($data: FeedbackInput!, $id: Float!) {
+    editFeedback(data: $data, id: $id) {
+      id
+    }
+  }
+`;
+const createFeedbackMutation = gql`
+  mutation($data: CreateFeedbackInput!) {
+    createFeedback(data: $data) {
+      id
+    }
+  }
+`;
 
 const doctorQuery = gql`
   query($id: ID!) {
@@ -112,6 +190,7 @@ const doctorQuery = gql`
       feedbacks {
         id
         patient {
+          id
           name
         }
         comment
@@ -136,6 +215,8 @@ export default {
   },
   data() {
     return {
+      valid: true,
+      feedbackRules: [v => !!v || "FeedBack is required"],
       quali: [
         {
           details: "MBBS (HK) 1975"
@@ -200,57 +281,27 @@ export default {
 
           map:
             "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.3280691625514!2d114.16985791495483!3d22.303429085322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE4JzEyLjMiTiAxMTTCsDEwJzE5LjQiRQ!5e0!3m2!1szh-TW!2shk!4v1546153405835"
-        },
-        {
-          name: "CDE Hospital",
-          Address:
-            "Unit A, 99/F, HSH Kowloon Centre, 192-194 Nathan Road, Jordan, Kowloon",
-          times: [
-            {
-              date: "Monday",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Tuesday",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Wednesday ",
-              am: "9:00 - 12:00",
-              pm: "--"
-            },
-            {
-              date: "Thursday ",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Friday",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Saturday",
-              am: "9:00 - 12:00",
-              pm: "--"
-            },
-            {
-              date: "Sunday",
-              am: "--",
-              pm: "--"
-            }
-          ],
-
-          map:
-            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.3280691625514!2d114.16985791495483!3d22.303429085322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE4JzEyLjMiTiAxMTTCsDEwJzE5LjQiRQ!5e0!3m2!1szh-TW!2shk!4v1546153405835"
         }
       ],
 
       DocInfoTypes: ["Information", "Services", "Feedback"],
-      active: 0
+      active: 0,
+      haveFeedback: false,
+      myFeedback: {
+        id: "",
+        patient: {
+          id: "",
+          name: ""
+        },
+        comment: "",
+        rating: 5
+      }
     };
+  },
+  computed: {
+    ...mapGetters({
+      getLogin: "getLogin"
+    })
   },
   apollo: {
     doctor: {
@@ -259,6 +310,21 @@ export default {
         return {
           id: this.$route.query.id
         };
+      },
+      update(data) {
+        let ownId = this.getLogin.id;
+        let mfb = data.doctor.feedbacks.find(function(myfb) {
+          return myfb.patient.id == ownId;
+        });
+
+        if (mfb == undefined) {
+          this.haveFeedback = false;
+        } else {
+          this.myFeedback = mfb;
+          this.haveFeedback = true;
+        }
+
+        return data.doctor;
       }
     }
   },
@@ -266,7 +332,57 @@ export default {
     active: function(val) {
       console.log(val);
     }
+  },
+  methods: {
+    edit() {
+      if (this.$refs.form.validate()) {
+        let feedbackInput = {
+          rating: this.myFeedback.rating,
+          comment: this.myFeedback.comment
+        };
+       console.log(feedbackInput);
+        this.$apollo
+          .mutate({
+            mutation: editFeedback,
+            variables: {
+              data: feedbackInput,
+              id: parseFloat(this.myFeedback.id)
+            }
+          })
+          .then(data => {
+            // console.log(data.data.editPatient);
+            this.$apollo.queries.doctor.refetch();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    },
+    submit() {
+      console.log("hi");
+      if (this.$refs.form.validate()) {
+        let feedbackInput = {
+          comment: this.myFeedback.comment,
+          rating: this.myFeedback.rating,
+          doctorId: parseFloat(this.doctor.id),
+          patientId: parseFloat(this.getLogin.id)
+        };
+        this.$apollo
+          .mutate({
+            mutation: createFeedbackMutation,
+            variables: {
+              data: feedbackInput
+            }
+          })
+          .then(data => {
+            this.$apollo.queries.doctor.refetch();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    },
+    clear() {}
   }
 };
 </script>
-

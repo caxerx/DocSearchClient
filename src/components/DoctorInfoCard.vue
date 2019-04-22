@@ -19,17 +19,6 @@
         </v-card-text>
         <v-card-text>
           <h3 class="font-weight-bold">{{doctor.workplace.name}}</h3>
-          <v-layout row wrap>
-            <v-flex xs3 sm1>
-              <img src="@/assets/image-icon.png" class="icon">
-            </v-flex>
-            <v-flex xs3 sm1>
-              <img src="@/assets/image-icon.png" class="icon">
-            </v-flex>
-            <v-flex xs3 sm1>
-              <img src="@/assets/image-icon.png" class="icon">
-            </v-flex>
-          </v-layout>
         </v-card-text>
       </v-flex>
 
@@ -77,11 +66,10 @@ export default {
     },
 
     computedAvatar() {
-      console.log(this.doctor.avatar)
       if (this.doctor.avatar === "" || this.doctor.avatar === undefined) {
         return require("@/assets/icon-person.png");
       }
-      return "/assets/avatars/" + this.doctor.avatar;
+      return "https://dsapi.1lo.li/assets/avatars/" + this.doctor.avatar;
     }
   },
 

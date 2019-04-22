@@ -4,7 +4,7 @@
       <v-flex xs4 sm2>
         <v-card-title>
           <!-- <img src="/assets/avatars/1555235781693.jpg" class="icon"> -->
-          <img :src="computedAvatar" class="icon"/>
+          <img :src="computedAvatar" class="icon">
         </v-card-title>
       </v-flex>
       <v-flex xs6 sm7>
@@ -14,21 +14,10 @@
         <v-card-text>
           <div>{{doctor.academic}}</div>
           <div>{{doctor.experience}} experience</div>
-          <div>{{doctor.specialty}}</div>
+          <div>{{newSpecialtyStr(doctor.specialty)}}</div>
         </v-card-text>
         <v-card-text>
           <h3 class="font-weight-bold">{{doctor.workplace.name}}</h3>
-          <v-layout row wrap>
-            <v-flex xs3 sm1>
-              <img src="@/assets/image-icon.png" class="icon">
-            </v-flex>
-            <v-flex xs3 sm1>
-              <img src="@/assets/image-icon.png" class="icon">
-            </v-flex>
-            <v-flex xs3 sm1>
-              <img src="@/assets/image-icon.png" class="icon">
-            </v-flex>
-          </v-layout>
         </v-card-text>
       </v-flex>
 
@@ -81,7 +70,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      show: false,
+      show: false
     };
   },
 
@@ -94,11 +83,11 @@ export default {
         ? this.doctor.feedbacks.length
         : 0;
     },
-    computedAvatar(){
-      if(this.doctor.avatar===""||this.doctor.avatar===undefined){
+    computedAvatar() {
+      if (this.doctor.avatar === "" || this.doctor.avatar === undefined) {
         return require("@/assets/icon-person.png");
       }
-      return "/assets/avatars/"+this.doctor.avatar;
+      return "https://dsapi.1lo.li/assets/avatars/" + this.doctor.avatar;
     }
   },
   components: {},
@@ -125,6 +114,22 @@ export default {
             id: doctorId
           }
         });
+      }
+    },
+    newSpecialtyStr(specialty) {
+      switch (specialty) {
+        case "general_practice":
+          return "General Practice";
+          break;
+        case "cardiology":
+          return "Cardiology";
+          break;
+        case "dentistry":
+          return "Dentistry";
+          break;
+        case "dietetics":
+          return "Dietetics";
+          break;
       }
     }
   }

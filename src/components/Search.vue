@@ -92,8 +92,8 @@ export default {
           value: "Cardiology"
         },
         {
-          text: "Dentisry",
-          value: "Dentisry"
+          text: "Dentistry",
+          value: "Dentistry"
         },
         {
           text: "Dietetics",
