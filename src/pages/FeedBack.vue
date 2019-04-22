@@ -3,8 +3,13 @@
     <span slot="title">FeedBack</span>
     <v-form slot="content" ref="form" v-model="valid" lazy-validation>
       <!-- <h1>FeedBack</h1> -->
-      <v-text-field v-model="name" :rules="nameRules" label="Name" required></v-text-field>
-      <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+       <v-card-title class="title font-weight-medium">Rating </v-card-title>
+      <v-rating
+        v-model="rating"
+        background-color="green lighten-3"
+        color="green"
+        large
+      ></v-rating>
 
       <v-textarea name="input-7-1" label="Comment" rows="10" value></v-textarea>
 
@@ -23,6 +28,8 @@ import SmallContainer from "@/components/SmallContainer.vue";
 
 export default {
   data: () => ({
+    
+    rating: 4,
     valid: true,
     name: "",
     nameRules: [v => !!v || "Name is required"],

@@ -1,21 +1,40 @@
 <template>
   <div>
-    
-     
-        <v-card flat class="primary" dark style="padding-top:70px ; padding-bottom: 70px">
-         <v-container>
+    <v-card flat class="primary" dark style="padding-top:70px ; padding-bottom: 70px">
+      <v-container>
         <search/>
-         </v-container>
-        </v-card>
-    
-   
+      </v-container>
+    </v-card>
 
-    <v-card >
+    <v-card>
       <container>
         <v-flex slot="content" id="medicalInfoTitle" class="display-3">Medical Information</v-flex>
         <v-flex slot="content">
-          <div name="articleTitle"></div>
-          <img src="@/assets/medicalInfo.png" id="fakePost"/>
+          <v-flex v-for="item in items" :key="item">
+            <v-layout>
+              <v-flex xs2>
+                <v-img
+                  src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
+                  style="width : 100%"
+                  contain
+                ></v-img>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-title primary-title style="padding-top: 0px">
+                  <div>
+                    <div class="display-1" style="padding-bottom : 10px">What is Lorem Ipsum?</div>
+                    <div
+                      class="headline"
+                      style="padding-bottom : 10px"
+                    >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
+                    <div
+                      style="padding-bottom : 30px"
+                    >It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</div>
+                  </div>
+                </v-card-title>
+              </v-flex>
+            </v-layout>
+          </v-flex>
         </v-flex>
       </container>
     </v-card>
@@ -31,15 +50,19 @@ export default {
   components: {
     Search,
     Container
+  },
+  data(){
+    return{
+      items:[
+        {key:1},
+        {key:2},
+        {key:3},
+      ]
+    }
   }
 };
 </script>
 
-<style scoped>
-#fakePost{
-  cursor: pointer;
-  width:100%
-}
-</style>
+
 
 
