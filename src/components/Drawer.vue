@@ -1,5 +1,5 @@
 <template>
-  <v-app class="indigo lighten-5">
+<div>
     <v-navigation-drawer v-model="drawer" temporary app>
       <v-list dense>
         <v-list-tile @click>
@@ -30,7 +30,7 @@
       <router-view/>
         <!-- </v-content> -->
    
-  </v-app>
+</div>
 </template>
 <script>
 import NavBar from "@/components/Navbar";

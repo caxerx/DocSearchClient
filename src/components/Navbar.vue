@@ -17,8 +17,7 @@
         <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
         <v-btn flat>download our app</v-btn>
       </v-toolbar-items>
-     
-      <span v-if="isSuccess()&&getLogin!=null">
+      <span v-if="isSuccess()">
         
         <v-menu offset-y open-on-hover>
           <v-btn slot="activator" flat>
@@ -100,10 +99,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionSetLogin"]),
+    ...mapActions(["actionSetLogout"]),
     router(linkStr) {
       if (linkStr === "actionLogout") {
-        this.actionSetLogin(null)
+        this.actionSetLogout();
         this.$router.push("/");
         this.$forceUpdate();
       } else {
@@ -114,7 +113,7 @@ export default {
       return this.menu;
     },
     isSuccess() {
-      if(this.getLogin!== null){
+      if(this.getLogin.id!== null){
         return true;
       }else{
         return false;
