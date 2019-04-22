@@ -211,8 +211,8 @@ export default {
     check() {
       // this.dialog = false;
 
-      this.loading = true;
       if (this.$refs.form.validate()) {
+        this.loading = true;
         let createPatientInput = {
           name: this.name,
           gender: this.gender,
