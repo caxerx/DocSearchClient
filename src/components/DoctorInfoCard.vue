@@ -1,11 +1,11 @@
 <template>
-  <v-card  flat v-if="doctor!=null">
+  <v-card flat v-if="doctor!=null">
     <!-- {{doctor.id}} -->
-    
+
     <v-layout row wrap>
       <v-flex xs4 sm2>
         <v-card-title>
-          <img src="@/assets/icon-person.png" class="icon">
+          <img :src="computedAvatar" class="icon">
         </v-card-title>
       </v-flex>
       <v-flex xs6 sm7>
@@ -60,28 +60,34 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 
-
 export default {
-  data: () => ({
+  data: () => ({}),
 
-  }),
-
-  props:{
-    doctor:Object
+  props: {
+    doctor: Object
   },
 
   created: function() {},
 
   computed: {
-       countFeedBacks() {
-      return (this.doctor.feedbacks.length !==null?this.doctor.feedbacks.length:0);
+    countFeedBacks() {
+      return this.doctor.feedbacks.length !== null
+        ? this.doctor.feedbacks.length
+        : 0;
+    },
+
+    computedAvatar() {
+      console.log(this.doctor.avatar)
+      if (this.doctor.avatar === "" || this.doctor.avatar === undefined) {
+        return require("@/assets/icon-person.png");
+      }
+      return "/assets/avatars/" + this.doctor.avatar;
     }
   },
 
   components: {},
 
-  methods: {},
-
+  methods: {}
 };
 </script>
 

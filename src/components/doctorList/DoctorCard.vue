@@ -3,7 +3,8 @@
     <v-layout row wrap>
       <v-flex xs4 sm2>
         <v-card-title>
-          <img src="/assets/avatars/1555235781693.jpg" class="icon">
+          <!-- <img src="/assets/avatars/1555235781693.jpg" class="icon"> -->
+          <img :src="computedAvatar" class="icon"/>
         </v-card-title>
       </v-flex>
       <v-flex xs6 sm7>
@@ -80,7 +81,7 @@ import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      show: false
+      show: false,
     };
   },
 
@@ -93,6 +94,12 @@ export default {
         ? this.doctor.feedbacks.length
         : 0;
     },
+    computedAvatar(){
+      if(this.doctor.avatar===""||this.doctor.avatar===undefined){
+        return require("@/assets/icon-person.png");
+      }
+      return "/assets/avatars/"+this.doctor.avatar;
+    }
   },
   components: {},
   props: {
