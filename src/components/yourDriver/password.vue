@@ -78,7 +78,7 @@ export default {
     pwdRules: [v => !!v || "Password is required"],
     msg: "",
     isSuccess: false,
-    isError:false,
+    isError: false,
     menu: false
   }),
   components: {
@@ -90,7 +90,9 @@ export default {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
+  created() {
 
+  },
   computed: {
     ...mapGetters({
       getLogin: "getLogin"
@@ -134,7 +136,7 @@ export default {
           .then(data => {
             // Result
             this.isSuccess = data.data.changePassword.success;
-            this.isError = !data.data.changePassword.success
+            this.isError = !data.data.changePassword.success;
             this.msg = data.data.changePassword.message;
           })
           .catch(error => {

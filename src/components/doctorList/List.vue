@@ -17,6 +17,7 @@
         :key="index"
         style="margin-bottom:20px"
       >
+       
         <doctor-card :doctor="doctor"/>
       </div>
       <div class="text-xs-center" style="padding-bottom:30px" v-if="searchDoctors.length>0">
@@ -54,6 +55,7 @@ const searchDoctorsQuery = gql`
       specialty
       experience
       academic
+      avatar
       workplace {
         id
         name
@@ -177,10 +179,6 @@ export default {
 
   methods: {
     ...mapActions(["actionSetDoctorForDoctorList"]),
-    getImgPath(imgName) {
-      let url = "@/assets/" + imgName;
-      return url;
-    },
     pagination(page, arr) {
       let newArr = arr.slice();
       let from = page * this.perpage - this.perpage;

@@ -245,6 +245,7 @@ export default {
       }
     }
   },
+  created() {},
   computed: {
     ...mapGetters({
       getLogin: "getLogin"
@@ -282,10 +283,7 @@ export default {
   methods: {
     ...mapActions(["actionSetLogin"]),
     clear() {},
-    check() {
-      if (this.$refs.form.validate()) {
-      }
-    },
+
     login() {
       this.$router.push("/login");
     },
@@ -298,38 +296,40 @@ export default {
       return date;
     },
     edit() {
-      let allergiesId = this.value.map(function(val) {
-        return val.id;
-      });
-
-      let patientInput = {
-        name: this.name,
-        gender: this.gender,
-        email: this.email,
-        phoneNo: this.phone,
-        dob: this.dob,
-        hkid: this.hkid,
-        allergies: allergiesId
-      };
-      this.$apollo
-        .mutate({
-          mutation: editPatinetMutation,
-          // Parameter
-          variables: {
-            data: patientInput,
-            id: this.getLogin.id
-          }
-        })
-        .then(data => {
-          // Result
-          console.log(data.data.editPatient);
-          this.actionSetLogin(data.data.editPatient);
-          this.$apollo.queries.patient.refetch();
-        })
-        .catch(error => {
-          // Error
-          console.error(error);
+      if (this.$refs.form.validate()) {
+        let allergiesId = this.value.map(function(val) {
+          return val.id;
         });
+
+        let patientInput = {
+          name: this.name,
+          gender: this.gender,
+          email: this.email,
+          phoneNo: this.phone,
+          dob: this.dob,
+          hkid: this.hkid,
+          allergies: allergiesId
+        };
+        this.$apollo
+          .mutate({
+            mutation: editPatinetMutation,
+            // Parameter
+            variables: {
+              data: patientInput,
+              id: this.getLogin.id
+            }
+          })
+          .then(data => {
+            // Result
+            console.log(data.data.editPatient);
+            this.actionSetLogin(data.data.editPatient);
+            this.$apollo.queries.patient.refetch();
+          })
+          .catch(error => {
+            // Error
+            console.error(error);
+          });
+      }
     }
   }
 };

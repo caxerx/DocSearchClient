@@ -115,9 +115,6 @@ export default {
     };
   },
   created: function() {
-    if (this.getLogin === null) {
-      this.$store.commit("setLoginDialog", true);
-    }
     this.$apollo.queries.patient.refetch();
   },
   apollo: {

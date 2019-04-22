@@ -54,6 +54,7 @@ const doctorQuery = gql`
       language
       specialty
       academic
+      avatar
       experience
       workplace {
         id
