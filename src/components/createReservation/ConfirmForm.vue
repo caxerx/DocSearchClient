@@ -99,18 +99,6 @@ export default {
         };
 
         this.actionSetReservationTypeAndNoteForCreateReservation(moreinf);
-
-        let createReservationInput = {
-          note: this.getter.reservation.note,
-          type: this.getter.reservation.type,
-          endTime: this.getter.reservation.endTime,
-          startTime: this.getter.reservation.startTime,
-          patientId: this.getter.reservation.patientId,
-          doctorId: this.getter.reservation.doctorId,
-          reserverId: this.getter.reservation.reserverId,
-          workplaceId: this.getter.reservation.workplaceId,
-          status: this.getter.reservation.status
-        };
         this.loadingDialog = true;
         this.$apollo
           .mutate({
@@ -119,7 +107,7 @@ export default {
             // Parameters
 
             variables: {
-              data:createReservationInput,
+              data:this.getter.reservation,
             }
           })
           .then(data => {

@@ -1,95 +1,66 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12 sm6 md4>
-      <v-menu
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        :return-value.sync="date"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="date"
-            label="Picker in menu"
-            prepend-icon="event"
-            readonly
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker v-model="date" no-title scrollable>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-        </v-date-picker>
-      </v-menu>
-    </v-flex>
-    <v-spacer></v-spacer>
-    <v-flex xs12 sm6 md4>
-      <v-dialog
-        ref="dialog"
-        v-model="modal"
-        :return-value.sync="date"
-        persistent
-        lazy
-        full-width
-        width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="date"
-            label="Picker in dialog"
-            prepend-icon="event"
-            readonly
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker v-model="date" scrollable>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-        </v-date-picker>
-      </v-dialog>
-    </v-flex>
-    <v-flex xs12 sm6 md4>
-      <v-menu
-        v-model="menu2"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="date"
-            label="Picker without buttons"
-            prepend-icon="event"
-            readonly
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
-      </v-menu>
-    </v-flex>
-    <v-spacer></v-spacer>
-  </v-layout>
+  <v-card class="grey lighten-4 elevation-0">
+    <v-card-text>
+      <v-container fluid>
+        <v-layout row wrap>
+          <v-flex xs12 sm6>
+            <v-subheader v-text="'Slots'"></v-subheader>
+          </v-flex>
+          <v-flex xs12 sm6>
+            <v-select
+              label="Select"
+              v-bind:items="people"
+              v-model="e11"
+              item-text="name"
+              item-value="name"
+              max-height="auto"
+              dense
+              attach
+              multiple
+              chips
+            >
+              <!-- <template slot="selection" scope="data">{{ data.item.name }} - {{data.item.group}}</template> -->
+              <template slot="item" scope="data">
+                  <v-list-tile-content>
+                    <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                    <v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>
+                  </v-list-tile-content>
+              </template>
+            </v-select>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      date: new Date().toISOString().substr(0, 10),
-      menu: false,
-      modal: false,
-      menu2: false
-    })
+export default {
+  data() {
+    let srcs = {
+      1: "/static/doc-images/lists/1.jpg",
+      2: "/static/doc-images/lists/2.jpg",
+      3: "/static/doc-images/lists/3.jpg",
+      4: "/static/doc-images/lists/4.jpg",
+      5: "/static/doc-images/lists/5.jpg"
+    };
+
+    return {
+      e11: [],
+      people: [
+        { header: "Group 1" },
+        { name: "Sandra Adams", group: "Group 1", avatar: srcs[1] },
+        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
+        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
+        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] },
+        { divider: true },
+        { header: "Group 2" },
+        { name: "Britta Holt", group: "Group 2", avatar: srcs[4] },
+        { name: "Jane Smith ", group: "Group 2", avatar: srcs[5] },
+        { name: "John Smith", group: "Group 2", avatar: srcs[1] },
+        { name: "Sandra Williams", group: "Group 2", avatar: srcs[3] }
+      ]
+    };
   }
+};
 </script>

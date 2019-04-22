@@ -47,6 +47,7 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 import LoginDialog from "@/components/dialog/loginDialog";
 import LoadingDialog from "@/components/dialog/loadingDialog";
+
 import gql from "graphql-tag";
 
 
@@ -110,10 +111,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionsSetLogin"]),
+    ...mapActions(["actionSetLogin"]),
     router(linkStr) {
       if (linkStr === "actionLogout") {
-        this.actionsSetLogin(null)
+        this.actionSetLogin(null)
         this.$router.push("/");
         this.$forceUpdate();
       } else {

@@ -22,7 +22,7 @@ export const mutations = {
     ["cancelReservationDialog"](state,val){
         state.dialog.cancelReservationDialog = val;
         // console.log(state.dialog.cancelReservationDialog )
-    }
+    },
 
 }
 

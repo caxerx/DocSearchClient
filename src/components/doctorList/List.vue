@@ -156,8 +156,13 @@ export default {
       } else if (gender === "F") {
         gender = "Female";
       }
+
+      let specialty = this.specialty;
+      if(this.specialty.includes("_")){
+        specialty =  this.specialty.split("_").join(" ")
+      }
       let str =
-        (this.specialty !== "" ? ", " + this.specialty : "") +
+        (this.specialty !== "" ? ", " + specialty : "") +
         (this.location !== "" ? ", " + this.location : "") +
         (this.language !== "" ? ", " + this.language : "") +
         (gender !== "" ? ", " + gender : "") +

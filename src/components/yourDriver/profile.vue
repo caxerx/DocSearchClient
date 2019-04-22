@@ -1,6 +1,14 @@
 <template>
-  <div v-if="!$apollo.loading">
-    <v-form slot="content" ref="form" height="100%" v-model="valid" lazy-validation>
+  <div>
+    <loading-dialog :dialog="dialog"/>
+    <v-form
+      slot="content"
+      ref="form"
+      height="100%"
+      v-model="valid"
+      lazy-validation
+      v-if="!$apollo.loading"
+    >
       <div>
         <!-- email -->
         <v-text-field
@@ -23,14 +31,10 @@
           v-model="name"
           required
         ></v-text-field>
-        <!-- gender -->
-        <!-- <v-radio-group v-model="row" row>
-          <v-icon>face</v-icon>
-      <v-radio label="Male" value="male"></v-radio>
-      <v-radio label="Female" value="female"></v-radio>
-        </v-radio-group>-->
+
         <!-- birthDayPicker -->
         <v-menu
+          ref="menu"
           :close-on-content-click="false"
           v-model="menu"
           :nudge-right="40"
@@ -38,19 +42,25 @@
           transition="scale-transition"
           offset-y
           full-width
-          max-width="290px"
           min-width="290px"
         >
           <v-text-field
             slot="activator"
-            v-model="newDob"
-            label="Date (read only text field)"
-            hint="YYYY-MM-DD format"
-            persistent-hint
+            name="dob"
+            type="text"
+            v-model="dob"
+            label="Birthday date"
+            :rules="dobRules"
             prepend-icon="event"
             readonly
           ></v-text-field>
-          <v-date-picker v-model="dob" no-title @input="menu = false"></v-date-picker>
+          <v-date-picker
+            ref="picker"
+            v-model="dob"
+            :max="new Date().toISOString().substr(0, 10)"
+            min="1950-01-01"
+            @change="save"
+          ></v-date-picker>
         </v-menu>
         <!-- phone -->
         <v-text-field
@@ -62,14 +72,64 @@
           v-model="phone"
           required
         ></v-text-field>
+
+        <!-- gender -->
+        <v-radio-group v-model="gender" row :mandatory="false">
+          <v-icon>face</v-icon>
+          <v-radio label="Male" value="male"></v-radio>
+          <v-radio label="Female" value="female"></v-radio>
+        </v-radio-group>
+        <v-text-field
+          prepend-icon="credit_card"
+          label="Hkid card"
+          hint="eg.R1234567(7)"
+          :rules="idcardRules"
+          v-model="hkid"
+          required
+        ></v-text-field>
+
+        <v-select
+          prepend-icon="subject"
+          v-model="value"
+          :items="items"
+          item-text="id"
+          return-object
+          dense
+          attach
+          chips
+          persistent-hint
+          hint="keep the field empty if you haven't allergy"
+          label="Allergies"
+          multiple
+          :menu-props="menuProps"
+        >
+        
+          <template slot="selection" slot-scope="data">
+            <v-chip
+              close
+              @input="data.parent.selectItem(data.item)"
+              :selected="data.selected"
+              class="chip--select-multi"
+              :key="JSON.stringify(data.item)"
+            >
+              <span>{{ data.item.name}}</span>
+            </v-chip>
+          </template>
+
+          <template slot="item" scope="data">
+            <v-list-tile-content>
+              <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="data.item.description"></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </template>
+        </v-select>
       </div>
 
       <span style="color:red">{{errMsg}}</span>
-      <br>
       <!-- <h1>FeedBack</h1> -->
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn outline right fab color="primary">
+        <v-btn outline right fab color="primary" @click="edit()">
           <v-icon>edit</v-icon>
         </v-btn>
       </v-card-actions>
@@ -81,9 +141,18 @@
 <script>
 import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
-import SmallContainer from "@/components/SmallContainer.vue";
+import LoadingDialog from "@/components/dialog/loadingDialog.vue";
 import gql from "graphql-tag";
 
+const allergiesQuery = gql`
+  query {
+    allergies {
+      id
+      name
+      description
+    }
+  }
+`;
 const profileQuery = gql`
   query($id: ID!) {
     patient(id: $id) {
@@ -95,35 +164,55 @@ const profileQuery = gql`
       hkid
       type
       username
+      allergies {
+        id
+        name
+        description
+      }
     }
   }
 `;
-
+const editPatinetMutation = gql`
+  mutation($data: PatientInput!, $id: ID!) {
+    editPatient(data: $data, id: $id) {
+      id
+      name
+      
+    }
+  }
+`;
 export default {
   data: () => ({
     editing: 0,
     valid: true,
-    newEmail: "",
-    newPhone: "",
-    newName: "",
-    newDob: "",
+    email: "",
+    phone: "",
+    name: "",
+    dob: "",
+    gender: "",
+    hkid: "",
     dobRules: [v => !!v || "Birthday is required"],
     pwdRules: [v => !!v || "Password is required"],
     nameRules: [v => !!v || "Name is required"],
     phoneRules: [v => !!v || "Phone is required"],
+    idcardRules: [v => !!v || "HKID CARD is required"],
     errMsg: "",
     menu: false,
-    modal: false
+    modal: false,
+    allergies: [],
+    items: [],
+    value: [],
+    menuProps: {
+      closeOnClick: false,
+      closeOnContentClick: false,
+      openOnClick: false,
+      maxHeight: 150
+    }
   }),
   components: {
-    SmallContainer
+    LoadingDialog
   },
 
-  watch: {
-    newDob: function(val) {
-      console.log(val);
-    }
-  },
   apollo: {
     patient: {
       query: profileQuery,
@@ -133,7 +222,22 @@ export default {
         };
       },
       update(data) {
+        this.name = data.patient.name;
+        this.phone = data.patient.phoneNo;
+        this.email = data.patient.email;
+        this.dob = this.formatDate(data.patient.dob);
+        this.gender = data.patient.gender;
+        this.hkid = data.patient.hkid;
+
+        this.value = data.patient.allergies;
         return data.patient;
+      }
+    },
+    allergies: {
+      query: allergiesQuery,
+      update(data) {
+        this.items = data.allergies;
+        return data.allergies;
       }
     }
   },
@@ -141,39 +245,16 @@ export default {
     ...mapGetters({
       getLogin: "getLogin"
     }),
-    dob: {
+    dialog: {
       get() {
-        let returnVal = this.formatDate(this.patient.dob);
-        this.newDob = returnVal;
-        return returnVal;
+        if (this.$apollo.loading) {
+          return true;
+        } else {
+          return false;
+        }
       },
       set(val) {
-        console.log(val);
-        this.newDob = val;
-      }
-    },
-    name: {
-      get() {
-        return this.patient.name;
-      },
-      set(val) {
-        this.newName = val;
-      }
-    },
-    phone: {
-      get() {
-        return this.patient.phoneNo;
-      },
-      set(val) {
-        this.newPhone = val;
-      }
-    },
-    email: {
-      get() {
-        return this.patient.email;
-      },
-      set(val) {
-        this.newEmail = val;
+        this.dialog = val;
       }
     },
     emailRules() {
@@ -204,7 +285,9 @@ export default {
       return returnFunction;
     }
   },
+
   methods: {
+    ...mapActions(["actionSetLogin"]),
     clear() {},
     check() {
       if (this.$refs.form.validate()) {
@@ -213,13 +296,47 @@ export default {
     login() {
       this.$router.push("/login");
     },
-    save() {
-      this.$refs.menu.save(newDob);
+    save(dob) {
+      this.$refs.menu.save(dob);
     },
     formatDate(d) {
       let moment = require("moment");
       let date = moment.utc(d).format("YYYY-MM-DD");
       return date;
+    },
+    edit() {
+      let allergiesId = this.value.map(function(val) {
+        return val.id;
+      });
+
+      let patientInput = {
+        name: this.name,
+        gender: this.gender,
+        email: this.email,
+        phoneNo: this.phone,
+        dob: this.dob,
+        hkid: this.hkid,
+        allergies: allergiesId
+      };
+      this.$apollo
+        .mutate({
+          mutation: editPatinetMutation,
+          // Parameter
+          variables: {
+            data: patientInput,
+            id: this.getLogin.id
+          }
+        })
+        .then(data => {
+          // Result
+         console.log(data.data.editPatient)
+          this.actionSetLogin(data.data.editPatient);
+          this.$apollo.queries.patient.refetch();
+        })
+        .catch(error => {
+          // Error
+          console.error(error);
+        });
     }
   }
 };

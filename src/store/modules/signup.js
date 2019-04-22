@@ -3,7 +3,17 @@
 const state = {
     signup: {
       
-      dob: "",
+      createPatientInput:{
+        name:"",
+        gender:"",
+        email:"",
+        phoneNo:"",
+        dob:"",
+        hkid:"",
+        password:"",
+        username:"",
+        allergies:[],
+      }
   
     }
   
@@ -16,17 +26,16 @@ const state = {
   
   
   const actions = {
-    actionSetDOBSignup({commit},dob){
-        commit("setDOBSignup",dob);
+    actionSetSignup({commit},obj){
+        commit("setSignup",obj);
     }
    
   
   }
   // mutations
   const mutations = {
-    setDOBSignup(state,dob){
-        state.signup.dob=dob;
-        console.log(state.signup.dob);
+    setSignup(state,obj){
+        state.signup.createPatientInput = obj;
     }
   }
   

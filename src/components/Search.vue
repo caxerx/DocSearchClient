@@ -20,16 +20,46 @@
     ></v-text-field>
     <v-layout wrap align-center>
       <v-flex xs12 sm3 d-flex class="selectbox">
-        <v-select :items="specialty" label="specialty" outline name="specialty" v-model="newSpecialty" color="white" ></v-select>
+        <v-select
+          :items="specialty"
+          label="specialty"
+          item-text="text"
+          item-value="value"
+          outline
+          name="specialty"
+          v-model="newSpecialty"
+          color="white"
+        ></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-        <v-select :items="location" label="location" outline name="location" color="white" v-model="newLocation" ></v-select>
+        <v-select
+          :items="location"
+          label="location"
+          outline
+          name="location"
+          color="white"
+          v-model="newLocation"
+        ></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-        <v-select :items="language" label="language" outline name="Language" color="white" v-model="newLanguage" ></v-select>
+        <v-select
+          :items="language"
+          label="language"
+          outline
+          name="Language"
+          color="white"
+          v-model="newLanguage"
+        ></v-select>
       </v-flex>
       <v-flex xs12 sm3 d-flex class="selectbox">
-        <v-select :items="gender" label="gender" outline name="Gender" color="white" v-model="newGender" ></v-select>
+        <v-select
+          :items="gender"
+          label="gender"
+          outline
+          name="Gender"
+          color="white"
+          v-model="newGender"
+        ></v-select>
       </v-flex>
     </v-layout>
   </v-form>
@@ -52,22 +82,63 @@ export default {
     password: "Password",
     show: false,
     marker: true,
-    specialty: ["General_Practice", "Cardiology", "Dentisry", "Dietetics"],
+     specialty: [
+        {
+          text: "General Practice",
+          value: "General_Practice"
+        },
+        {
+          text: "Cardiology",
+          value: "Cardiology"
+        },
+        {
+          text: "Dentisry",
+          value: "Dentisry"
+        },
+        {
+          text: "Dietetics",
+          value: "Dietetics"
+        }
+      ],
     location: ["Kowloon", "Hong Kong", "New Territories"],
     language: ["Chinese", "English"],
     gender: ["Male", "Female"],
-    newSpecialty:"",
-    newLocation:"",
-    newLanguage:"",
-    newGender:"",
-    newKeyword:"",
+    newSpecialty: "",
+    newLocation: "",
+    newLanguage: "",
+    newGender: "",
+    newKeyword: ""
   }),
 
   components: {
     Container,
     SmallContainer
   },
+  created: function() {
+    window.addEventListener("keyup", this.keyup);
+  },
+  destroyed: function() {
+    window.removeEventListener("keyup", this.keyup);
+  },
+  computed: {
+    ...mapGetters({
+      getDialog: "getDialog"
+    }),
 
+    loginDialog() {
+      return this.getDialog.login;
+    }
+  },
+  watch: {
+    loginDialog:function(val){
+      console.log(val);
+      if (val) {
+        window.removeEventListener("keyup", this.keyup);
+      } else {
+        window.addEventListener("keyup", this.keyup);
+      }
+    }
+  },
   methods: {
     ...mapActions([
       "actionSearchGenderForDoctorList",
@@ -114,6 +185,12 @@ export default {
     },
     searchLanguage() {
       this.actionSearchLanguageForDoctorList(this.newLanguage);
+    },
+    keyup() {
+      console.log(event.keyCode);
+      if (event.keyCode === 13) {
+        this.sendMessage();
+      }
     }
   }
 };

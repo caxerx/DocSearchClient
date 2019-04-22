@@ -8,14 +8,16 @@
         :rules="nameRules"
         v-model="name"
         required
+        v-on:keyup.enter="check()"
       ></v-text-field>
       <v-text-field
         prepend-icon="lock"
         name="password"
         label="Password"
         type="password"
-         :rules="pwdRules"
+        :rules="pwdRules"
         v-model="pwd"
+        v-on:keyup.enter="check()"
       ></v-text-field>
 
       <span style="color:red" v-if="!success">{{errMsg}}</span>
@@ -27,7 +29,6 @@
           style="width:100%"
           :disabled="dialog"
           :loading="dialog"
-         
           class="white--text"
           color="primary"
         >Login</v-btn>
@@ -55,6 +56,7 @@ const patientLoginQuery = gql`
       patient {
         id
         name
+        
       }
     }
   }
@@ -71,6 +73,7 @@ export default {
     success: false,
     skipQuery: true
   }),
+
   components: { LoadingDialog },
 
   apollo: {
@@ -92,7 +95,7 @@ export default {
         this.errMsg = data.patientLogin.message;
         this.$apollo.queries.patientLogin.skip = true;
         if (data.patientLogin.success) {
-          this.actionsSetLogin(data.patientLogin.patient);
+          this.actionSetLogin(data.patientLogin.patient);
           this.$store.commit("setLoginDialog", false);
         }
         return data.patientLogin;
@@ -103,6 +106,7 @@ export default {
     ...mapGetters({
       getDialog: "getDialog"
     }),
+
     loginDialog() {
       return this.getDialog.login;
     },
@@ -121,18 +125,12 @@ export default {
   },
   watch: {},
   methods: {
-    ...mapActions(["actionsSetLogin"]),
+    ...mapActions(["actionSetLogin"]),
     clear() {},
     check() {
       this.errMsg = "";
       if (this.$refs.form.validate()) {
         this.$apollo.queries.patientLogin.skip = false;
-        // if (this.success) {
-        //   this.actionsSetLogin(this.patientLogin.patient);
-        //   this.$store.commit("setLoginDialog", false);
-        // } else {
-        //   this.success = false;
-        // }
       }
     },
     signUp() {

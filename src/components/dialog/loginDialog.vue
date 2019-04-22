@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="500" :value="dialog" persistent >
+  <v-dialog width="550" :value="dialog" persistent @keyup.prevent>
     <v-card>
       <v-card-title class="headline primary" primary-title>
         <v-tabs v-model="active" color="transparent" dark slider-color="yellow">
@@ -7,9 +7,7 @@
         </v-tabs>
         <v-spacer/>
         <v-btn dark flat icon @click="closeDialog()">
-        <v-icon> 
-          clear
-        </v-icon>
+          <v-icon>clear</v-icon>
         </v-btn>
       </v-card-title>
 
@@ -28,40 +26,37 @@ import Login from "@/pages/Login";
 import SignUp from "@/pages/SignUp";
 import { mapGetters, mapActions, mapState } from "vuex";
 export default {
-  data() {
-    return {
-      search: "",
-      active: 0,
-      types: ["Login", "Sign Up"]
-    };
-  },
-  props:{
-    
-  },
+  data: () => ({
+    search: "",
+    active: 0,
+    types: ["Login", "Sign Up"]
+  }),
+  props: {},
+
   components: {
     Login,
     SignUp
   },
   computed: {
     ...mapGetters({
-      getDialog:"getDialog"
+      getDialog: "getDialog"
     }),
 
-    dialog(){
-      return this.getDialog.login
+    dialog() {
+      return this.getDialog.login;
     }
   },
-  watch:{
-    dialog:function(val){
-      if(!val){
-        this.active=-1;
+  watch: {
+    dialog: function(val) {
+      if (!val) {
+        this.active = 0;
       }
     }
   },
   methods: {
-    closeDialog(){
-      this.$store.commit("setLoginDialog",false)
+    closeDialog() {
+      this.$store.commit("setLoginDialog", false);
     }
-  }
+  },
 };
 </script>

@@ -49,6 +49,14 @@
             <v-icon small>access_time</v-icon>
             <span>&nbsp;Available Today</span>
           </div>
+          <div>
+            <v-icon small>local_phone</v-icon>
+            <span>&nbsp;{{doctor.phoneNo}}</span>
+          </div>
+          <div>
+            <v-icon small>email</v-icon>
+            <span>&nbsp;{{doctor.email}}</span>
+          </div>
         </v-card-text>
       </v-flex>
 
@@ -58,28 +66,10 @@
         <v-btn color="primary" @click="linkProfile(doctor.id)">
           <v-icon>person</v-icon>Profile
         </v-btn>
-        <v-btn color="primary" @click="show=!show">
-          <v-icon>local_phone</v-icon>Contact Clinc
-        </v-btn>
         <v-btn color="primary" @click="linkReservation(doctor.id)">
           <v-icon>add</v-icon>Create Reservation
         </v-btn>
       </v-card-actions>
-
-      <!-- hidden contact -->
-      <v-slide-y-transition>
-        <v-card-text v-if="show">
-          <hr>
-          <div>
-            <v-icon>local_phone</v-icon>
-            {{doctor.phoneNo}}
-          </div>
-          <div>
-            <v-icon>email</v-icon>
-            {{doctor.email}}
-          </div>
-        </v-card-text>
-      </v-slide-y-transition>
     </v-layout>
   </v-card>
 </template>

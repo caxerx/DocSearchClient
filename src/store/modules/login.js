@@ -12,8 +12,11 @@ const state = {
   
   
   const actions = {
-    actionsSetLogin({commit},val){
+    actionSetLogin({commit},val){
         commit("setLogin",val);
+    },
+    actionSetLoginName({commit},val){
+      commit("setLoginName",val);
     }
    
   
@@ -23,6 +26,12 @@ const state = {
     setLogin(state,val){
        state.login = val;
        console.log(state.login)
+    },
+    setLoginName(state,val){
+      if(state.login!==null){
+        state.login.name = val;
+        console.log(state.login)
+      }
     }
   }
   
