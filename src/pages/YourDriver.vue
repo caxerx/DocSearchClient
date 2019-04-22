@@ -1,6 +1,6 @@
 <template>
-  <container>
-    <div slot="content" id="contentasdasd" ref="content">
+  <container v-if="this.getLogin.id!==null ">
+    <div slot="content" id="contentasdasd" ref="content" >
       <v-toolbar color="white" flat id="toolbar">
         <!-- <v-layout row fill-height> -->
         <v-flex sm2>
@@ -10,11 +10,11 @@
         <!-- <v-flex sm1> -->
         <img src="@/assets/icon-person.png" class="px-0">
         <!-- </v-flex> -->
-          <v-flex sm7 class="text-xs-left" style="padding-left:5px" v-if="patient!=null">
-            <span class="headline">{{patient.name}}</span>
-            <br>
-            <span class="grey--text">{{patient.phoneNo}}, {{patient.email}}</span>
-          </v-flex>
+        <v-flex sm7 class="text-xs-left" style="padding-left:5px" v-if="patient!=null">
+          <span class="headline">{{patient.name}}</span>
+          <br>
+          <span class="grey--text">{{patient.phoneNo}}, {{patient.email}}</span>
+        </v-flex>
         <!-- </v-layout> -->
       </v-toolbar>
       <v-layout row wrap id="layout">
@@ -55,6 +55,11 @@ export default {
       height: ""
     };
   },
+  created() {
+    if (this.getLogin.id === null) {
+      this.$store.commit("setLoginDialog", true);
+    }
+  },
   apollo: {
     patient: {
       query: patientQuery,
@@ -72,7 +77,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      getLogin:"getLogin"
+      getLogin: "getLogin"
     }),
     routerHeight() {
       return this.height + "px";

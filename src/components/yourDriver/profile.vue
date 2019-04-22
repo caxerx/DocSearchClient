@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <v-progress-circular
       width="5"
       size="50"
@@ -244,6 +244,9 @@ export default {
         return data.allergies;
       }
     }
+  },
+  created() {
+
   },
   computed: {
     ...mapGetters({
