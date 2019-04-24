@@ -13,7 +13,7 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>About us</v-btn>
+        <v-btn flat @click="router(aboutus.link)">About us</v-btn>
         <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
         <v-btn flat>download our app</v-btn>
       </v-toolbar-items>
@@ -58,6 +58,7 @@ export default {
     return {
       //
       skipQuery: true,
+      aboutus: {title:"About us", link:"aboutus"},
       feedBack: { title: "FeedBack", link: "feedBack" },
       signIn: { title: "sign-in", link: "login" },
       docSearch: { title: "DocSearch", link: "" },

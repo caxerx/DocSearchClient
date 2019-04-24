@@ -15,6 +15,7 @@ import DoctorList from './pages/DoctorList.vue'
 import YourDriver from './pages/YourDriver.vue'
 import EditProfile from './pages/EditProfile.vue'
 import ChangePassword from './pages/ChangePassword'
+import AboutUs from './pages/AboutUs'
 
 
 Vue.use(Router)
@@ -30,6 +31,11 @@ export default new Router({
       path: '/feedBack',
       name: 'feedBack',
       component: FeedBack
+    },
+    {
+      path: '/aboutus',
+      name: 'aboutus',
+      component: AboutUs
     },
     {
       path: '/viewReservation',
