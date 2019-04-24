@@ -8,7 +8,8 @@
       </v-card>
       <v-card
         dark
-        img="https://www.website.com//img/skin/aboutus/aboutUs_hero.png"
+        :img="image"
+        class="bgImage"
         style="height:700px"
       >
         <v-layout justify-center align-center>
@@ -28,13 +29,15 @@
 
 <script>
 export default {
-  components: {}
+  data:()=>({
+    image:require("@/assets/aboutUs_hero.png"),
+  }),
+  components: {
+
+  }
 };
 </script>
 
 <style scoped>
-.text {
-  background-image: url("/assets/aboutUs_hero.png");
-  background-color: #cccccc;
-}
+
 </style>
