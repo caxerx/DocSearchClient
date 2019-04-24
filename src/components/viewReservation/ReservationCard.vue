@@ -18,22 +18,10 @@
             <div
               class="grey--text"
             >{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}} , {{upperFirstChar(reservation.type)}}</div>
-            <div
-              v-if="reservation.status==='waiting'"
-              class="error--text"
-            >{{upperFirstChar(reservation.status)}}</div>
-            <div
-              v-if="reservation.status==='pending'"
-              class="error--text"
-            >{{upperFirstChar(reservation.status)}}</div>
-            <div
-              v-if="reservation.status==='checked_in'"
-              class="success--text"
-            >{{upperFirstChar(reservation.status)}}</div>
-            <div
-              v-if="reservation.status==='expired'"
-              class="grey--text"
-            >{{upperFirstChar(reservation.status)}}</div>
+            <div v-if="reservation.status==='waiting'" class="error--text">Waiting</div>
+            <div v-if="reservation.status==='pending'" class="error--text">Pending</div>
+            <div v-if="reservation.status==='checked_in'" class="success--text">Check-in</div>
+            <div v-if="reservation.status==='expired'" class="grey--text">Expired</div>
           </v-card-text>
         </v-flex>
         <v-flex sm2 offset-sm1>
@@ -85,9 +73,10 @@ export default {
     },
 
     nothing() {},
+
     upperFirstChar(s) {
       return s.charAt(0).toUpperCase() + s.slice(1);
-    }
+    },
   }
 };
 </script>
