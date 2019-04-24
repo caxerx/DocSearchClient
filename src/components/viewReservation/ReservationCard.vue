@@ -29,7 +29,7 @@
             <div
               v-if="reservation.status==='checked_in'"
               class="success--text"
-            >{{reservation.status}}</div>
+            >{{upperFirstChar(reservation.status)}}</div>
             <div
               v-if="reservation.status==='expired'"
               class="grey--text"
