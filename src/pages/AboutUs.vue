@@ -14,7 +14,7 @@
         <v-layout justify-center align-center>
           <v-flex sm8>
             <v-container>
-              <v-card-text class="display-1 font-weight-light">
+              <v-card-text class="display-1 font-weight-light" style="text-align:center">
                 DocSearch provide a platform for people to search for medical information such as doctor information and health information, and efficient way to book their services.
                 Also, we provide a brand new way to see doctor, Online consultation which can provide a more convenient way to do the consultation.
               </v-card-text>
@@ -34,7 +34,7 @@ export default {
 
 <style scoped>
 .text {
-  background-image: url("https://www.website.com//img/skin/aboutus/aboutUs_hero.png");
+  background-image: url("/assets/aboutUs_hero.png");
   background-color: #cccccc;
 }
 </style>
