@@ -10,7 +10,7 @@
       <container>
         <v-flex slot="content" id="medicalInfoTitle" class="display-3">Medical Information</v-flex>
         <v-flex slot="content">
-          <v-flex v-for="item in items" :key="item" style="padding-bottom: 20px">
+          <v-flex v-for="(item,index) in items" :key="index" style="padding-bottom: 20px">
             <v-layout>
               <v-flex xs2>
                 <v-img

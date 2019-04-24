@@ -85,8 +85,8 @@
         <!-- gender -->
         <v-radio-group v-model="gender" row :mandatory="false">
           <v-icon>face</v-icon>
-          <v-radio label="Male" value="male"></v-radio>
-          <v-radio label="Female" value="female"></v-radio>
+          <v-radio label="Male" value="M"></v-radio>
+          <v-radio label="Female" value="F"></v-radio>
         </v-radio-group>
         <v-text-field
           prepend-icon="credit_card"
@@ -96,7 +96,7 @@
           v-model="hkid"
           required
         ></v-text-field>
-
+        <!-- 
         <v-select
           prepend-icon="subject"
           v-model="value"
@@ -107,15 +107,13 @@
           attach
           chips
           persistent-hint
-          hint="keep the field empty if you haven't allergy"
           label="Allergies"
           multiple
+          disabled
           :menu-props="menuProps"
         >
           <template slot="selection" slot-scope="data">
             <v-chip
-              close
-              @input="data.parent.selectItem(data.item)"
               :selected="data.selected"
               class="chip--select-multi"
               :key="JSON.stringify(data.item)"
@@ -130,7 +128,7 @@
               <v-list-tile-sub-title v-html="data.item.description"></v-list-tile-sub-title>
             </v-list-tile-content>
           </template>
-        </v-select>
+        </v-select>-->
       </div>
 
       <span style="color:red">{{errMsg}}</span>
@@ -151,15 +149,6 @@ import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
 import gql from "graphql-tag";
 
-const allergiesQuery = gql`
-  query {
-    allergies {
-      id
-      name
-      description
-    }
-  }
-`;
 const profileQuery = gql`
   query($id: ID!) {
     patient(id: $id) {
@@ -171,11 +160,6 @@ const profileQuery = gql`
       hkid
       type
       username
-      allergies {
-        id
-        name
-        description
-      }
     }
   }
 `;
@@ -184,6 +168,7 @@ const editPatinetMutation = gql`
     editPatient(data: $data, id: $id) {
       id
       name
+      gender
     }
   }
 `;
@@ -195,7 +180,7 @@ export default {
     phone: "",
     name: "",
     dob: "",
-    gender: "",
+    gender: "M",
     hkid: "",
     dobRules: [v => !!v || "Birthday is required"],
     pwdRules: [v => !!v || "Password is required"],
@@ -205,15 +190,6 @@ export default {
     errMsg: "",
     menu: false,
     modal: false,
-    allergies: [],
-    items: [],
-    value: [],
-    menuProps: {
-      closeOnClick: false,
-      closeOnContentClick: false,
-      openOnClick: false,
-      maxHeight: 150
-    }
   }),
   components: {},
 
@@ -232,20 +208,13 @@ export default {
         this.dob = this.formatDate(data.patient.dob);
         this.gender = data.patient.gender;
         this.hkid = data.patient.hkid;
-
-        this.value = data.patient.allergies;
         return data.patient;
-      }
-    },
-    allergies: {
-      query: allergiesQuery,
-      update(data) {
-        this.items = data.allergies;
-        return data.allergies;
       }
     }
   },
-  created() {},
+  created() {
+    this.$apollo.queries.patient.refetch();
+  },
   computed: {
     ...mapGetters({
       getLogin: "getLogin"
@@ -281,7 +250,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionSetLogin"]),
+    ...mapActions(["actionSetLogin", "actionSetLogout"]),
     clear() {},
 
     login() {
@@ -297,18 +266,13 @@ export default {
     },
     edit() {
       if (this.$refs.form.validate()) {
-        let allergiesId = this.value.map(function(val) {
-          return val.id;
-        });
-
         let patientInput = {
           name: this.name,
           gender: this.gender,
           email: this.email,
           phoneNo: this.phone,
           dob: this.dob,
-          hkid: this.hkid,
-          allergies: allergiesId
+          hkid: this.hkid
         };
         this.$apollo
           .mutate({
@@ -321,9 +285,9 @@ export default {
           })
           .then(data => {
             // Result
-            console.log(data.data.editPatient);
-            this.actionSetLogin(data.data.editPatient);
-            this.$apollo.queries.patient.refetch();
+            console.log(this.$apollo.queries);
+            this.$router.push("/");
+            this.actionSetLogout();
           })
           .catch(error => {
             // Error

@@ -17,14 +17,23 @@
             <div class="headline">Dr. {{reservation.doctor.name}}</div>
             <div
               class="grey--text"
-            >{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}}</div>
-            <div v-if="reservation.status==='waiting'" class="error--text">{{reservation.status}}</div>
-            <div v-if="reservation.status==='pending'" class="error--text">{{reservation.status}}</div>
+            >{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}} , {{upperFirstChar(reservation.type)}}</div>
+            <div
+              v-if="reservation.status==='waiting'"
+              class="error--text"
+            >{{upperFirstChar(reservation.status)}}</div>
+            <div
+              v-if="reservation.status==='pending'"
+              class="error--text"
+            >{{upperFirstChar(reservation.status)}}</div>
             <div
               v-if="reservation.status==='checked_in'"
               class="success--text"
             >{{reservation.status}}</div>
-            <div v-if="reservation.status==='expired'" class="grey--text">{{reservation.status}}</div>
+            <div
+              v-if="reservation.status==='expired'"
+              class="grey--text"
+            >{{upperFirstChar(reservation.status)}}</div>
           </v-card-text>
         </v-flex>
         <v-flex sm2 offset-sm1>
@@ -75,7 +84,10 @@ export default {
       this.$store.commit("cancelReservationDialog", true);
     },
 
-    nothing() {}
+    nothing() {},
+    upperFirstChar(s) {
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
   }
 };
 </script>

@@ -3,7 +3,7 @@
     <v-select
       :items="specialty"
       class="select white-text"
-      label="specialty"
+      label="Specialty"
       item-text="text"
       item-value="value"
       @change="searchSpecialty"
@@ -13,7 +13,7 @@
       <v-select
         :items="location"
         class="select"
-        label="locations"
+        label="Locations"
         @change="searchLocation"
         v-model="selected"
       ></v-select>
@@ -22,7 +22,7 @@
       <v-select
         :items="language"
         class="select"
-        label="language"
+        label="Language"
         @change="searchLanguage"
         v-model="selected"
       ></v-select>
@@ -31,7 +31,7 @@
       <v-select
         :items="gender"
         class="select"
-        label="gender"
+        label="Gender"
         @change="searchGender"
         v-model="selected"
       ></v-select>

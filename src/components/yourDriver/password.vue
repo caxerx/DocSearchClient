@@ -37,7 +37,10 @@
     <br>
 
     <v-card-actions>
-      <v-btn @click="confirmChPwd" style="width:100%" color="primary">Confirm</v-btn>
+      <v-btn @click="confirmChPwd" style="width:100%" color="primary" 
+      :loading="loading"
+      :disabled="loading"
+      >Confirm</v-btn>
     </v-card-actions>
   </v-form>
 </template>
@@ -48,6 +51,7 @@ import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
 import SmallContainer from "@/components/SmallContainer.vue";
 import gql from "graphql-tag";
+import { locale } from 'moment';
 
 const changePwdMutation = gql`
   mutation(
@@ -69,6 +73,7 @@ const changePwdMutation = gql`
 `;
 
 export default {
+   
   data: () => ({
     valid: true,
 
@@ -90,14 +95,14 @@ export default {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
-  created() {
-
-  },
+  created() {},
   computed: {
     ...mapGetters({
       getLogin: "getLogin"
     }),
-
+    loading(){
+      return this.$apollo.loading;
+    },
     confirmPwdRules() {
       var returnFunction = [];
       var pwd = this.npwd;
@@ -116,6 +121,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["actionSetLogout"]),
     clear() {},
     confirmChPwd() {
       if (this.$refs.form.validate()) {
@@ -138,6 +144,13 @@ export default {
             this.isSuccess = data.data.changePassword.success;
             this.isError = !data.data.changePassword.success;
             this.msg = data.data.changePassword.message;
+            if (!this.isError) {
+              
+              this.$router.push("/");
+              this.actionSetLogout();
+             
+              
+            }
           })
           .catch(error => {
             // Error

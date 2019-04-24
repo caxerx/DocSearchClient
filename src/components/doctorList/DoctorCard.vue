@@ -18,6 +18,12 @@
         </v-card-text>
         <v-card-text>
           <h3 class="font-weight-bold">{{doctor.workplace.name}}</h3>
+          <div>
+            <span>{{doctor.phoneNo}}</span>
+          </div>
+          <div>
+            <span>{{doctor.email}}</span>
+          </div>
         </v-card-text>
       </v-flex>
 
@@ -38,14 +44,6 @@
           <div>
             <v-icon small>access_time</v-icon>
             <span>&nbsp;Available Today</span>
-          </div>
-          <div>
-            <v-icon small>local_phone</v-icon>
-            <span>&nbsp;{{doctor.phoneNo}}</span>
-          </div>
-          <div>
-            <v-icon small>email</v-icon>
-            <span>&nbsp;{{doctor.email}}</span>
           </div>
         </v-card-text>
       </v-flex>

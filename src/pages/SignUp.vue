@@ -59,8 +59,8 @@
           <!-- gender -->
           <v-radio-group v-model="gender" row :mandatory="false">
             <v-icon>face</v-icon>
-            <v-radio label="Male" value="male"></v-radio>
-            <v-radio label="Female" value="female"></v-radio>
+            <v-radio label="Male" value="M"></v-radio>
+            <v-radio label="Female" value="F"></v-radio>
           </v-radio-group>
 
           <!-- birthDayPicker -->
@@ -153,7 +153,7 @@ export default {
     cpwd: "",
     name: "",
     dob: "",
-    gender: "male",
+    gender: "M",
     username: "",
     hkid: "",
     idcardRules: [v => !!v || "HKID CARD is required"],

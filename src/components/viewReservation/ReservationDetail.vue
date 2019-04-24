@@ -19,7 +19,7 @@
     <v-card flat class="card">
       <v-container>
         <v-card-text class="text-sm-center">
-          <img src="@/assets/icon-person.png" id="icon">
+          <img :src="computedAvatar(reservation.doctor.avatar)" id="icon">
           <div class="grey--text">{{reservation.doctor.type}}</div>
           <div class="font-weight-black">Dr. {{reservation.doctor.name}}</div>
           <div class="grey--text">Clinc</div>
@@ -80,8 +80,8 @@
         <div class="grey--text">Reservation ID:</div>
         <div class="font-weight-black">{{reservation.id}}</div>
         <span v-if="reservation.note!==''">
-        <div class="grey--text">Reservation Note:</div>
-        <div class="font-weight-black">{{reservation.note}}</div>
+          <div class="grey--text">Reservation Note:</div>
+          <div class="font-weight-black">{{reservation.note}}</div>
         </span>
       </v-card-text>
 
@@ -122,6 +122,12 @@ export default {
       this.actionSetIsDetailPageFromViewReservation(true);
       this.actionSetIdFromViewReservation(reservation.id);
       this.$store.commit("cancelReservationDialog", true);
+    },
+    computedAvatar(avatar) {
+      if (avatar === "" ||avatar === undefined) {
+        return require("@/assets/icon-person.png");
+      }
+      return "https://dsapi.1lo.li/assets/avatars/" + avatar;
     },
     nothing() {}
   }

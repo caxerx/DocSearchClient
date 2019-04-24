@@ -94,6 +94,7 @@ const reservationQuery = gql`
         id
         doctor {
           name
+          avatar
         }
         note
         startTime

@@ -19,19 +19,11 @@
         v-model="pwd"
         v-on:keyup.enter="check()"
       ></v-text-field>
-
-      <span style="color:red" v-if="!success">{{errMsg}}</span>
+      <span style="color:red">{{message}}</span>
       <br>
       <!-- <h1>FeedBack</h1> -->
       <v-card-actions>
-        <v-btn
-          @click="check()"
-          style="width:100%"
-          :disabled="dialog"
-          :loading="dialog"
-          class="white--text"
-          color="primary"
-        >Login</v-btn>
+        <v-btn @click="check()" style="width:100%" class="white--text" color="primary">Login</v-btn>
       </v-card-actions>
       <p>
         <v-btn small flat color="secondary">Forgot Password?</v-btn>
@@ -56,7 +48,6 @@ const patientLoginQuery = gql`
       patient {
         id
         name
-        
       }
     }
   }
@@ -69,31 +60,26 @@ export default {
     nameRules: [v => !!v || "Name is required"],
     pwd: "",
     pwdRules: [v => !!v || "Password is required"],
-    errMsg: "",
-    success: false,
-    skipQuery: true
+    message: ""
   }),
 
   components: { LoadingDialog },
-
+  created() {
+    this.$apollo.queries.patientLogin.stop();
+  },
   apollo: {
     // Query with parameters
-
     patientLogin: {
       query: patientLoginQuery,
       variables() {
         return {
-          username: this.name,
-          password: this.pwd
+          username: "",
+          password: ""
         };
       },
-      skip() {
-        return this.skipQuery;
-      },
       update(data) {
-        this.success = data.patientLogin.success;
-        this.errMsg = data.patientLogin.message;
-        this.$apollo.queries.patientLogin.skip = true;
+     
+        this.message = data.patientLogin.message
         if (data.patientLogin.success) {
           this.actionSetLogin(data.patientLogin.patient);
           this.$store.commit("setLoginDialog", false);
@@ -102,6 +88,7 @@ export default {
       }
     }
   },
+
   computed: {
     ...mapGetters({
       getDialog: "getDialog"
@@ -109,28 +96,32 @@ export default {
 
     loginDialog() {
       return this.getDialog.login;
-    },
-    dialog: {
-      get() {
-        if (this.$apollo.loading) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      set(val) {
-        this.dialog = val;
-      }
     }
+    // dialog: {
+    //   get() {
+    //     if (this.$apollo.loading) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   },
+    //   set(val) {
+    //     this.dialog = val;
+    //   }
+    // }
   },
   watch: {},
   methods: {
     ...mapActions(["actionSetLogin"]),
     clear() {},
     check() {
-      this.errMsg = "";
+      
       if (this.$refs.form.validate()) {
-        this.$apollo.queries.patientLogin.skip = false;
+         this.$apollo.queries.patientLogin.start();
+        this.$apollo.queries.patientLogin.refetch({
+          username: this.name,
+          password: this.pwd
+        });
       }
     },
     signUp() {
@@ -139,3 +130,4 @@ export default {
   }
 };
 </script>
+

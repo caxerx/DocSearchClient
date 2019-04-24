@@ -19,6 +19,12 @@
         </v-card-text>
         <v-card-text>
           <h3 class="font-weight-bold">{{doctor.workplace.name}}</h3>
+          <div>
+            <span>{{doctor.phoneNo}}</span>
+          </div>
+          <div>
+            <span>{{doctor.email}}</span>
+          </div>
         </v-card-text>
       </v-flex>
 
