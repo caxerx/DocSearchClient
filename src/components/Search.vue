@@ -22,7 +22,7 @@
       <v-flex xs12 sm3 d-flex class="selectbox">
         <v-select
           :items="specialty"
-          label="specialty"
+          label="Specialty"
           item-text="text"
           item-value="value"
           outline
@@ -34,7 +34,7 @@
       <v-flex xs12 sm3 d-flex class="selectbox">
         <v-select
           :items="location"
-          label="location"
+          label="Location"
           outline
           name="location"
           color="white"
@@ -44,7 +44,7 @@
       <v-flex xs12 sm3 d-flex class="selectbox">
         <v-select
           :items="language"
-          label="language"
+          label="Language"
           outline
           name="Language"
           color="white"
@@ -54,7 +54,7 @@
       <v-flex xs12 sm3 d-flex class="selectbox">
         <v-select
           :items="gender"
-          label="gender"
+          label="Gender"
           outline
           name="Gender"
           color="white"
