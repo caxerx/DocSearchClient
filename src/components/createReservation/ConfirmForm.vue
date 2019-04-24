@@ -13,7 +13,7 @@
         <v-text-field solo v-model="note" hint="reservation reason or other things"></v-text-field>
         <div class="body-2">Type:</div>
         <v-radio-group v-model="type" :rules="typeRules" :mandatory="false">
-          <v-radio label="Clinc Consultation" value="clinc"></v-radio>
+          <v-radio label="Clinic Consultation" value="clinic"></v-radio>
           <v-radio label="Online Consultation" value="online"></v-radio>
         </v-radio-group>
 

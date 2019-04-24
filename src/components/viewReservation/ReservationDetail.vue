@@ -22,7 +22,7 @@
           <img :src="computedAvatar(reservation.doctor.avatar)" id="icon">
           <div class="grey--text">{{reservation.doctor.type}}</div>
           <div class="font-weight-black">Dr. {{reservation.doctor.name}}</div>
-          <div class="grey--text">Clinc</div>
+          <div class="grey--text">Clinic</div>
           <div class="font-weight-black">{{reservation.workplace.name}}</div>
         </v-card-text>
 
@@ -36,7 +36,7 @@
           </v-flex>
           <v-flex sm4>
             <v-layout justify-center>
-              <v-btn outline color="primary">Call Clinc</v-btn>
+              <v-btn outline color="primary">Call Clinic</v-btn>
             </v-layout>
           </v-flex>
           <v-flex sm4>
@@ -48,7 +48,7 @@
         <v-card-actions v-else>
           <v-flex sm6>
             <v-layout justify-center>
-              <v-btn outline color="primary">Call Clinc</v-btn>
+              <v-btn outline color="primary">Call Clinic</v-btn>
             </v-layout>
           </v-flex>
           <v-flex sm6>
@@ -85,7 +85,7 @@
         </span>
       </v-card-text>
 
-      <img v-if="reservation.type=='clinc'" src="@/assets/qr-code.png" id="qrCode">
+      <qrcode-vue v-if="reservation.type=='clinic'" id="qrCode" :value="base64Str"></qrcode-vue>
     </v-card>
   </div>
 </template>
@@ -93,18 +93,34 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+import QrcodeVue from 'qrcode.vue';
+
 export default {
   data() {
     return {
-      search: ""
+      search: "",
+      base64Str:"",
     };
   },
   props: {
     reservation: Object
   },
-  components: {},
+  created() {
+    let dId = this.reservation.doctor.id;
+    let pId = this.getLogin.id;
+    let wId = this.reservation.workplace.id;
+    let rId = this.reservation.id;
+    let type = this.reservation.type;
+    let s = this.convertToBase64(dId,pId,wId,rId,type);
+    this.base64Str = s;
+  },
+  components: {
+    QrcodeVue
+  },
   computed: {
-    ...mapGetters({})
+    ...mapGetters({
+      getLogin:"getLogin"
+    })
   },
 
   methods: {
@@ -124,12 +140,17 @@ export default {
       this.$store.commit("cancelReservationDialog", true);
     },
     computedAvatar(avatar) {
-      if (avatar === "" ||avatar === undefined) {
+      if (avatar === "" || avatar === undefined) {
         return require("@/assets/icon-person.png");
       }
       return "https://dsapi.1lo.li/assets/avatars/" + avatar;
     },
-    nothing() {}
+    nothing() {},
+    convertToBase64(dId, pId, wId, rId, type) {
+      let str = '['+dId+', '+pId+', '+wId+', '+rId+', "'+type+'"]';
+      console.log(str);
+      return btoa(str);
+    }
   }
 };
 </script>
@@ -143,7 +164,8 @@ export default {
 }
 
 #qrCode {
-  width: 200px;
+  width: 300px;
+  padding-left:15px;
 }
 </style>
 

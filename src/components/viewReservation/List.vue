@@ -19,7 +19,7 @@
             class="grey--text"
             style="padding-left:16px"
             v-if="active===1"
-          >Clinc Reservation List</span>
+          >Clinic Reservation List</span>
           <span
             class="grey--text"
             style="padding-left:16px"
@@ -29,7 +29,7 @@
         <v-layout justify-end>
           <v-tabs v-model="active" color="transparent" slider-color="transparent">
             <v-tab>All</v-tab>
-            <v-tab>Clinc</v-tab>
+            <v-tab>Clinic</v-tab>
             <v-tab>Online</v-tab>
           </v-tabs>
         </v-layout>
@@ -49,7 +49,7 @@
       </div>
       <div v-if="active===1">
         <div
-          v-for="(reservation, index) in clincArr(patient.reservations)"
+          v-for="(reservation, index) in clinicArr(patient.reservations)"
           :key="index"
           style="margin-bottom:2%;"
         >
@@ -93,6 +93,7 @@ const reservationQuery = gql`
       reservations {
         id
         doctor {
+          id
           name
           avatar
         }
@@ -100,6 +101,7 @@ const reservationQuery = gql`
         startTime
         endTime
         workplace {
+          id
           name
         }
         status
@@ -175,9 +177,9 @@ export default {
       return newArr;
     },
 
-    clincArr(reservations) {
+    clinicArr(reservations) {
       let newArr = reservations.filter(function(e) {
-        return e.type === "clinc";
+        return e.type === "clinic";
       });
 
       return this.computedNewArr(newArr);

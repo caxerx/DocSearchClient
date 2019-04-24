@@ -55,8 +55,8 @@
 
       <v-flex v-if="active==2">
         <div class="display-1" style="padding: 20px">Feedback for Doctor</div>
-
-        <v-card flat v-if="!haveFeedback">
+        <div v-if="getLogin.id===null"/>
+        <v-card flat v-else-if="!haveFeedback">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-card-title class="title font-weight-medium">Rating</v-card-title>
             <v-rating
@@ -67,21 +67,13 @@
             ></v-rating>
 
             <v-card-text>
-              <v-textarea
-                name="input-7-1"
-                label="Comment"
-                rows="3"
-                v-model="myFeedback.comment"
-                :rules="feedbackRules"
-              ></v-textarea>
-
-              <v-card-actions>
-                <v-btn @click="submit()" color="primary">create</v-btn>
-              </v-card-actions>
+              <v-textarea name="input-7-1" label="Comment" rows="3" v-model="myFeedback.comment"></v-textarea>
+              <div style="color:red" v-if="showTips">Comment or rating is required</div>
+              <v-btn @click="submit()" color="primary">create</v-btn>
             </v-card-text>
           </v-form>
         </v-card>
-        <v-card flat v-if="haveFeedback">
+        <v-card flat v-else>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-card-title class="title font-weight-medium">Rating</v-card-title>
             <v-rating
@@ -92,14 +84,8 @@
             ></v-rating>
 
             <v-card-text>
-              <v-textarea
-                name="input-7-1"
-                label="Comment"
-                rows="3"
-                v-model="myFeedback.comment"
-                :rules="feedbackRules"
-              ></v-textarea>
-
+              <v-textarea name="input-7-1" label="Comment" rows="3" v-model="myFeedback.comment"></v-textarea>
+              <div style="color:red" v-if="showTips">Comment or rating is required</div>
               <v-card-actions>
                 <v-btn @click="edit()" color="primary">edit</v-btn>
               </v-card-actions>
@@ -221,68 +207,8 @@ export default {
     return {
       valid: true,
       feedbackRules: [v => !!v || "FeedBack is required"],
-      quali: [
-        {
-          details: "MBBS (HK) 1975"
-        },
-        {
-          details: "FHKAM (OPHTHALMOLOGY) 1993"
-        }
-      ],
-      Services: [
-        {
-          details: "General Consultation"
-        },
-        {
-          details: "XXXXX"
-        }
-      ],
-      layoutStyle: {
-        padding: "20px"
-      },
       clinics: [
         {
-          name: "ABC Clinic",
-          Address:
-            "Unit A, 99/F, HSH Kowloon Centre, 192-194 Nathan Road, Jordan, Kowloon",
-          times: [
-            {
-              date: "Monday",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Tuesday",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Wednesday ",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Thursday ",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Friday",
-              am: "9:00 - 12:00",
-              pm: "14:00 - 17:00"
-            },
-            {
-              date: "Saturday",
-              am: "9:00 - 12:00",
-              pm: "--"
-            },
-            {
-              date: "Sunday",
-              am: "--",
-              pm: "--"
-            }
-          ],
-
           map:
             "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.3280691625514!2d114.16985791495483!3d22.303429085322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE4JzEyLjMiTiAxMTTCsDEwJzE5LjQiRQ!5e0!3m2!1szh-TW!2shk!4v1546153405835"
         }
@@ -291,6 +217,7 @@ export default {
       DocInfoTypes: ["Information", "Services", "Feedback"],
       active: 0,
       haveFeedback: false,
+      showTips: false,
       myFeedback: {
         id: "",
         patient: {
@@ -298,7 +225,7 @@ export default {
           name: ""
         },
         comment: "",
-        rating: 5
+        rating: 0
       }
     };
   },
@@ -324,7 +251,7 @@ export default {
         if (mfb == undefined) {
           this.haveFeedback = false;
         } else {
-          this.myFeedback = mfb;
+          this.myFeedback = Object.assign({}, mfb);
           this.haveFeedback = true;
         }
 
@@ -357,6 +284,10 @@ export default {
       }
     },
     edit() {
+      if (this.myFeedback.rating < 1 || this.myFeedback.comment === "") {
+        this.showTips = true;
+        return;
+      }
       if (this.$refs.form.validate()) {
         let feedbackInput = {
           rating: this.myFeedback.rating,
@@ -374,6 +305,7 @@ export default {
           .then(data => {
             // console.log(data.data.editPatient);
             this.$apollo.queries.doctor.refetch();
+            this.showTips = false;
           })
           .catch(error => {
             console.error(error);
@@ -381,7 +313,11 @@ export default {
       }
     },
     submit() {
-      console.log("hi");
+      if (this.myFeedback.rating < 1 || this.myFeedback.comment === "") {
+        this.showTips = true;
+        return;
+      }
+
       if (this.$refs.form.validate()) {
         let feedbackInput = {
           comment: this.myFeedback.comment,
@@ -398,6 +334,7 @@ export default {
           })
           .then(data => {
             this.$apollo.queries.doctor.refetch();
+            this.showTips = false;
           })
           .catch(error => {
             console.error(error);

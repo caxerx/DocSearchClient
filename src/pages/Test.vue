@@ -1,65 +1,27 @@
 <template>
-  <v-card class="grey lighten-4 elevation-0">
-    <v-card-text>
-      <v-container fluid>
-        <v-layout row wrap>
-          <v-flex xs12 sm6>
-            <v-subheader v-text="'Slots'"></v-subheader>
-          </v-flex>
-          <v-flex xs12 sm6>
-            <v-select
-              label="Select"
-              v-bind:items="people"
-              v-model="e11"
-              item-text="name"
-              item-value="name"
-              max-height="auto"
-              dense
-              attach
-              multiple
-              chips
-            >
-              <!-- <template slot="selection" scope="data">{{ data.item.name }} - {{data.item.group}}</template> -->
-              <template slot="item" scope="data">
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                    <v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>
-                  </v-list-tile-content>
-              </template>
-            </v-select>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card-text>
-  </v-card>
+  <div>
+    <v-flex xs12>
+      <v-btn @click="show = !show">toggle</v-btn>
+    </v-flex>
+
+    <v-flex xs12>
+      <v-tooltip v-model="show" top>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon color="grey lighten-1"></v-icon>
+          </v-btn>
+        </template>
+        <span>Programmatic tooltip</span>
+      </v-tooltip>
+    </v-flex>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
-    let srcs = {
-      1: "/static/doc-images/lists/1.jpg",
-      2: "/static/doc-images/lists/2.jpg",
-      3: "/static/doc-images/lists/3.jpg",
-      4: "/static/doc-images/lists/4.jpg",
-      5: "/static/doc-images/lists/5.jpg"
-    };
-
     return {
-      e11: [],
-      people: [
-        { header: "Group 1" },
-        { name: "Sandra Adams", group: "Group 1", avatar: srcs[1] },
-        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
-        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
-        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] },
-        { divider: true },
-        { header: "Group 2" },
-        { name: "Britta Holt", group: "Group 2", avatar: srcs[4] },
-        { name: "Jane Smith ", group: "Group 2", avatar: srcs[5] },
-        { name: "John Smith", group: "Group 2", avatar: srcs[1] },
-        { name: "Sandra Williams", group: "Group 2", avatar: srcs[3] }
-      ]
+      show: false
     };
   }
 };
