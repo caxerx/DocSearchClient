@@ -14,8 +14,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat @click="router(aboutus.link)">About us</v-btn>
-        <v-btn flat @click="router(feedBack.link)">FeedBack</v-btn>
-        <v-btn flat>download our app</v-btn>
+        <v-btn flat ><a href="https://ci.1lo.li/job/docsearch-flutter-app/lastSuccessfulBuild/artifact/DocSearch-FlutterApp/build/app/outputs/apk/release/app-release.apk">download our app</a></v-btn>
       </v-toolbar-items>
       <span v-if="isSuccess()">
         
@@ -41,6 +40,26 @@
     </v-toolbar>
   </div>
 </template>
+
+
+<<style scoped>
+  a:link {
+    text-decoration: none;
+    color: black;
+}
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+a:active {
+    text-decoration: none;
+    color: black;
+}
+</style>
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
@@ -126,3 +145,4 @@ export default {
   }
 };
 </script>
+
