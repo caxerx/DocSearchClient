@@ -30,8 +30,8 @@
       <v-flex sm3>
         <v-card-text>
           <div>
-            <v-icon small>thumb_up</v-icon>
-            <span>&nbsp;{{doctor.averageRating}} %</span>
+            <v-icon small>star</v-icon>
+            <span>&nbsp;{{Math.floor(doctor.averageRating*10)/10}}</span>
           </div>
           <div>
             <v-icon small>comment</v-icon>
