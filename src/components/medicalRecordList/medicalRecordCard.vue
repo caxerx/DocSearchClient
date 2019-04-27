@@ -31,15 +31,15 @@
           <v-card-text>
             <div v-show="show">
               <hr>
-              <div class="font-weight-bold">Symptoms:</div>
+              <div class="font-weight-bold">Diseases:</div>
               <div
-                v-for="(symptom,index) in medicalRecord.diseases"
+                v-for="(disease,index) in medicalRecord.diseases"
                 :key="index"
                 class="font-weight-regular"
               >
                 
-                <div class="font-weight-medium">{{symptom.name}}</div>
-                <div>{{symptom.description}}</div>
+                <div class="font-weight-medium">{{disease.name}}</div>
+                <div>{{disease.description}}</div>
               </div>
               <!-- <br>
             <div class="font-weight-bold">Medications</div>
