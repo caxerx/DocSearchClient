@@ -134,7 +134,6 @@ export default {
         };
       },
       update(data) {
-        console.log(data.getDoctorTimeSlots);
         this.timeslots = data.getDoctorTimeSlots.slice();
         return data.getDoctorTimeSlots;
       }

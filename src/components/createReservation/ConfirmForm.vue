@@ -52,6 +52,21 @@ export default {
       loadingDialog: false
     };
   },
+  created() {
+    this.$swal
+      .fire({
+        title: "Appointment Requested!",
+        text:
+          "Your Appointment is requested, you will recieve message or phone call from clinic if your appointment is confirmed",
+        type: "success",
+        confirmButtonText: "Back to Home!",
+      })
+      .then(result => {
+        if (result.value) {
+          this.$router.push("/");
+        }
+      });
+  },
   apollo: {},
   components: {
     LoadingDialog
@@ -113,12 +128,12 @@ export default {
               .fire({
                 title: "Appointment Requested!",
                 text:
-                  "Your Appointment is requested, you will recieve message or phone call from clinic if yourappointment Is confirmed",
+                  "Your Appointment is requested, you will recieve message or phone call from clinic if your appointment Is confirmed",
                 type: "success",
                 confirmButtonText: "Back to Home!"
               })
               .then(result => {
-                if(result.value){
+                if (result.value) {
                   this.$router.push("/");
                 }
               });
@@ -135,9 +150,20 @@ export default {
 
 
 
-<style scoped>
+<style scope>
 #cForm {
   padding-left: 5%;
 }
+/* .swal2-popup{
+  font-family: 'unset' !important;
+  
+}*/
+
+.swal2-popup .swal2-content{
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased !important;
+  /* font-family:cursive !important */
+
+} 
 </style>
 
