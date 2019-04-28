@@ -160,9 +160,9 @@ export default {
 }*/
 
 .swal2-popup .swal2-content{
-  font-weight: 300 !important;
-  -webkit-font-smoothing: antialiased !important;
-  /* font-family:cursive !important */
+  font-weight: unset !important;
+  color:#9e9e9e!important;
+  font-family:'Roboto' !important;
 
 } 
 </style>
