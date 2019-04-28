@@ -52,25 +52,12 @@ export default {
       loadingDialog: false
     };
   },
-  created() {
-    this.$swal
-      .fire({
-        title: "Appointment Requested!",
-        text:
-          "Your Appointment is requested, you will recieve message or phone call from clinic if your appointment is confirmed",
-        type: "success",
-        confirmButtonText: "Back to Home!",
-      })
-      .then(result => {
-        if (result.value) {
-          this.$router.push("/");
-        }
-      });
-  },
+
   apollo: {},
   components: {
     LoadingDialog
   },
+
   computed: {
     ...mapGetters({
       getter: "getCreateReservation"
@@ -158,6 +145,11 @@ export default {
   font-family: 'unset' !important;
   
 }*/
+.swal2-popup .swal2-title {
+    font-weight: unset !important;
+    font-family:'Roboto' !important;
+
+}
 
 .swal2-popup .swal2-content{
   font-weight: unset !important;
