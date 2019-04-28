@@ -14,7 +14,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat @click="router(aboutus.link)">About us</v-btn>
-        <v-btn flat ><a href="https://ci.1lo.li/job/docsearch-flutter-app/lastSuccessfulBuild/artifact/DocSearch-FlutterApp/build/app/outputs/apk/release/app-release.apk">download our app</a></v-btn>
+        <v-btn flat ><a href="https://ci.1lo.li/job/docsearch-flutter-app/lastSuccessfulBuild/artifact/DocSearch-FlutterApp/build/app/outputs/apk/release/app-release.apk" target="_blank">download our app</a></v-btn>
       </v-toolbar-items>
       <span v-if="isSuccess()">
         
