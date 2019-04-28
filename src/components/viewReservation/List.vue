@@ -96,6 +96,8 @@ const reservationQuery = gql`
           id
           name
           avatar
+          phoneNo
+          email
         }
         note
         startTime
@@ -103,6 +105,7 @@ const reservationQuery = gql`
         workplace {
           id
           name
+          location
         }
         status
         type

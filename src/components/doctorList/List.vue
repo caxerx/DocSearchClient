@@ -17,7 +17,6 @@
         :key="index"
         style="margin-bottom:20px"
       >
-       
         <doctor-card :doctor="doctor"/>
       </div>
       <div class="text-xs-center" style="padding-bottom:30px" v-if="searchDoctors.length>0">
@@ -102,10 +101,10 @@ export default {
         this.length = Math.ceil(data.searchDoctors.length / this.perpage);
         return data.searchDoctors;
       }
-    }
+    },
+
   },
   components: {
-  
     DoctorCard
   },
 

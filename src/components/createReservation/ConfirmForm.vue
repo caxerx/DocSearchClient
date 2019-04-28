@@ -81,10 +81,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      "actionSetReservationTypeAndNoteForCreateReservation",
-      "actionAfterCreationForCreateReservation"
-    ]),
+    ...mapActions(["actionSetReservationTypeAndNoteForCreateReservation"]),
     createReservation() {
       if (this.$refs.form.validate()) {
         let startDateFormat = this.date + " " + this.getter.start;
@@ -99,7 +96,6 @@ export default {
         };
 
         this.actionSetReservationTypeAndNoteForCreateReservation(moreinf);
-        this.loadingDialog = true;
         this.$apollo
           .mutate({
             // Query
@@ -107,15 +103,25 @@ export default {
             // Parameters
 
             variables: {
-              data:this.getter.reservation,
+              data: this.getter.reservation
             }
           })
           .then(data => {
             // Result
             console.log(data);
-            this.loadingDialog = false;
-            this.actionAfterCreationForCreateReservation(true);
-            this.$router.push("/yourDriver/viewReservation");
+            this.$swal
+              .fire({
+                title: "Appointment Requested!",
+                text:
+                  "Your Appointment is requested, you will recieve message or phone call from clinic if yourappointment Is confirmed",
+                type: "success",
+                confirmButtonText: "Back to Home!"
+              })
+              .then(result => {
+                if(result.value){
+                  this.$router.push("/");
+                }
+              });
           })
           .catch(error => {
             // Error

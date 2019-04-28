@@ -11,7 +11,7 @@
           <div class="grey--text text-sm-center">Date and Time</div>
           <div
             class="text-sm-center font-weight-black"
-          >{{reservation.startTime|moment("utc","dddd, MMMM, DD, YYYY, HH:mm A")}}</div>
+          >{{reservation.startTime|moment("utc"," DD MMMM YYYY, HH:mm A")}}</div>
         </v-flex>
       </v-layout>
     </v-card>
@@ -24,44 +24,24 @@
           <div class="font-weight-black">Dr. {{reservation.doctor.name}}</div>
           <div class="grey--text">Clinic</div>
           <div class="font-weight-black">{{reservation.workplace.name}}</div>
-        </v-card-text>
 
-        <hr>
-        <br>
-        <v-card-actions v-if="reservation.type==='online'">
-          <v-flex sm4>
-            <v-layout justify-center>
-              <v-btn outline color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
-            </v-layout>
-          </v-flex>
-          <v-flex sm4>
-            <v-layout justify-center>
-              <v-btn outline color="primary">Call Clinic</v-btn>
-            </v-layout>
-          </v-flex>
-          <v-flex sm4>
-            <v-layout justify-center>
-              <v-btn outline color="primary">Get Directions</v-btn>
-            </v-layout>
-          </v-flex>
-        </v-card-actions>
-        <v-card-actions v-else>
-          <v-flex sm6>
-            <v-layout justify-center>
-              <v-btn outline color="primary">Call Clinic</v-btn>
-            </v-layout>
-          </v-flex>
-          <v-flex sm6>
-            <v-layout justify-center>
-              <v-btn outline color="primary">Get Directions</v-btn>
-            </v-layout>
-          </v-flex>
-        </v-card-actions>
+          <div class="font-weight-light body-1">{{reservation.workplace.location}}</div>
+          <div class="font-weight-light body-1">{{reservation.doctor.phoneNo}}</div>
+          <div class="font-weight-light body-1">{{reservation.doctor.email}}</div>
+        </v-card-text>
       </v-container>
     </v-card>
-
+    <v-card flat class="card">
+      <v-btn
+        v-if="reservation.type==='online'"
+        flat
+        color="info"
+        @click="router('onlineConsultant')"
+      >Online Chat Now</v-btn>
+    </v-card>
     <v-card flat class="card">
       <!-- <v-card-actions> -->
+
       <v-btn
         v-if="reservation.status==='finished'"
         @click.stop="nothing()"
@@ -81,7 +61,10 @@
         </span>
       </v-card-text>
 
-      <qrcode-vue v-if="reservation.type=='clinic'" id="qrCode" :value="base64Str"></qrcode-vue>
+      <div v-if="reservation.status=='approved'&&reservation.type=='clinic' ">
+        {{convertToBase64()}}
+        <qrcode-vue id="qrCode" :value="base64Str"></qrcode-vue>
+      </div>
     </v-card>
   </div>
 </template>
@@ -101,15 +84,7 @@ export default {
   props: {
     reservation: Object
   },
-  created() {
-    let dId = this.reservation.doctor.id;
-    let pId = this.getLogin.id;
-    let wId = this.reservation.workplace.id;
-    let rId = this.reservation.id;
-    let type = this.reservation.type;
-    let s = this.convertToBase64(dId, pId, wId, rId, type);
-    this.base64Str = s;
-  },
+
   components: {
     QrcodeVue
   },
@@ -142,11 +117,16 @@ export default {
       return "https://dsapi.1lo.li/assets/avatars/" + avatar;
     },
     nothing() {},
-    convertToBase64(dId, pId, wId, rId, type) {
+    
+    convertToBase64() {
+      let dId = this.reservation.doctor.id;
+      let pId = this.getLogin.id;
+      let wId = this.reservation.workplace.id;
+      let rId = this.reservation.id;
+      let type = this.reservation.type;
       let str =
         "[" + dId + ", " + pId + ", " + wId + ", " + rId + ', "' + type + '"]';
-      console.log(str);
-      return btoa(str);
+      this.base64Str = btoa(str);
     }
   }
 };

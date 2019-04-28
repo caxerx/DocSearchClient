@@ -15,7 +15,7 @@
         <v-card-text>
           <div>{{doctor.academic}}</div>
           <div>{{doctor.experience}} Experience</div>
-          <div>{{doctor.specialty}}</div>
+          <div>{{newSpecialtyStr(doctor.specialty)}}</div>
         </v-card-text>
         <v-card-text>
           <h3 class="font-weight-bold">{{doctor.workplace.name}}</h3>
@@ -32,7 +32,7 @@
         <v-card-text>
           <div>
             <v-icon small>star</v-icon>
-             <span>&nbsp;{{Math.floor(doctor.averageRating*10)/10}}</span>
+            <span>&nbsp;{{Math.floor(doctor.averageRating*10)/10}}</span>
           </div>
           <div>
             <v-icon small>comment</v-icon>
@@ -44,17 +44,17 @@
           </div>
           <div>
             <v-icon small>access_time</v-icon>
-            <span>&nbsp;Available Today</span>
+            <span v-if="$apollo.loading"></span>
+            <span v-else-if="!available">&nbsp;Available Tomorrow</span>
+            <span v-else>&nbsp;Available Today</span>
           </div>
         </v-card-text>
       </v-flex>
 
-       
-       <v-card-actions style="width:100%">
+      <v-card-actions style="width:100%">
         <v-spacer></v-spacer>
-        <slot name="reservationBtn">
-     
-        </slot>
+        <slot name="reservationBtn"></slot>
+        <slot name="doctorListBtn"></slot>
       </v-card-actions>
     </v-layout>
   </v-card>
@@ -62,9 +62,14 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+import gql from "graphql-tag";
+let moment = require("moment");
+
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    available: true
+  }),
 
   props: {
     doctor: Object
@@ -89,7 +94,24 @@ export default {
 
   components: {},
 
-  methods: {}
+  methods: {
+    newSpecialtyStr(specialty) {
+      switch (specialty) {
+        case "general_practice":
+          return "General Practice";
+          break;
+        case "cardiology":
+          return "Cardiology";
+          break;
+        case "dentistry":
+          return "Dentistry";
+          break;
+        case "dietetics":
+          return "Dietetics";
+          break;
+      }
+    }
+  }
 };
 </script>
 

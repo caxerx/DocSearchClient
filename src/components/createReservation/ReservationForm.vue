@@ -14,8 +14,8 @@
           <v-flex sm12>
             <date-picker/>
           </v-flex>
-          <v-flex sm12>
-            <v-layout row wrap v-if="timeslots.length !== 0 ">
+          <v-flex sm12 v-if="!$apollo.loading">
+            <v-layout row wrap v-if="timeslots.length !== 0">
               <v-flex v-for="(time,index) in timeslots" :key="index" sm2>
                 <v-layout justify-center>
                   <v-btn color="primary" @click="setReservation(time.start,time.end)">{{time.start}}</v-btn>
@@ -134,7 +134,9 @@ export default {
         };
       },
       update(data) {
-        this.timeslots = data.getDoctorTimeSlots;
+        console.log(data.getDoctorTimeSlots);
+        this.timeslots = data.getDoctorTimeSlots.slice();
+        return data.getDoctorTimeSlots;
       }
     }
   },
@@ -146,7 +148,7 @@ export default {
       getLogin:"getLogin"
     }),
     date() {
-  
+      console.log(this.getter.date)
       return this.getter.date;
     },
 

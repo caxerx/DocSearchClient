@@ -102,11 +102,6 @@ const mutations = {
         state.createReservation.reservation.status = "pending";
     
     },
-    ["afterCreateionForCreateReservation"](state,val){
-        state.createReservation.isCreateSuccess = val;
-        console.log(state.createReservation.isCreateSuccess)
-    },
-    
 
 
 

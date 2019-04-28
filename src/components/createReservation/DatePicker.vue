@@ -22,6 +22,7 @@
       ></v-text-field>
       <v-date-picker
         v-model="reservationDate"
+        :min="minDate"
         no-title
         @input="close"
    
@@ -33,11 +34,13 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+let moment = require("moment");
 export default {
   data: () => ({
     menu1: false,
     menu2: false,
     arrayEvents: null,
+    minDate:moment(new Date()).format("YYYY-MM-DD")
   }),
 
   computed: {
