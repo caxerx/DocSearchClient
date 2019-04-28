@@ -1,8 +1,9 @@
 
-
+let moment = require("moment");
 const state = {
+    
     createReservation: {
-        date: new Date().toISOString().substr(0, 10),
+        date: moment(new Date()).format("YYYY-MM-DD"),
         start:"",
         end:"",
 
@@ -62,7 +63,7 @@ const mutations = {
     },
     ["resetForCreateReservation"](state){
         state.createReservation = {
-            date: new Date().toISOString().substr(0, 10),
+            date: moment(new Date()).format("YYYY-MM-DD"),
             start:"",
             end:"",
     

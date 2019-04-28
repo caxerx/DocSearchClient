@@ -1,7 +1,11 @@
 <template>
   <v-container v-if="!$apollo.loading">
     <v-card>
-      <DoctorInfoCard :doctor="doctor"/>
+      <DoctorInfoCard :doctor="doctor">
+        <v-btn slot="reservationBtn" color="primary" @click="linkReservation(doctor.id)">
+          <v-icon>add</v-icon>Create Reservation
+        </v-btn>
+      </DoctorInfoCard>
     </v-card>
 
     <v-card style="margin-top: 25px">
@@ -265,6 +269,18 @@ export default {
     }
   },
   methods: {
+    linkReservation(doctorId) {
+      if (this.getLogin.id === null) {
+        this.$store.commit("setLoginDialog", true);
+      } else {
+        this.$router.push({
+          name: "createReservation",
+          query: {
+            id: doctorId
+          }
+        });
+      }
+    },
     switchDay(day) {
       switch (day) {
         case "sun":

@@ -49,11 +49,12 @@
         </v-card-text>
       </v-flex>
 
+       
        <v-card-actions style="width:100%">
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="_">
-          <v-icon>add</v-icon>Create Reservation
-        </v-btn>
+        <slot name="reservationBtn">
+     
+        </slot>
       </v-card-actions>
     </v-layout>
   </v-card>

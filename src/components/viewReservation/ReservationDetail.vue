@@ -60,14 +60,10 @@
       </v-container>
     </v-card>
 
-    <v-card flat class="card" v-if="reservation.status==='Approval'">
-      <!-- <v-card-actions> -->
-      <v-btn flat color="primary" @click="router('onlineConsultant')">Online Chat Now</v-btn>
-    </v-card>
     <v-card flat class="card">
       <!-- <v-card-actions> -->
       <v-btn
-        v-if="reservation.status==='checked_in'||reservation.status==='expired'"
+        v-if="reservation.status==='finished'"
         @click.stop="nothing()"
         flat
         color="grey"
@@ -93,13 +89,13 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
-import QrcodeVue from 'qrcode.vue';
+import QrcodeVue from "qrcode.vue";
 
 export default {
   data() {
     return {
       search: "",
-      base64Str:"",
+      base64Str: ""
     };
   },
   props: {
@@ -111,7 +107,7 @@ export default {
     let wId = this.reservation.workplace.id;
     let rId = this.reservation.id;
     let type = this.reservation.type;
-    let s = this.convertToBase64(dId,pId,wId,rId,type);
+    let s = this.convertToBase64(dId, pId, wId, rId, type);
     this.base64Str = s;
   },
   components: {
@@ -119,7 +115,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getLogin:"getLogin"
+      getLogin: "getLogin"
     })
   },
 
@@ -147,7 +143,8 @@ export default {
     },
     nothing() {},
     convertToBase64(dId, pId, wId, rId, type) {
-      let str = '['+dId+', '+pId+', '+wId+', '+rId+', "'+type+'"]';
+      let str =
+        "[" + dId + ", " + pId + ", " + wId + ", " + rId + ', "' + type + '"]';
       console.log(str);
       return btoa(str);
     }
@@ -165,7 +162,7 @@ export default {
 
 #qrCode {
   width: 300px;
-  padding-left:15px;
+  padding-left: 15px;
 }
 </style>
 

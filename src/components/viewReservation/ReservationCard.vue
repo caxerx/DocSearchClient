@@ -20,14 +20,15 @@
             >{{reservation.startTime|moment("utc","YYYY-MM-DD")}}, {{reservation.startTime|moment("utc","HH:mm")}} , {{upperFirstChar(reservation.type)}}</div>
             <div v-if="reservation.status==='waiting'" class="error--text">Waiting</div>
             <div v-if="reservation.status==='pending'" class="error--text">Pending</div>
-            <div v-if="reservation.status==='checked_in'" class="success--text">Check-in</div>
-            <div v-if="reservation.status==='expired'" class="grey--text">Expired</div>
+            <div v-if="reservation.status==='approved'" class="success--text">Approved</div>
+            <div v-if="reservation.status==='rejected'" class="grey--text">Rejected</div>
+              <div v-if="reservation.status==='finished'" class="grey--text">Finished</div>
           </v-card-text>
         </v-flex>
         <v-flex sm2 offset-sm1>
           <v-layout align-center justify-center row fill-height>
             <v-btn
-              v-if="reservation.status==='checked_in'||reservation.status==='expired'"
+              v-if="reservation.status==='finished'"
               @click.stop="nothing()"
               outline
               color="grey"

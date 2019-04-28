@@ -146,6 +146,7 @@ export default {
       getLogin:"getLogin"
     }),
     date() {
+  
       return this.getter.date;
     },
 
