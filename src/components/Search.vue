@@ -100,8 +100,12 @@ export default {
           value: "Dietetics"
         }
       ],
-    location: ["Kowloon", "Hong Kong", "New Territories"],
-    language: ["Chinese", "English"],
+    location: ["Central and Western", "Eastern", "Southern",
+               "Wan Chai","Sham Shui Po","Kowloon City","Kwun Tong",
+               "Wong Tai Sin","Yau Tsim Mong","Islands", "Kwai Tsing",
+               "North","Sai Kung", "Sha Tin", "Tai Po","Tsuen Wan",
+               "Tuen Mun", "Yuen Long"],
+    language: ["Cantonese", "English", "Mandarin"],
     gender: ["Male", "Female"],
     newSpecialty: "",
     newLocation: "",
