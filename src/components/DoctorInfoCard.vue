@@ -1,5 +1,5 @@
 <template>
-  <v-card flat v-if="doctor!=null">
+  <v-card flat v-if="doctor!=null" :color="color">
     <!-- {{doctor.id}} -->
 
     <v-layout row wrap>
@@ -72,7 +72,9 @@ export default {
   }),
 
   props: {
-    doctor: Object
+    doctor: Object,
+    color:String,
+    isRecommend:Boolean,
   },
 
   created: function() {},
