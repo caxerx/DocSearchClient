@@ -13,37 +13,30 @@
           <v-flex v-for="(item,index) in items" :key="index" style="padding-bottom: 20px">
             <v-layout>
               <v-flex xs2>
-                <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
-                  style="width : 100%"
-                  contain
-                ></v-img>
+                <v-img :src="item.urlToImage" style="width : 100%" contain></v-img>
               </v-flex>
               <v-flex xs10>
                 <v-card-title primary-title style="padding-top: 0px">
                   <div>
+                    <div class="display-1 font-weight-medium" style="padding-bottom : 10px">
+                      <a :href="item.url" style="text-decoration: none;">{{item.title}}</a>
+                    </div>
+                    <div class="headline" style="padding-bottom : 10px">{{item.description}}</div>
                     <div
-                      class="display-1 font-weight-medium"
-                      style="padding-bottom : 10px"
-                    >What is Lorem Ipsum?</div>
-                    <div
-                      class="headline"
-                      style="padding-bottom : 10px"
-                    >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
-                    <div>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</div>
+                      class="grey--text"
+                    >From {{item.source.name}} at {{getDate(item.publishedAt)}}</div>
                   </div>
                 </v-card-title>
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex>
-            <v-layout justify-center>
-              <v-pagination v-model="page" :length="6"></v-pagination>
-            </v-layout>
-          </v-flex>
         </v-flex>
       </container>
     </v-card>
+    <div class="text-xs-center py-2 grey--text">
+      News Provided By
+      <a href="https://newsapi.org/">NewsAPI.org</a>
+    </div>
   </div>
 </template>
 
@@ -51,17 +44,42 @@
 <script>
 import Search from "@/components/Search.vue";
 import Container from "@/components/Container";
-
+import axios from "axios";
+import moment from "moment";
 export default {
   components: {
     Search,
     Container
   },
+  mounted() {
+    this.loadNews();
+  },
   data() {
     return {
-      items: [{ key: 1 }, { key: 2 }, { key: 3 }],
+      items: [],
       page: 1
     };
+  },
+  methods: {
+    getDate(d) {
+      return moment(d).format("YYYY-MM-DD");
+    },
+    async loadNews() {
+      let data = await axios(
+        "https://newsapi.org/v2/top-headlines?category=health&country=gb&apiKey=f1f9880ed2cd4d818985778915348e7e"
+      );
+      if (data.data.status == "ok") {
+        let articles = data.data.articles;
+        let i = 0;
+        while (this.items.length < 5 && i < articles.length) {
+          console.log(articles[i]);
+          if (articles[i].urlToImage && articles[i].urlToImage != "") {
+            this.items.push(articles[i]);
+          }
+          i++;
+        }
+      }
+    }
   }
 };
 </script>
