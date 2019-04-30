@@ -22,8 +22,10 @@
         <v-flex sm3>
           <v-container>
             <v-layout column>
-              <img :src="imageUrl" v-if="imageUrl" height="200">
-              <img v-else :src="computedAvatar" height="200">
+              <v-layout row style="height:200px;width:100%">
+                <img :src="imageUrl" v-if="imageUrl" style="max-width: 100%; max-height: 100%;">
+                <img v-else :src="computedAvatar" style="max-width: 100%;max-height: 100%;">
+              </v-layout>
               <input
                 ref="image"
                 type="file"
@@ -323,7 +325,7 @@ export default {
     uploadAvatar() {
       let imageFile = this.$refs.image.files[0];
       let id = this.getLogin.id;
-      console.log(imageFile)
+      console.log(imageFile);
       this.$apollo
         .mutate({
           mutation: uploadMutation,

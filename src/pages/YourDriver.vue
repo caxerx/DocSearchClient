@@ -6,10 +6,9 @@
         <v-flex sm2>
           <v-toolbar-title class="left">Your Drive</v-toolbar-title>
         </v-flex>
-
-        <div style="width: 40px;height: 40px;float: right;">
-        <img :src="computedAvatar" class="px-0" style="width:100%;height:100%">
-        </div>
+          <div row style="width: 40px;height: 40px">
+            <img :src="computedAvatar" class="px-0" style="max-width:100%;max-height:100%">
+          </div>
         <!-- </v-flex> -->
         <v-flex sm7 class="text-xs-left" style="padding-left:5px" v-if="patient!=null">
           <span class="headline">{{patient.name}}</span>
