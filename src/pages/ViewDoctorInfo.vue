@@ -255,7 +255,14 @@ export default {
         }
 
         let tmap = data.doctor.workplace.location;
-        tmap = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${"+tmap+"}&z=16&output=embed&t=";
+        let split = tmap.split(',')
+        let newMapStr = "";
+        for(let i = 1 ; i < split.length;i++){
+          newMapStr += split[i];
+        }
+
+        console.log(newMapStr)
+        tmap = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${"+newMapStr+"}&z=16&output=embed&t=";
         this.clinics[0].map = tmap;
         return data.doctor;
       }
