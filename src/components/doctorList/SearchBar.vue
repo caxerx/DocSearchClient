@@ -7,7 +7,7 @@
       item-text="text"
       item-value="value"
       @change="searchSpecialty"
-      v-model="selected"
+      v-model="selected1"
     ></v-select>
     <v-toolbar-title>
       <v-select
@@ -15,7 +15,7 @@
         class="select"
         label="Locations"
         @change="searchLocation"
-        v-model="selected"
+        v-model="selected2"
       ></v-select>
     </v-toolbar-title>
     <v-toolbar-title>
@@ -24,7 +24,7 @@
         class="select"
         label="Language"
         @change="searchLanguage"
-        v-model="selected"
+        v-model="selected3"
       ></v-select>
     </v-toolbar-title>
     <v-toolbar-title>
@@ -33,7 +33,7 @@
         class="select"
         label="Gender"
         @change="searchGender"
-        v-model="selected"
+        v-model="selected4"
       ></v-select>
     </v-toolbar-title>
     <v-btn flat small @click="reset()">Reset Filters</v-btn>
@@ -70,9 +70,12 @@ export default {
         }
       ],
       location: ["Kowloon", "Hong Kong", "New Territories"],
-      language: ["Chinese", "English"],
+      language: ["Cantonese", "English", "Mandarin"],
       gender: ["Male", "Female"],
-      selected: "",
+      selected1: "",
+      selected2: "",
+      selected3: "",
+      selected4: "",
       keyword: ""
     };
   },
@@ -103,8 +106,11 @@ export default {
     },
 
     reset() {
-      this.selected = undefined;
-      this.keyword = undefined;
+      this.selected1 = null;
+      this.selected2 = null;
+      this.selected3 = null;
+      this.selected4 = null;
+      this.keyword = null;
       this.actionResetSearchForDoctorList();
     }
   }

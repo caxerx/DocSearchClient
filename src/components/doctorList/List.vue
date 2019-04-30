@@ -14,7 +14,7 @@
       <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
      <div v-if="searchDoctors.length>1" class="headline font-weight-medium">  Recommended Doctor </div>
       <div style="margin-bottom:40px;">
-        <doctor-card :doctor="searchDoctors[randomIndex]" :color="'#F5F5F5'" :isRecommend="true" />
+        <doctor-card :doctor="searchDoctors[randomIndex]" :color="'#DADADA'" :isRecommend="true" />
       </div>
       <div
         v-for="(doctor,index) in pagination(page,searchDoctors)"
