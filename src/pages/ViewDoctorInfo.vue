@@ -211,12 +211,7 @@ export default {
     return {
       valid: true,
       feedbackRules: [v => !!v || "FeedBack is required"],
-      clinics: [
-        {
-          map:
-            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.3280691625514!2d114.16985791495483!3d22.303429085322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE4JzEyLjMiTiAxMTTCsDEwJzE5LjQiRQ!5e0!3m2!1szh-TW!2shk!4v1546153405835"
-        }
-      ],
+      clinics: [{map: ""}],
 
       DocInfoTypes: ["Information", "Services", "Feedback"],
       active: 0,
@@ -259,6 +254,9 @@ export default {
           this.haveFeedback = true;
         }
 
+        let tmap = data.doctor.workplace.location;
+        tmap = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${"+tmap+"}&z=16&output=embed&t=";
+        this.clinics[0].map = tmap;
         return data.doctor;
       }
     }
