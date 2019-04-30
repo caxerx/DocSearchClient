@@ -18,85 +18,96 @@
       lazy-validation
       v-if="!$apollo.loading"
     >
-      <div>
-        <!-- email -->
-        <v-text-field
-          prepend-icon="email"
-          name="email"
-          label="Email"
-          type="text"
-          :rules="emailRules"
-          v-model="email"
-          required
-        ></v-text-field>
+      <v-layout row>
+        <v-flex sm3>
+          <v-container>
+            <v-layout column>
+              <v-img class="mb-4" aspect-ratio="1" :src="computedAvatar"></v-img>
+              <v-btn color="primary">Change avatar</v-btn>
+            </v-layout>
+          </v-container>
+        </v-flex>
+        <v-divider vertical></v-divider>
+        <v-flex sm8 pl-3>
+          <div>
+            <!-- email -->
+            <v-text-field
+              prepend-icon="email"
+              name="email"
+              label="Email"
+              type="text"
+              :rules="emailRules"
+              v-model="email"
+              required
+            ></v-text-field>
 
-        <!-- name -->
-        <v-text-field
-          prepend-icon="person"
-          name="name"
-          label="Name"
-          type="text"
-          :rules="dobRules"
-          v-model="name"
-          required
-        ></v-text-field>
+            <!-- name -->
+            <v-text-field
+              prepend-icon="person"
+              name="name"
+              label="Name"
+              type="text"
+              :rules="dobRules"
+              v-model="name"
+              required
+            ></v-text-field>
 
-        <!-- birthDayPicker -->
-        <v-menu
-          ref="menu"
-          :close-on-content-click="false"
-          v-model="menu"
-          :nudge-right="40"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
-          min-width="290px"
-        >
-          <v-text-field
-            slot="activator"
-            name="dob"
-            type="text"
-            v-model="dob"
-            label="Birthday date"
-            :rules="dobRules"
-            prepend-icon="event"
-            readonly
-          ></v-text-field>
-          <v-date-picker
-            ref="picker"
-            v-model="dob"
-            :max="new Date().toISOString().substr(0, 10)"
-            min="1950-01-01"
-            @change="save"
-          ></v-date-picker>
-        </v-menu>
-        <!-- phone -->
-        <v-text-field
-          prepend-icon="phone"
-          name="phone"
-          label="Phone"
-          type="number"
-          :rules="phoneRules"
-          v-model="phone"
-          required
-        ></v-text-field>
+            <!-- birthDayPicker -->
+            <v-menu
+              ref="menu"
+              :close-on-content-click="false"
+              v-model="menu"
+              :nudge-right="40"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <v-text-field
+                slot="activator"
+                name="dob"
+                type="text"
+                v-model="dob"
+                label="Birthday date"
+                :rules="dobRules"
+                prepend-icon="event"
+                readonly
+              ></v-text-field>
+              <v-date-picker
+                ref="picker"
+                v-model="dob"
+                :max="new Date().toISOString().substr(0, 10)"
+                min="1950-01-01"
+                @change="save"
+              ></v-date-picker>
+            </v-menu>
+            <!-- phone -->
+            <v-text-field
+              prepend-icon="phone"
+              name="phone"
+              label="Phone"
+              type="number"
+              :rules="phoneRules"
+              v-model="phone"
+              required
+            ></v-text-field>
 
-        <!-- gender -->
-        <v-radio-group v-model="gender" row :mandatory="false">
-          <v-icon>face</v-icon>
-          <v-radio label="Male" value="M"></v-radio>
-          <v-radio label="Female" value="F"></v-radio>
-        </v-radio-group>
-        <v-text-field
-          prepend-icon="credit_card"
-          label="Hkid card"
-          hint="eg.R1234567(7)"
-          :rules="idcardRules"
-          v-model="hkid"
-          required
-        ></v-text-field>
-        <!-- 
+            <!-- gender -->
+            <v-radio-group v-model="gender" row :mandatory="false">
+              <v-icon>face</v-icon>
+              <v-radio label="Male" value="M"></v-radio>
+              <v-radio label="Female" value="F"></v-radio>
+            </v-radio-group>
+            <v-text-field
+              prepend-icon="credit_card"
+              label="Hkid card"
+              hint="eg.R1234567(7)"
+              :rules="idcardRules"
+              v-model="hkid"
+              required
+            ></v-text-field>
+            <!-- 
         <v-select
           prepend-icon="subject"
           v-model="value"
@@ -128,17 +139,20 @@
               <v-list-tile-sub-title v-html="data.item.description"></v-list-tile-sub-title>
             </v-list-tile-content>
           </template>
-        </v-select>-->
-      </div>
+            </v-select>-->
+          </div>
 
-      <span style="color:red">{{errMsg}}</span>
-      <!-- <h1>FeedBack</h1> -->
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn outline right fab color="primary" @click="edit()">
-          <v-icon>edit</v-icon>
-        </v-btn>
-      </v-card-actions>
+          <span style="color:red">{{errMsg}}</span>
+
+          <!-- <h1>FeedBack</h1> -->
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn outline right fab color="primary" @click="edit()">
+              <v-icon>edit</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-flex>
+      </v-layout>
     </v-form>
   </div>
 </template>
@@ -160,6 +174,7 @@ const profileQuery = gql`
       hkid
       type
       username
+      avatar
     }
   }
 `;
@@ -189,7 +204,7 @@ export default {
     idcardRules: [v => !!v || "HKID CARD is required"],
     errMsg: "",
     menu: false,
-    modal: false,
+    modal: false
   }),
   components: {},
 
@@ -246,6 +261,13 @@ export default {
       });
 
       return returnFunction;
+    },
+
+    computedAvatar() {
+      if (this.patient.avatar === "" || this.patient.avatar === undefined) {
+        return require("@/assets/icon-person.png");
+      }
+      return "https://dsapi.1lo.li/assets/avatars/" + this.patient.avatar;
     }
   },
 
@@ -264,7 +286,7 @@ export default {
       let date = moment.utc(d).format("YYYY-MM-DD");
       return date;
     },
-    edit() {
+    async edit() {
       if (this.$refs.form.validate()) {
         let patientInput = {
           name: this.name,
@@ -274,7 +296,7 @@ export default {
           dob: this.dob,
           hkid: this.hkid
         };
-        this.$apollo
+        await this.$apollo
           .mutate({
             mutation: editPatinetMutation,
             // Parameter
@@ -285,7 +307,7 @@ export default {
           })
           .then(data => {
             // Result
-            console.log(this.$apollo.queries);
+            console.log("hku")
             this.$router.push("/");
             this.actionSetLogout();
           })
@@ -293,8 +315,16 @@ export default {
             // Error
             console.error(error);
           });
+
+            console.log("fku")
       }
     }
   }
 };
 </script>
+
+<style scoped>
+img {
+  width: 200px;
+}
+</style>

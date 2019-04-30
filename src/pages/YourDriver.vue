@@ -1,14 +1,13 @@
 <template>
-  <container v-if="this.getLogin.id!==null ">
-    <div slot="content" id="contentasdasd" ref="content" >
+  <container v-if="getLogin.id!==null&&!$apollo.loading">
+    <div slot="content" id="contentasdasd" ref="content">
       <v-toolbar color="white" flat id="toolbar">
         <!-- <v-layout row fill-height> -->
         <v-flex sm2>
           <v-toolbar-title class="left">Your Drive</v-toolbar-title>
         </v-flex>
 
-        <!-- <v-flex sm1> -->
-        <img src="@/assets/icon-person.png" class="px-0">
+        <img  :src="computedAvatar" class="px-0" style="width: 40px;float: right;"/>
         <!-- </v-flex> -->
         <v-flex sm7 class="text-xs-left" style="padding-left:5px" v-if="patient!=null">
           <span class="headline">{{patient.name}}</span>
@@ -44,6 +43,7 @@ const patientQuery = gql`
       name
       email
       phoneNo
+      avatar
     }
   }
 `;
@@ -81,6 +81,13 @@ export default {
     }),
     routerHeight() {
       return this.height + "px";
+    },
+    computedAvatar() {
+      console.log(this.patient);
+      if (this.patient.avatar === "" || this.patient.avatar === undefined) {
+        return require("@/assets/icon-person.png");
+      }
+      return "https://dsapi.1lo.li/assets/avatars/" + this.patient.avatar;
     }
   },
 
