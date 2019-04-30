@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="!$apollo.loading">
+  <v-container v-if="!$apollo.loading&&doctor!==null">
     <v-card>
       <DoctorInfoCard :doctor="doctor">
         <v-btn slot="reservationBtn" color="primary" @click="linkReservation(doctor.id)">
@@ -211,8 +211,8 @@ export default {
     return {
       valid: true,
       feedbackRules: [v => !!v || "FeedBack is required"],
-      clinics: [{map: ""}],
-
+      clinics: [{ map: "" }],
+      doctor: null,
       DocInfoTypes: ["Information", "Services", "Feedback"],
       active: 0,
       haveFeedback: false,
@@ -255,14 +255,17 @@ export default {
         }
 
         let tmap = data.doctor.workplace.location;
-        let split = tmap.split(',')
+        let split = tmap.split(",");
         let newMapStr = "";
-        for(let i = 1 ; i < split.length;i++){
+        for (let i = 1; i < split.length; i++) {
           newMapStr += split[i];
         }
 
-        console.log(newMapStr)
-        tmap = "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${"+newMapStr+"}&z=16&output=embed&t=";
+        console.log(newMapStr);
+        tmap =
+          "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${" +
+          newMapStr +
+          "}&z=16&output=embed&t=";
         this.clinics[0].map = tmap;
         return data.doctor;
       }

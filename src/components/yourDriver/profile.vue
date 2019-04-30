@@ -22,8 +22,18 @@
         <v-flex sm3>
           <v-container>
             <v-layout column>
-              <v-img class="mb-4" aspect-ratio="1" :src="computedAvatar"></v-img>
-              <v-btn color="primary">Change avatar</v-btn>
+              <img :src="imageUrl" v-if="imageUrl" height="200">
+              <img v-else :src="computedAvatar" height="200">
+              <input
+                ref="image"
+                type="file"
+                color="primary"
+                hidden
+                accept="image/*"
+                @change="onImagePicked"
+              >
+              <v-btn color="primary" @click="clickAvatarBtn">Change avatar</v-btn>
+              <v-btn @click="uploadAvatar">Test</v-btn>
             </v-layout>
           </v-container>
         </v-flex>
@@ -187,6 +197,15 @@ const editPatinetMutation = gql`
     }
   }
 `;
+const uploadMutation = gql`
+  mutation($file: Upload!, $patientId: ID!) {
+    uploadPatientAvatar(file: $file, patientId: $patientId) {
+      success
+      message
+      filename
+    }
+  }
+`;
 export default {
   data: () => ({
     editing: 0,
@@ -204,7 +223,10 @@ export default {
     idcardRules: [v => !!v || "HKID CARD is required"],
     errMsg: "",
     menu: false,
-    modal: false
+    modal: false,
+    imageName: "",
+    imageUrl: "",
+    imageFile: ""
   }),
   components: {},
 
@@ -286,6 +308,40 @@ export default {
       let date = moment.utc(d).format("YYYY-MM-DD");
       return date;
     },
+    clickAvatarBtn() {
+      this.$refs.image.click();
+    },
+    async onImagePicked(e) {
+      let files = e.target.files;
+      this.imageName = files[0].name;
+      const fr = new FileReader();
+      fr.readAsDataURL(files[0]);
+      fr.addEventListener("load", () => {
+        this.imageUrl = fr.result;
+      });
+    },
+    uploadAvatar() {
+      let imageFile = this.$refs.image.files[0];
+      let id = this.getLogin.id;
+      console.log(imageFile)
+      this.$apollo
+        .mutate({
+          mutation: uploadMutation,
+          // Parameter
+          variables: {
+            file: imageFile,
+            patientId: id
+          }
+        })
+        .then(data => {
+          // Result
+          console.log(data);
+        })
+        .catch(error => {
+          // Error
+          console.error(error);
+        });
+    },
     async edit() {
       if (this.$refs.form.validate()) {
         let patientInput = {
@@ -307,7 +363,7 @@ export default {
           })
           .then(data => {
             // Result
-            console.log("hku")
+            console.log("hku");
             this.$router.push("/");
             this.actionSetLogout();
           })
@@ -315,8 +371,6 @@ export default {
             // Error
             console.error(error);
           });
-
-            console.log("fku")
       }
     }
   }
@@ -324,7 +378,4 @@ export default {
 </script>
 
 <style scoped>
-img {
-  width: 200px;
-}
 </style>

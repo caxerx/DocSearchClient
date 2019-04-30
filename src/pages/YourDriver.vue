@@ -1,5 +1,5 @@
 <template>
-  <container v-if="getLogin.id!==null&&!$apollo.loading">
+  <container v-if="getLogin.id!==null&&!$apollo.loading&&patient!==null">
     <div slot="content" id="contentasdasd" ref="content">
       <v-toolbar color="white" flat id="toolbar">
         <!-- <v-layout row fill-height> -->
@@ -7,7 +7,9 @@
           <v-toolbar-title class="left">Your Drive</v-toolbar-title>
         </v-flex>
 
-        <img  :src="computedAvatar" class="px-0" style="width: 40px;float: right;"/>
+        <div style="width: 40px;height: 40px;float: right;">
+        <img :src="computedAvatar" class="px-0" style="width:100%;height:100%">
+        </div>
         <!-- </v-flex> -->
         <v-flex sm7 class="text-xs-left" style="padding-left:5px" v-if="patient!=null">
           <span class="headline">{{patient.name}}</span>
@@ -52,7 +54,8 @@ export default {
   data: function() {
     return {
       active: null,
-      height: ""
+      height: "",
+      patient: null
     };
   },
   created() {
@@ -114,10 +117,6 @@ export default {
 .right {
     width:60%;
 } */
-img {
-  width: 40px;
-  float: right;
-}
 
 #router {
   /* height: 450px; */

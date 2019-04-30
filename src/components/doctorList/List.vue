@@ -10,11 +10,12 @@
       position: fixed"
       v-if="$apollo.loading"
     ></v-progress-circular>
+
     <div v-if="!$apollo.loading">
-      <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
-     <div v-if="searchDoctors.length>1" class="headline font-weight-medium">  Recommended Doctor </div>
+      <div class="grey--text">{{searchDoctors.length}} matches found for:</div>
+      <div v-if="searchDoctors.length>1" class="headline font-weight-medium">Recommended Doctor</div>
       <div style="margin-bottom:40px;">
-        <doctor-card :doctor="searchDoctors[randomIndex]" :color="'#F5F5F5'" :isRecommend="true" />
+        <doctor-card :doctor="searchDoctors[randomIndex]" :color="'#F5F5F5'" :isRecommend="true"/>
       </div>
       <div
         v-for="(doctor,index) in pagination(page,searchDoctors)"
@@ -86,7 +87,8 @@ export default {
       page: 1,
       perpage: 5,
       length: 1,
-      randomIndex: 0
+      randomIndex: 0,
+      searchDoctors:[],
     };
   },
   apollo: {
@@ -104,6 +106,7 @@ export default {
         };
       },
       update(data) {
+        console.log("hi");
         this.length = Math.ceil(data.searchDoctors.length / this.perpage);
         this.random(data.searchDoctors.length);
         return data.searchDoctors;
@@ -202,7 +205,7 @@ export default {
     random(length) {
       let max = length;
       this.randomIndex = parseInt(Math.random() * max);
-      console.log(length,this.randomIndex);
+      console.log(length, this.randomIndex);
     }
   }
 };
