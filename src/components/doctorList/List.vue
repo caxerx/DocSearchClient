@@ -12,13 +12,18 @@
     ></v-progress-circular>
     <div v-if="!$apollo.loading">
       <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
+     <div v-if="searchDoctors.length>1">  Recommended Doctor </div>
+      <div style="margin-bottom:40px;">
+        <doctor-card :doctor="searchDoctors[randomIndex]"/>
+      </div>
       <div
         v-for="(doctor,index) in pagination(page,searchDoctors)"
         :key="index"
         style="margin-bottom:20px"
       >
-        <doctor-card :doctor="doctor"/>
+        <doctor-card v-if="doctor.id!==searchDoctors[randomIndex].id" :doctor="doctor"/>
       </div>
+
       <div class="text-xs-center" style="padding-bottom:30px" v-if="searchDoctors.length>0">
         <v-container>
           <v-layout justify-center>
@@ -80,7 +85,8 @@ export default {
       show: false,
       page: 1,
       perpage: 5,
-      length: 1
+      length: 1,
+      randomIndex: 0
     };
   },
   apollo: {
@@ -99,10 +105,16 @@ export default {
       },
       update(data) {
         this.length = Math.ceil(data.searchDoctors.length / this.perpage);
+        this.random(data.searchDoctors.length);
         return data.searchDoctors;
       }
-    },
+    }
+  },
 
+  watch: {
+    page(val) {
+      this.random(this.searchDoctors.length);
+    }
   },
   components: {
     DoctorCard
@@ -182,7 +194,15 @@ export default {
       let newArr = arr.slice();
       let from = page * this.perpage - this.perpage;
       let to = page * this.perpage;
+      // Returns a random integer between min (include) and max (include)
+
       return newArr.slice(from, to);
+    },
+
+    random(length) {
+      let max = length;
+      this.randomIndex = parseInt(Math.random() * max);
+      console.log(length,this.randomIndex);
     }
   }
 };
