@@ -35,7 +35,6 @@
                 @change="onImagePicked"
               >
               <v-btn color="primary" @click="clickAvatarBtn">Change avatar</v-btn>
-              <v-btn @click="uploadAvatar">Test</v-btn>
             </v-layout>
           </v-container>
         </v-flex>
@@ -324,6 +323,10 @@ export default {
     },
     uploadAvatar() {
       let imageFile = this.$refs.image.files[0];
+      console.log(imageFile);
+      if (imageFile == undefined) {
+        return;
+      }
       let id = this.getLogin.id;
       console.log(imageFile);
       this.$apollo
@@ -337,7 +340,28 @@ export default {
         })
         .then(data => {
           // Result
-          console.log(data);
+          console.log("fku");
+        })
+        .catch(error => {
+          // Error
+          console.error(error);
+        });
+    },
+    updateProfile(patientInput) {
+      this.$apollo
+        .mutate({
+          mutation: editPatinetMutation,
+          // Parameter
+          variables: {
+            data: patientInput,
+            id: this.getLogin.id
+          }
+        })
+        .then(data => {
+          // Result
+          console.log("hku");
+          this.$router.push("/");
+          this.actionSetLogout();
         })
         .catch(error => {
           // Error
@@ -354,26 +378,17 @@ export default {
           dob: this.dob,
           hkid: this.hkid
         };
-        await this.$apollo
-          .mutate({
-            mutation: editPatinetMutation,
-            // Parameter
-            variables: {
-              data: patientInput,
-              id: this.getLogin.id
-            }
-          })
-          .then(data => {
-            // Result
-            console.log("hku");
-            this.$router.push("/");
-            this.actionSetLogout();
-          })
-          .catch(error => {
-            // Error
-            console.error(error);
-          });
+        await this.promise(this.uploadAvatar());
+        await this.promise(this.updateProfile(patientInput));
       }
+    },
+
+    promise(func) {
+      return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          resolve(func);
+        }, 100);
+      });
     }
   }
 };
