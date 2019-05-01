@@ -37,9 +37,12 @@
     <br>
 
     <v-card-actions>
-      <v-btn @click="confirmChPwd" style="width:100%" color="primary" 
-      :loading="loading"
-      :disabled="loading"
+      <v-btn
+        @click="confirmChPwd"
+        style="width:100%"
+        color="primary"
+        :loading="loading"
+        :disabled="loading"
       >Confirm</v-btn>
     </v-card-actions>
   </v-form>
@@ -51,19 +54,14 @@ import axios from "axios";
 import { mapGetters, mapActions, mapState } from "vuex";
 import SmallContainer from "@/components/SmallContainer.vue";
 import gql from "graphql-tag";
-import { locale } from 'moment';
+import { locale } from "moment";
 
 const changePwdMutation = gql`
-  mutation(
-    $newPassword: String!
-    $oldPassword: String!
-    $userType: UserType!
-    $id: ID!
-  ) {
+  mutation($oldPassword: String!, $newPassword: String!, $id: ID!) {
     changePassword(
-      newPasssword: $newPassword
       oldPassword: $oldPassword
-      userType: $userType
+      newPassword: $newPassword
+      userType: patient
       id: $id
     ) {
       success
@@ -73,7 +71,6 @@ const changePwdMutation = gql`
 `;
 
 export default {
-   
   data: () => ({
     valid: true,
 
@@ -100,7 +97,7 @@ export default {
     ...mapGetters({
       getLogin: "getLogin"
     }),
-    loading(){
+    loading() {
       return this.$apollo.loading;
     },
     confirmPwdRules() {
@@ -124,8 +121,7 @@ export default {
     ...mapActions(["actionSetLogout"]),
     clear() {},
     confirmChPwd() {
-      if (this.$refs.form.validate()) {
-        console.log(this.npwd);
+      if (this.$refs.form.validate()) {      
         this.$apollo
           .mutate({
             // Query
@@ -135,7 +131,6 @@ export default {
             variables: {
               newPassword: this.npwd,
               oldPassword: this.opwd,
-              userType: "patient",
               id: this.getLogin.id
             }
           })
@@ -145,17 +140,15 @@ export default {
             this.isError = !data.data.changePassword.success;
             this.msg = data.data.changePassword.message;
             if (!this.isError) {
-              
               this.$router.push("/");
               this.actionSetLogout();
-             
-              
             }
           })
           .catch(error => {
             // Error
             console.error(error);
           });
+          
       }
     },
     login() {
