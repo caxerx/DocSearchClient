@@ -12,10 +12,10 @@
     ></v-progress-circular>
 
     <div v-if="!$apollo.loading">
-      <div class="grey--text">{{searchDoctors.length}} matches found for:</div>
+      <div class="grey--text">{{searchDoctors.length}} matches found for: {{searchResultStr}}</div>
       <div v-if="searchDoctors.length>1" class="headline font-weight-medium">Recommended Doctor</div>
       <div style="margin-bottom:40px;">
-        <doctor-card :doctor="searchDoctors[randomIndex]" :color="'#DADADA'" :isRecommend="true" />
+        <doctor-card :doctor="searchDoctors[randomIndex]" :color="'#DADADA'" />
       </div>
       <div
         v-for="(doctor,index) in pagination(page,searchDoctors)"

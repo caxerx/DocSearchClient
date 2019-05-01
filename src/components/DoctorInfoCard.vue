@@ -74,7 +74,7 @@ export default {
   props: {
     doctor: Object,
     color:String,
-    isRecommend:Boolean,
+
   },
 
   created: function() {},

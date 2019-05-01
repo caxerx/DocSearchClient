@@ -1,6 +1,6 @@
 <template>
   <v-card v-if="doctor!=null">
-    <doctor-info-card :doctor="doctor" :color="color" :isRecommend="isRecommend">
+    <doctor-info-card :doctor="doctor" :color="color" >
       <div slot="doctorListBtn">
         <v-btn color="primary" @click="linkProfile(doctor.id)">
           <v-icon>person</v-icon>Profile
@@ -46,7 +46,6 @@ export default {
   props: {
     doctor: Object,
     color:String,
-    isRecommend:Boolean,
   },
   methods: {
     ...mapActions(["actionSetDoctorForDoctorList"]),

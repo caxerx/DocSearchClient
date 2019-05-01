@@ -82,29 +82,44 @@ export default {
     password: "Password",
     show: false,
     marker: true,
-     specialty: [
-        {
-          text: "General Practice",
-          value: "General_Practice"
-        },
-        {
-          text: "Cardiology",
-          value: "Cardiology"
-        },
-        {
-          text: "Dentistry",
-          value: "Dentistry"
-        },
-        {
-          text: "Dietetics",
-          value: "Dietetics"
-        }
-      ],
-    location: ["Central and Western", "Eastern", "Southern",
-               "Wan Chai","Sham Shui Po","Kowloon City","Kwun Tong",
-               "Wong Tai Sin","Yau Tsim Mong","Islands", "Kwai Tsing",
-               "North","Sai Kung", "Sha Tin", "Tai Po","Tsuen Wan",
-               "Tuen Mun", "Yuen Long"],
+    specialty: [
+      {
+        text: "General Practice",
+        value: "General_Practice"
+      },
+      {
+        text: "Cardiology",
+        value: "Cardiology"
+      },
+      {
+        text: "Dentistry",
+        value: "Dentistry"
+      },
+      {
+        text: "Dietetics",
+        value: "Dietetics"
+      }
+    ],
+    location: [
+      "Central and Western",
+      "Eastern",
+      "Southern",
+      "Wan Chai",
+      "Sham Shui Po",
+      "Kowloon City",
+      "Kwun Tong",
+      "Wong Tai Sin",
+      "Yau Tsim Mong",
+      "Islands",
+      "Kwai Tsing",
+      "North",
+      "Sai Kung",
+      "Sha Tin",
+      "Tai Po",
+      "Tsuen Wan",
+      "Tuen Mun",
+      "Yuen Long"
+    ],
     language: ["Cantonese", "English", "Mandarin"],
     gender: ["Male", "Female"],
     newSpecialty: "",
@@ -134,7 +149,7 @@ export default {
     }
   },
   watch: {
-    loginDialog:function(val){
+    loginDialog: function(val) {
       if (val) {
         window.removeEventListener("keyup", this.keyup);
       } else {
