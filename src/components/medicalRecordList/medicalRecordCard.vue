@@ -35,11 +35,11 @@
               <div
                 v-for="(disease,index) in medicalRecord.diseases"
                 :key="index"
-                class="font-weight-regular"
+                
               >
                 
                 <div class="font-weight-medium">{{disease.name}}</div>
-                <div>{{disease.description}}</div>
+                <div class="font-weight-light body-1">{{disease.description}}</div>
               </div>
               <!-- <br>
             <div class="font-weight-bold">Medications</div>
