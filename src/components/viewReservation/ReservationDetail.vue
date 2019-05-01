@@ -32,12 +32,6 @@
       </v-container>
     </v-card>
     <v-card flat class="card">
-      <v-btn
-        v-if="reservation.type==='online'"
-        flat
-        color="info"
-        @click="router('onlineConsultant')"
-      >Online Chat Now</v-btn>
     </v-card>
     <v-card flat class="card">
       <!-- <v-card-actions> -->
@@ -117,7 +111,7 @@ export default {
       return "https://dsapi.1lo.li/assets/avatars/" + avatar;
     },
     nothing() {},
-    
+
     convertToBase64() {
       let dId = this.reservation.doctor.id;
       let pId = this.getLogin.id;

@@ -109,6 +109,9 @@ const reservationQuery = gql`
         }
         status
         type
+        consultation {
+          id
+        }
       }
     }
   }
